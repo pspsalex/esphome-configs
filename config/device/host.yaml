@@ -1,0 +1,52 @@
+# Generic config for M5Paper devices
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+  platformio_options:
+    build_flags:
+      - "-DLV_USE_ANIMATION=0"
+
+host:
+
+display:
+  - platform: sdl
+    dimensions:
+      width: 960
+      height: 540
+    auto_clear_enabled: false
+    update_interval: 100ms
+
+touchscreen:
+  platform: sdl
+
+  on_touch:
+    - logger.log:
+        format: Touch at (%d, %d)
+        args: [touch.x, touch.y]
+    - lambda: |-
+        ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
+            touch.x,
+            touch.y,
+            touch.x_raw,
+            touch.y_raw
+            );
+
+lvgl:
+
+time:
+  # - id: !extend ha_time
+  #   on_time_sync:
+  #     - bm8563.write_time
+
+sensor:
+# binary_sensor:
+#   - platform: sdl
+#     id: button_right
+#     key: SDLK_RIGHT
+#   - platform: sdl
+#     id: button_power
+#     key: SDLK_UP
+#   - platform: sdl
+#     id: button_left
+#     key: SDLK_LEFT

@@ -1,0 +1,7 @@
+packages:
+  logger: !include logger.yaml
+  # wifi: !include wifi.yaml
+  ha: !include ha.yaml
+  fonts: !include fonts.yaml
+  time: !include time.yaml
+  lvgl: !include lvgl/lvgl.yaml

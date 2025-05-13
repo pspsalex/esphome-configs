@@ -1,0 +1,29 @@
+time:
+  - platform: homeassistant
+    id: ha_time
+    on_time_sync:
+      - then:
+          - lvgl.label.update:
+              id: lbl_top_bar_date
+              text:
+                time_format: "%a, %-d %b"
+                time: ha_time
+          - lvgl.label.update:
+              id: lbl_top_bar_time
+              text:
+                time_format: "%H:%M"
+                time: ha_time
+    on_time:
+      - seconds: 0
+        minutes: /1
+        then:
+          - lvgl.label.update:
+              id: lbl_top_bar_date
+              text:
+                time_format: "%a, %-d %b"
+                # time: ha_time
+          - lvgl.label.update:
+              id: lbl_top_bar_time
+              text:
+                time_format: "%H:%M"
+                # time: ha_time

@@ -1,0 +1,54 @@
+# Fonts configuration
+font:
+  - file: "gfonts://Material+Symbols+Rounded"
+    glyphs: [
+        "\U0000e5e1", # Forward
+        "\U0000e2ea", # Backward
+        "\U0000e88a", # Home
+
+        "\U0000f0ef", # Wi-Fi unknown
+
+        "\U0000e1a4", # battery_full
+        "\U0000ebd2", # battery_6_bar
+        "\U0000ebd4", # battery_5_bar
+        "\U0000ebe2", # battery_4_bar
+        "\U0000ebdd", # battery_3_bar
+        "\U0000ebe0", # battery_2_bar
+        "\U0000ebd9", # battery_1_bar
+        "\U0000ebdc", # battery_0_bar
+        "\U0000e1a6", # battery_unknown
+      ]
+    id: icons_large
+    size: 32
+    bpp: 4
+  - file: "gfonts://Roboto"
+    id: roboto_48
+    size: 48
+    bpp: 4
+  - file: "gfonts://Roboto"
+    id: roboto_24
+    size: 24
+    bpp: 4
+  - file: "gfonts://Roboto"
+    id: my_font
+    size: 18
+    bpp: 4
+    extras:
+      - file: "gfonts://Material+Symbols+Rounded"
+        glyphs: [
+            "\U0000e5e1", # Forward
+            "\U0000e2ea", # Backward
+            "\U0000e88a", # Home
+
+            "\U0000f0ef", # Wi-Fi unknown
+
+            "\U0000e1a4", # battery_full
+            "\U0000ebd2", # battery_6_bar
+            "\U0000ebd4", # battery_5_bar
+            "\U0000ebe2", # battery_4_bar
+            "\U0000ebdd", # battery_3_bar
+            "\U0000ebe0", # battery_2_bar
+            "\U0000ebd9", # battery_1_bar
+            "\U0000ebdc", # battery_0_bar
+            "\U0000e1a6", # battery_unknown
+          ]

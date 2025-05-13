@@ -1,0 +1,338 @@
+# https://www.figma.com/design/ZVGRhTI7JuHMEa6QWwVMeY/Untitled?node-id=2-3&t=wM3IiGyDEG3TYO9H-0
+
+substitutions:
+  device_name: "sdl"
+  friendly_name: "SDL"
+
+packages:
+  base: !include config/base.yaml
+  device: !include config/device/host.yaml
+  theme: !include config/lvgl/themes/grayscale.yaml
+
+esphome:
+  on_boot:
+    # - delay: 5s
+    - lvgl.widget.hide: boot_screen
+
+# pip install cairosvg
+image:
+  - file: "assets/images/esphome_logo.svg"
+    id: boot_logo
+    resize: 597x117
+    type: RGB565
+    transparency: alpha_channel
+
+lvgl:
+  style_definitions:
+    - id: header_footer
+      bg_color: 0xFFFFFF
+      bg_opa: COVER
+      border_color: 0x000000
+      border_width: 1
+      text_color: 0x000000
+      text_font: icons_large
+      pad_row: 4
+      pad_column: 4
+
+  pages:
+    - id: main_page
+      # make all flex, each entry on its own row?
+      widgets:
+        - obj:
+            id: top_bar_date
+            align: TOP_LEFT
+            x: 0
+            y: 0
+            pad_all: 10
+            height: 100
+            bg_color: 0xc1c1c1
+            bg_opa: COVER
+            width: 100%
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  text: "Welcome!"
+                  align: CENTER
+                  text_font: roboto_48
+                  id: lbl_top_bar_time
+              - label:
+                  text: " "
+                  align: LEFT_MID
+                  text_font: roboto_24
+                  id: lbl_top_bar_date
+        - obj:
+            height: 340
+            bg_color: 0xdddddd
+            width: 100%
+            x: 0
+            y: 100
+            id: main_area
+            widgets:
+              - label:
+                  id: weather
+                  text: "Weather"
+                  align: LEFT_MID
+              - label:
+                  id: controls
+                  text: "Controls"
+                  align: RIGHT_MID
+        - obj:
+            id: bottom_bar
+            align: BOTTOM_LEFT
+            x: 0
+            y: 0
+            pad_all: 10
+            height: 100
+            bg_color: 0xc1c1c1
+            bg_opa: COVER
+            width: 100%
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  text: "continue weather"
+                  align: RIGHT_MID
+                  text_font: roboto_24
+                  id: lbl_bottom_bar_weather
+        # - tabview:
+        #     position: TOP
+        #     tabs:
+        #       - name: "Roller"
+        #         widgets:
+        #           - roller:
+        #               align: CENTER
+        #               id: roller_id
+        #               options:
+        #                 - Violin
+        #                 - Piano
+        #                 - Bassoon
+        #                 - Chello
+        #                 - Drums
+        #       - name: "Label"
+        #         widgets:
+        #           - label:
+        #               align: CENTER
+        #               text: "Hello world!"
+        #               text_font: montserrat_32
+        #               text_color: black
+        #       - name: "Button"
+        #         widgets:
+        #           - button:
+        #               align: CENTER
+        #               widgets:
+        #                 - label:
+        #                     text: "Toggle light"
+        #                     align: CENTER
+        #                     text_align: CENTER
+        #           - switch:
+        #               align: RIGHT_MID
+        #               id: light_switch
+        #           - slider:
+        #               id: dimmer_slider
+        #               x: 20
+        #               y: 50
+        #               width: 20
+        #               height: 220
+        #               min_value: 0
+        #               max_value: 255
+        #     tab_style:
+        #       items:
+        #         # bg_color not relevant when bg_opa = 0 (transparent)
+        #         bg_color: 0xFFFFFF
+        #         bg_opa: 0
+        #         border_width: 2
+        #         text_color: 0x000000
+        #         text_font: my_font
+        #         pad_top: 20
+        #         pad_right: 10
+        #         pad_bottom: 5
+        #         pad_left: 10
+        #         border_color: 0xC1C1C1
+        #         border_side: BOTTOM
+        #         # pad_row: 4
+        #         # pad_column: 4
+
+        #         # Tab button clicked
+        #         pressed:
+        #           bg_color: 0xffffff
+        #           bg_opa: COVER
+        #           text_color: 0x000000
+
+        #         # Tab button for active tab, unfocused
+        #         checked:
+        #           bg_color: 0xffffff
+        #           bg_opa: COVER
+        #           text_color: 0x000000
+        #           # Bottom bar
+        #           border_width: 2
+        #           border_color: 0x333333
+        #           border_side: BOTTOM
+
+        #         disabled:
+        #           bg_color: 0x0000ff
+        #           text_color: 0x999999
+
+        #         # Tab button for active tab, focused
+        #         focused:
+        #           bg_color: 0xffffff
+        #           bg_opa: COVER
+        #           text_color: 0x000000
+        #           # Bottom bar
+        #           border_width: 2
+        #           border_color: 0x333333
+        #           border_side: BOTTOM
+
+        #         edited:
+        #           bg_color: 0x666600
+        #           text_color: 0xCCCCCC
+
+        - obj:
+            align: BOTTOM_MID
+            y: -150
+            layout:
+              type: FLEX
+              flex_flow: ROW
+              flex_align_cross: CENTER
+            width: SIZE_CONTENT
+            height: SIZE_CONTENT
+            widgets:
+              - button:
+                  id: spin_down
+                  on_click:
+                    - lvgl.spinbox.decrement: spinbox_id
+                  widgets:
+                    - label:
+                        text: "-"
+              - spinbox:
+                  id: spinbox_id
+                  align: CENTER
+                  text_align: CENTER
+                  width: 50
+                  range_from: 15
+                  range_to: 35
+                  step: 0.5
+                  rollover: false
+                  digits: 3
+                  decimal_places: 1
+              - button:
+                  id: spin_up
+                  on_click:
+                    - lvgl.spinbox.increment: spinbox_id
+                  widgets:
+                    - label:
+                        text: "+"
+    - id: second_page
+      widgets:
+        - obj:
+            align: TOP_MID
+            styles: header_footer
+            widgets:
+              - label:
+                  text_font: my_font
+                  text: "A second page"
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: 0x000000
+  top_layer:
+    widgets:
+      - obj:
+          id: status_bar
+          align: TOP_RIGHT
+          pad_all: 0
+          height: 48
+          x: -2
+          y: 6
+          border_side: NONE
+          layout:
+            type: FLEX
+            pad_column: 0
+            pad_row: 0
+            flex_flow: ROW
+            flex_align_main: END
+          widgets:
+            - label:
+                id: lbl_battery_status
+                text_font: icons_large
+                text: "\U0000e1a6" # start with mdi-battery-unknown
+            - label:
+                text: "\U0000f0ef"
+                id: lbl_hastatus
+                hidden: false
+                text_align: right
+                text_color: 0x000000
+                text_font: icons_large
+      - buttonmatrix:
+          align: bottom_mid
+          styles: header_footer
+          pad_all: 0
+          outline_width: 0
+          id: top_layer
+          items:
+            styles: header_footer
+          rows:
+            - buttons:
+                - id: page_prev
+                  text: "\U0000e2ea"
+                  on_press:
+                    then:
+                      lvgl.page.previous:
+                - id: page_home
+                  text: "\U0000e88a"
+                  on_press:
+                    then:
+                      lvgl.page.show: main_page
+                - id: page_next
+                  text: "\U0000e5e1"
+                  on_press:
+                    then:
+                      lvgl.page.next:
+      - obj:
+          id: boot_screen
+          x: 0
+          y: 0
+          width: 100%
+          height: 100%
+          bg_color: 0xffffff
+          bg_opa: COVER
+          radius: 0
+          pad_all: 0
+          border_width: 0
+          widgets:
+            - image:
+                align: CENTER
+                src: boot_logo
+                y: -40
+            - spinner:
+                align: CENTER
+                y: 95
+                height: 50
+                width: 50
+                spin_time: 5s
+                arc_length: 60deg
+                arc_width: 8
+                indicator:
+                  arc_color: 0x666666
+                  arc_width: 8
+          on_press:
+            - lvgl.widget.hide: boot_screen
+    # - id: main_page
+    #   widgets:
+    #     - label:
+    #         align: CENTER
+    #         text: "Hello world!"
+    #         text_font: montserrat_32
+    #         text_color: black
+    #     - slider:
+    #         x: 10
+    #         y: 10
+    #         width: 220
+    #         id: slider_id
+    #         value: 75
+    #         min_value: 0
+    #         max_value: 100
+    #         on_value:
+    #           - logger.log:
+    #               format: "Slider value is: %.0f"
+    #               args: ["x"]
+    #         on_press:
+    #           - logger.log:
+    #               format: "Slider pressed!"

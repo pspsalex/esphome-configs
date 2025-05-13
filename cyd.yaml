@@ -1,0 +1,6 @@
+substitutions:
+  device_name: "cyd"
+  friendly_name: "CYD"
+
+packages:
+  base: !include config/base.yaml
