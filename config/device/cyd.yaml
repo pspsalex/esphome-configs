@@ -2,3 +2,7 @@
 # Yes, Cheap Yellow Display.
 
 psram:
+
+time:
+  - id: !extend local_time
+    platform: homeassistant

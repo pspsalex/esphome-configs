@@ -7,6 +7,15 @@ wifi:
     ssid: "${friendly_name} AP"
     password: !secret wifi_ap_password
 
+  on_connect:
+    - lvgl.label.update:
+        - id: lbl_status_wifi
+          text: "\U0000e2bf" # WiFi connected icon
+  on_disconnect:
+    - lvgl.label.update:
+        - id: lbl_status_wifi
+          text: "\U0000f063" # WiFi disconnected icon
+
 captive_portal:
 
 ota:
@@ -32,3 +41,36 @@ text_sensor:
       name: "BSSID"
       icon: "mdi:wan"
       entity_category: "diagnostic"
+
+time:
+  - id: !extend ha_time
+    on_time:
+      - seconds: 0
+        minutes: /1
+        then:
+          - if:
+              condition:
+                wifi.connected: true
+              then:
+                # check wifi strength and return correct wifi icon
+                - if:
+                    condition:
+                      sensor.in_range: sensor_rssi
+                      above: -70 # Good signal strength
+                    then:
+                      - lvgl.label.update:
+                          id: lbl_status_wifi
+                          text: "\U0000e2bf" # WiFi connected icon
+                    else:
+                      - if:
+                          condition:
+                            sensor.in_range: sensor_rssi
+                            above: -85 # Fair signal strength
+                          then:
+                            - lvgl.label.update:
+                                id: lbl_status_wifi
+                                text: "\U0000e2c0" # WiFi weak icon
+              else:
+                - lvgl.label.update:
+                    id: lbl_status_wifi
+                    text: "\U0000f063" # WiFi disconnected icon

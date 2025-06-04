@@ -1,3 +1,7 @@
 # Generic config for M5Dial devices
 
 psram:
+
+time:
+  - id: !extend local_time
+    platform: homeassistant

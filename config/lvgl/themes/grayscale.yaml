@@ -10,7 +10,7 @@ substitutions:
   lvgl_border_w_focused: "1"
   lvgl_border_w_edit: "2"
   lvgl_padding_default: "4"
-  default_font: "my_font"
+  default_font: "roboto_18"
 
 lvgl:
   style_definitions:

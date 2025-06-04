@@ -1,29 +1,114 @@
+esphome:
+  on_boot:
+    - priority: -100
+      then:
+        - logger.log: "Booting up M5Paper with time configuration"
+        - lvgl.label.update:
+            id: lbl_top_bar_date
+            text:
+              time_format: "%a, %-d %b"
+              time: local_time
+        - lvgl.label.update:
+            id: lbl_top_bar_time
+            text:
+              time_format: "%H:%M"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_weekday
+            text:
+              time_format: "%A"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_day
+            text:
+              time_format: "%-d %b"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_hour
+            text:
+              time_format: "%H"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_minute
+            text:
+              time_format: ":%M"
+              time: local_time
+
 time:
-  - platform: homeassistant
-    id: ha_time
+  - id: local_time
     on_time_sync:
-      - then:
-          - lvgl.label.update:
-              id: lbl_top_bar_date
-              text:
-                time_format: "%a, %-d %b"
-                time: ha_time
+      - lvgl.label.update:
+          id: lbl_top_bar_date
+          text:
+            time_format: "%a, %-d %b"
+            time: local_time
+      - lvgl.label.update:
+          id: lbl_top_bar_time
+          text:
+            time_format: "%H:%M"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_weekday
+          text:
+            time_format: "%A"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_day
+          text:
+            time_format: "%-d %b"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_hour
+          text:
+            time_format: "%H"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_minute
+          text:
+            time_format: ":%M"
+            time: local_time
+    on_time:
+      # Update minutes every minute
+      - seconds: 0
+        minutes: /1
+        then:
           - lvgl.label.update:
               id: lbl_top_bar_time
               text:
                 time_format: "%H:%M"
-                time: ha_time
-    on_time:
+                time: local_time
+          - lvgl.label.update:
+              id: main_left_date_minute
+              text:
+                time_format: ":%M"
+                time: local_time
+      # Update hours only when hour changes
       - seconds: 0
         minutes: /1
+        # hours: /1
+        then:
+          - lvgl.label.update:
+              id: main_left_date_hour
+              text:
+                time_format: "%H"
+                time: local_time
+      # Update date components only when date changes (daily at midnight)
+      - seconds: 0
+        minutes: /1
+        # hours: 0
         then:
           - lvgl.label.update:
               id: lbl_top_bar_date
               text:
                 time_format: "%a, %-d %b"
-                # time: ha_time
+                time: local_time
           - lvgl.label.update:
-              id: lbl_top_bar_time
+              id: main_left_date_weekday
               text:
-                time_format: "%H:%M"
-                # time: ha_time
+                time_format: "%A"
+                time: local_time
+          - lvgl.label.update:
+              id: main_left_date_day
+              text:
+                time_format: "%-d %b"
+                time: local_time

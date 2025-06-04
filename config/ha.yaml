@@ -2,3 +2,295 @@
 api:
   encryption:
     key: !secret api_key
+
+  on_client_connected:
+    then:
+      - logger.log: "Home Assistant client connected"
+      - lvgl.widget.enable:
+          - main_controls_dani_down
+          - main_controls_dani_up
+          - main_controls_dani_slider
+          - main_controls_oli_down
+          - main_controls_oli_slider
+          - main_controls_oli_up
+          - main_controls_eltern_down
+          - main_controls_eltern_slider
+          - main_controls_eltern_up
+          - main_controls_living_rol_down
+          - main_controls_living_rol_slider
+          - main_controls_living_rol_up
+          - main_controls_living_ros_down
+          - main_controls_living_ros_slider
+          - main_controls_living_ros_up
+          - main_controls_dach_rollers
+          - main_controls_office_light
+          - main_controls_keller_light_long
+          - main_controls_dach_light
+      - lvgl.label.update:
+          id: lbl_status_ha
+          text: "\U0000e2bf"
+
+  on_client_disconnected:
+    then:
+      - logger.log: "Home Assistant client disconnected"
+      - lvgl.widget.disable:
+          - main_controls_dani_down
+          - main_controls_dani_up
+          - main_controls_dani_slider
+          - main_controls_oli_down
+          - main_controls_oli_slider
+          - main_controls_oli_up
+          - main_controls_eltern_down
+          - main_controls_eltern_slider
+          - main_controls_eltern_up
+          - main_controls_living_rol_down
+          - main_controls_living_rol_slider
+          - main_controls_living_rol_up
+          - main_controls_living_ros_down
+          - main_controls_living_ros_slider
+          - main_controls_living_ros_up
+          - main_controls_dach_rollers
+          - main_controls_office_light
+          - main_controls_keller_light_long
+          - main_controls_dach_light
+      - lvgl.label.update:
+          id: lbl_status_ha
+          text: "\U0000e2c1"
+
+binary_sensor:
+  - platform: homeassistant
+    id: kg_office_light
+    entity_id: light.kg_office_light
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_office_light
+            state:
+              checked: !lambda return x;
+        - lvgl.label.update:
+            id: main_controls_office_light_state
+            text: !lambda |-
+              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+
+  - platform: homeassistant
+    id: kg_keller_light_long
+    entity_id: light.kg_keller_light_long
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_keller_light_long
+            state:
+              checked: !lambda return x;
+        - lvgl.label.update:
+            id: main_controls_keller_light_long_state
+            text: !lambda |-
+              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+
+sensor:
+  - platform: homeassistant
+    id: cover_dani_position
+    entity_id: cover.dani_rollers_cover_1
+    attribute: current_position
+    on_value:
+      - lambda: |-
+          ESP_LOGI("cover_dani_position", "Position changed to: %d", int(x));
+          lv_slider_set_value(id(main_controls_dani_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+      - if:
+          condition:
+            lambda: |-
+              return x == 100;
+          then:
+            - lvgl.widget.disable: main_controls_dani_up
+          else:
+            - lvgl.widget.enable: main_controls_dani_up
+      - if:
+          condition:
+            lambda: |-
+              return x == 0;
+          then:
+            - lvgl.widget.disable: main_controls_dani_down
+          else:
+            - lvgl.widget.enable: main_controls_dani_down
+
+  - platform: homeassistant
+    id: cover_oli_position
+    entity_id: cover.oli_roller_cover_1
+    attribute: current_position
+    on_value:
+      - lambda: |-
+          ESP_LOGI("cover_oli_position", "Position changed to: %d", int(x));
+          lv_slider_set_value(id(main_controls_oli_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+      - if:
+          condition:
+            lambda: |-
+              return x == 100;
+          then:
+            - lvgl.widget.disable: main_controls_oli_up
+          else:
+            - lvgl.widget.enable: main_controls_oli_up
+      - if:
+          condition:
+            lambda: |-
+              return x == 0;
+          then:
+            - lvgl.widget.disable: main_controls_oli_down
+          else:
+            - lvgl.widget.enable: main_controls_oli_down
+
+  - platform: homeassistant
+    id: cover_eltern_position
+    entity_id: cover.eltern_rollers_cover_1
+    attribute: current_position
+    on_value:
+      - lambda: |-
+          ESP_LOGI("cover_eltern_position", "Position changed to: %d", int(x));
+          lv_slider_set_value(id(main_controls_eltern_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+      - if:
+          condition:
+            lambda: |-
+              return x == 100;
+          then:
+            - lvgl.widget.disable: main_controls_eltern_up
+          else:
+            - lvgl.widget.enable: main_controls_eltern_up
+      - if:
+          condition:
+            lambda: |-
+              return x == 0;
+          then:
+            - lvgl.widget.disable: main_controls_eltern_down
+          else:
+            - lvgl.widget.enable: main_controls_eltern_down
+
+  - platform: homeassistant
+    id: cover_living_rol_position
+    entity_id: cover.living_large_rollers_cover_1
+    attribute: current_position
+    on_value:
+      - lambda: |-
+          ESP_LOGI("cover_living_rol_position", "Position changed to: %d", int(x));
+          lv_slider_set_value(id(main_controls_living_rol_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+      - if:
+          condition:
+            lambda: |-
+              return x == 100;
+          then:
+            - lvgl.widget.disable: main_controls_living_rol_up
+          else:
+            - lvgl.widget.enable: main_controls_living_rol_up
+      - if:
+          condition:
+            lambda: |-
+              return x == 0;
+          then:
+            - lvgl.widget.disable: main_controls_living_rol_down
+          else:
+            - lvgl.widget.enable: main_controls_living_rol_down
+
+  - platform: homeassistant
+    id: cover_living_ros_position
+    entity_id: cover.living_small_roller_cover_1
+    attribute: current_position
+    on_value:
+      - lambda: |-
+          ESP_LOGI("cover_living_ros_position", "Position changed to: %d", int(x));
+          lv_slider_set_value(id(main_controls_living_ros_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+      - if:
+          condition:
+            lambda: |-
+              return x == 100;
+          then:
+            - lvgl.widget.disable: main_controls_living_ros_up
+          else:
+            - lvgl.widget.enable: main_controls_living_ros_up
+      - if:
+          condition:
+            lambda: |-
+              return x == 0;
+          then:
+            - lvgl.widget.disable: main_controls_living_ros_down
+          else:
+            - lvgl.widget.enable: main_controls_living_ros_down
+
+text_sensor:
+  - platform: homeassistant
+    id: cover_dani_state
+    entity_id: cover.dani_rollers_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_dani_state", "State changed to: %s", x.c_str());
+            if (x == "opening") {
+              lv_label_set_text(id(main_controls_dani_up_label), "\ue047"); // Stop icon
+            } else if ((x == "open") or (x == "closed")) {
+              lv_label_set_text(id(main_controls_dani_down_label), "\ue313"); // Down icon
+              lv_label_set_text(id(main_controls_dani_up_label), "\ue316"); // Up icon
+            } else if (x == "closing") {
+              lv_label_set_text(id(main_controls_dani_down_label), "\ue047"); // Stop icon
+            }
+
+  - platform: homeassistant
+    id: cover_oli_state
+    entity_id: cover.oli_roller_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_oli_state", "State changed to: %s", x.c_str());
+            if (x == "opening") {
+              lv_label_set_text(id(main_controls_oli_up_label), "\ue047"); // Stop icon
+            } else if ((x == "open") or (x == "closed")) {
+              lv_label_set_text(id(main_controls_oli_down_label), "\ue313"); // Down icon
+              lv_label_set_text(id(main_controls_oli_up_label), "\ue316"); // Up icon
+            } else if (x == "closing") {
+              lv_label_set_text(id(main_controls_oli_down_label), "\ue047"); // Stop icon
+            }
+
+  - platform: homeassistant
+    id: cover_eltern_state
+    entity_id: cover.eltern_rollers_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_eltern_state", "State changed to: %s", x.c_str());
+            if (x == "opening") {
+              lv_label_set_text(id(main_controls_eltern_up_label), "\ue047"); // Stop icon
+            } else if ((x == "open") or (x == "closed")) {
+              lv_label_set_text(id(main_controls_eltern_down_label), "\ue313"); // Down icon
+              lv_label_set_text(id(main_controls_eltern_up_label), "\ue316"); // Up icon
+            } else if (x == "closing") {
+              lv_label_set_text(id(main_controls_eltern_down_label), "\ue047"); // Stop icon
+            }
+
+  - platform: homeassistant
+    id: cover_living_rol_state
+    entity_id: cover.living_large_rollers_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_living_rol_state", "State changed to: %s", x.c_str());
+            if (x == "opening") {
+              lv_label_set_text(id(main_controls_living_rol_up_label), "\ue047"); // Stop icon
+            } else if ((x == "open") or (x == "closed")) {
+              lv_label_set_text(id(main_controls_living_rol_down_label), "\ue313"); // Down icon
+              lv_label_set_text(id(main_controls_living_rol_up_label), "\ue316"); // Up icon
+            } else if (x == "closing") {
+              lv_label_set_text(id(main_controls_living_rol_down_label), "\ue047"); // Stop icon
+            }
+
+  - platform: homeassistant
+    id: cover_living_ros_state
+    entity_id: cover.living_small_roller_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_living_ros_state", "State changed to: %s", x.c_str());
+            if (x == "opening") {
+              lv_label_set_text(id(main_controls_living_ros_up_label), "\ue047"); // Stop icon
+            } else if ((x == "open") or (x == "closed")) {
+              lv_label_set_text(id(main_controls_living_ros_down_label), "\ue313"); // Down icon
+              lv_label_set_text(id(main_controls_living_ros_up_label), "\ue316"); // Up icon
+            } else if (x == "closing") {
+              lv_label_set_text(id(main_controls_living_ros_down_label), "\ue047"); // Stop icon
+            }

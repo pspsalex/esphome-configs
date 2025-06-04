@@ -8,7 +8,10 @@ esphome:
       - "-DLV_USE_ANIMATION=0"
 
 external_components:
-  - source: github://pspsalex/esphome-m5paper
+  #- source: github://pspsalex/esphome-m5paper
+  - source:
+      type: git
+      url: file:///home/alex/Proiecte/esphome/esphome-m5paper
   - source: github://timit3-github/m5paper_esphome
     components: bm8563
 
@@ -91,9 +94,8 @@ lvgl:
     - gt911_touchscreen
 
 time:
-  # - id: !extend ha_time
-  #   on_time_sync:
-  #     - bm8563.write_time
+  - id: !extend local_time
+    platform: homeassistant
 
   - platform: bm8563
     id: rtc_time

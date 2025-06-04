@@ -1,0 +1,171 @@
+# Home Assistant Template Configuration for Weather Forecast
+# Add this content to your Home Assistant configuration.yaml file
+
+template:
+  - triggers:
+      - trigger: time_pattern
+        hours: /1
+      - trigger: homeassistant
+        event: start
+    actions:
+      - action: weather.get_forecasts
+        data:
+          type: hourly
+        target:
+          entity_id: weather.pirateweather
+        response_variable: hourly_forecast
+
+    sensor:
+      - name: "Precipitation Probability"
+        unique_id: weather_precipitation_probability
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 4 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[0].precipitation_probability | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "%"
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 4 }}
+
+      - name: "Apparent Temperature"
+        unique_id: weather_apparent_temperature
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 4 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[0].apparent_temperature | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 4 }}
+
+      - name: "Weather Forecast Temperature 4h"
+        unique_id: weather_forecast_temp_4h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[5].temperature | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 }}
+        attributes:
+          tstamp: >
+            {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 %}
+              {{ hourly_forecast['weather.pirateweather'].forecast[5].datetime }}
+            {% else %}
+              ??
+            {% endif %}
+
+      - name: "Weather Forecast Temperature 8h"
+        unique_id: weather_forecast_temp_8h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[9].temperature | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 }}
+        attributes:
+          tstamp: >
+            {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 %}
+              {{ hourly_forecast['weather.pirateweather'].forecast[9].datetime }}
+            {% else %}
+              ??
+            {% endif %}
+
+      - name: "Weather Forecast Temperature 12h"
+        unique_id: weather_forecast_temp_12h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[13].temperature | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "°C"
+        device_class: temperature
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 }}
+        attributes:
+          tstamp: >
+            {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 %}
+              {{ hourly_forecast['weather.pirateweather'].forecast[13].datetime }}
+            {% else %}
+              ??
+            {% endif %}
+
+      - name: "Weather Forecast Precipitation 4h"
+        unique_id: weather_forecast_precip_4h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 %}
+            {{ (hourly_forecast['weather.pirateweather'].forecast[5].precipitation_probability | default(0)) | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "%"
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 }}
+
+      - name: "Weather Forecast Precipitation 8h"
+        unique_id: weather_forecast_precip_8h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 %}
+            {{ (hourly_forecast['weather.pirateweather'].forecast[9].precipitation_probability | default(0)) | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "%"
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 }}
+
+      - name: "Weather Forecast Precipitation 12h"
+        unique_id: weather_forecast_precip_12h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 %}
+            {{ (hourly_forecast['weather.pirateweather'].forecast[13].precipitation_probability | default(0)) | round(0) }}
+          {% else %}
+            ??
+          {% endif %}
+        unit_of_measurement: "%"
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 }}
+
+      - name: "Weather Forecast Condition 4h"
+        unique_id: weather_forecast_condition_4h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[5].condition }}
+          {% else %}
+            partlycloudy
+          {% endif %}
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 5 }}
+
+      - name: "Weather Forecast Condition 8h"
+        unique_id: weather_forecast_condition_8h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[9].condition }}
+          {% else %}
+            partlycloudy
+          {% endif %}
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 9 }}
+
+      - name: "Weather Forecast Condition 12h"
+        unique_id: weather_forecast_condition_12h
+        state: >
+          {% if hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 %}
+            {{ hourly_forecast['weather.pirateweather'].forecast[13].condition }}
+          {% else %}
+            partlycloudy
+          {% endif %}
+        availability: >
+          {{ hourly_forecast and 'weather.pirateweather' in hourly_forecast and hourly_forecast['weather.pirateweather'].forecast is defined and hourly_forecast['weather.pirateweather'].forecast|length > 13 }}  - trigger:

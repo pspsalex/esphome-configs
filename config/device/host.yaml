@@ -6,6 +6,16 @@ esphome:
   platformio_options:
     build_flags:
       - "-DLV_USE_ANIMATION=0"
+    build_type: debug
+
+  on_boot:
+    - priority: -100
+      then:
+        - lvgl.label.update:
+            id: lbl_status_wifi
+            text: "\ueb2f"
+        - lvgl.widget.hide:
+            - lbl_status_battery
 
 host:
 
@@ -35,7 +45,8 @@ touchscreen:
 lvgl:
 
 time:
-  # - id: !extend ha_time
+  - id: !extend local_time
+    platform: host
   #   on_time_sync:
   #     - bm8563.write_time
 

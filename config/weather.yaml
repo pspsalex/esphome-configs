@@ -1,0 +1,315 @@
+# Weather integration with Home Assistant
+# TODO: treat invalid inputs from HA (e.g. no data) gracefully
+globals:
+  - id: data_updated
+    type: bool
+    restore_value: false
+    initial_value: "false"
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+    on_time:
+      - seconds: 0
+        minutes: /1
+        then:
+          - if:
+              condition:
+                lambda: "return id(data_updated) == true;"
+              then:
+                - lambda: "id(data_updated) = false;"
+                - logger.log: "Weather data updated"
+
+binary_sensor:
+  - platform: status
+    id: api_connected
+
+sensor:
+  # Current weather temperature - show netatmo outdoor module temperature
+  - platform: homeassistant
+    entity_id: sensor.outdoor_module_temperature
+    # entity_id: weather.home
+    # attribute: temperature
+    id: weather_temperature
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_temp_now
+            text: !lambda |-
+              return to_string((int)x);
+
+  - platform: homeassistant
+    entity_id: sensor.apparent_temperature
+    id: weather_feels_like
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_temp_feels
+            text: !lambda |-
+              return ("Feels like: " + to_string((int)x) + "°C").c_str();
+
+  - platform: homeassistant
+    entity_id: sensor.precipitation_probability
+    id: weather_precipitation_probability
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_temp_rain
+            text: !lambda |-
+              return ("Rain: " + to_string((int)x) + "%").c_str();
+
+  - platform: homeassistant
+    entity_id: weather.home
+    attribute: wind_speed
+    id: weather_wind_speed
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_details_wind
+            text: !lambda |-
+              return (to_string((int)x) + "km/h").c_str();
+
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_precipitation_4h
+    id: weather_forecast_precip_4h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_precipitation_8h
+    id: weather_forecast_precip_8h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_precipitation_12h
+    id: weather_forecast_precip_12h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+
+  # 4-hour forecast
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_temperature_4h
+    id: weather_forecast_temp_4h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_4h_temp
+            text: !lambda |-
+              return to_string((int)x) + "°C / " + to_string((int)id(weather_forecast_precip_4h).state) + "%";
+
+  # 8-hour forecast
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_temperature_8h
+    id: weather_forecast_temp_8h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_8h_temp
+            text: !lambda |-
+              return to_string((int)x) + "°C / " + to_string((int)id(weather_forecast_precip_8h).state) + "%";
+
+  # 12-hour forecast
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_temperature_12h
+    id: weather_forecast_temp_12h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_12h_temp
+            text: !lambda |-
+              return to_string((int)x) + "°C / " + to_string((int)id(weather_forecast_precip_12h).state) + "%";
+
+text_sensor:
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_temperature_4h
+    attribute: tstamp
+    id: forecast_time_4h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_4h_time
+            text: !lambda |-
+              struct tm tm = {};
+              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
+              time_t utc_time = timegm(&tm);
+              struct tm buf = {};
+              struct tm* cest_tm = localtime_r(&utc_time, &buf);
+
+              char result[6];
+              strftime(result, sizeof(result), "%H:%M", cest_tm);
+
+              return std::string(result);
+
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_temperature_8h
+    attribute: tstamp
+    id: forecast_time_8h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_8h_time
+            text: !lambda |-
+              struct tm tm = {};
+              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
+              time_t utc_time = timegm(&tm);
+              struct tm buf = {};
+              struct tm* cest_tm = localtime_r(&utc_time, &buf);
+
+              char result[6];
+              strftime(result, sizeof(result), "%H:%M", cest_tm);
+
+              return std::string(result);
+
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_temperature_12h
+    attribute: tstamp
+    id: forecast_time_12h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_12h_time
+            text: !lambda |-
+              struct tm tm = {};
+              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
+              time_t utc_time = timegm(&tm);
+              struct tm buf = {};
+              struct tm* cest_tm = localtime_r(&utc_time, &buf);
+
+              char result[6];
+              strftime(result, sizeof(result), "%H:%M", cest_tm);
+
+              return std::string(result);
+
+  # Current weather condition
+  - platform: homeassistant
+    entity_id: weather.home
+    id: weather_condition
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_logo_now
+            text: !lambda |-
+              std::string condition = x;
+              if (condition == "sunny") return "\ue81a";
+              else if (condition == "partlycloudy") return "\uf172";
+              else if (condition == "cloudy") return "\ue2bd";
+              else if (condition == "rainy") return "\uebdb";
+              else if (condition == "clear-night") return "\uef44";
+              else if (condition == "snowy") return "\ue2a7";
+              else return "\uf172";
+
+  # Sunrise time
+  - platform: homeassistant
+    entity_id: sun.sun
+    attribute: next_rising
+    id: weather_sunrise
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_details_sunrise
+            text: !lambda |-
+              struct tm tm = {};
+              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
+              time_t utc_time = timegm(&tm);
+              struct tm buf = {};
+              struct tm* cest_tm = localtime_r(&utc_time, &buf);
+
+              char result[6];
+              strftime(result, sizeof(result), "%H:%M", cest_tm);
+
+              return std::string(result);
+
+  # Sunset time
+  - platform: homeassistant
+    entity_id: sun.sun
+    attribute: next_setting
+    id: weather_sunset
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_weather_details_sunset
+            text: !lambda |-
+              struct tm tm = {};
+              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
+              time_t utc_time = timegm(&tm);
+              struct tm buf = {};
+              struct tm* cest_tm = localtime_r(&utc_time, &buf);
+
+              char result[6];
+              strftime(result, sizeof(result), "%H:%M", cest_tm);
+
+              return std::string(result);
+
+  # Forecast conditions - 4h
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_condition_4h
+    id: weather_forecast_condition_4h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_4h_icon
+            text: !lambda |-
+              std::string condition = x;
+              if (condition == "sunny") return "\ue81a";
+              else if (condition == "partlycloudy") return "\uf172";
+              else if (condition == "cloudy") return "\ue2bd";
+              else if (condition == "rainy") return "\uebdb";
+              else if (condition == "clear-night") return "\uef44";
+              else if (condition == "snowy") return "\ue2a7";
+              else return "\uf172";
+
+  # Forecast conditions - 8h
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_condition_8h
+    id: weather_forecast_condition_8h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_8h_icon
+            text: !lambda |-
+              std::string condition = x;
+              if (condition == "sunny") return "\ue81a";
+              else if (condition == "partlycloudy") return "\uf172";
+              else if (condition == "cloudy") return "\ue2bd";
+              else if (condition == "rainy") return "\uebdb";
+              else if (condition == "clear-night") return "\uef44";
+              else if (condition == "snowy") return "\ue2a7";
+              else return "\uf172";
+
+  # Forecast conditions - 12h
+  - platform: homeassistant
+    entity_id: sensor.weather_forecast_condition_12h
+    id: weather_forecast_condition_12h
+    on_value:
+      then:
+        - lambda: "id(data_updated) = true;"
+        - lvgl.label.update:
+            id: main_left_forecast_12h_icon
+            text: !lambda |-
+              std::string condition = x;
+              if (condition == "sunny") return "\ue81a";
+              else if (condition == "partlycloudy") return "\uf172";
+              else if (condition == "cloudy") return "\ue2bd";
+              else if (condition == "rainy") return "\uebdb";
+              else if (condition == "clear-night") return "\uef44";
+              else if (condition == "snowy") return "\ue2a7";
+              else return "\uf172";
