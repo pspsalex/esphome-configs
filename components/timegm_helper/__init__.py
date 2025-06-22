@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
 import esphome.codegen as cg
 import esphome.config_validation as cv
 

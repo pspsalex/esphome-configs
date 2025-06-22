@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2025 Alex Popescu (@pspsalex)
+ */
+
 #include "timegm_helper.h"
 #include "esphome/core/log.h"
 #include <cstdio>

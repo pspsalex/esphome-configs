@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password

@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2025 Alex Popescu (@pspsalex)
+ */
+
 #pragma once
 
 #include "esphome/core/component.h"
