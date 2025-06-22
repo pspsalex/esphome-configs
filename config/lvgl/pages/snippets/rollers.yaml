@@ -1,0 +1,103 @@
+id: main_right_${name}_ro
+styles: main_controls
+layout:
+  type: FLEX
+  flex_flow: ROW_WRAP
+  flex_align_main: SPACE_BETWEEN
+  flex_align_cross: CENTER
+  flex_align_track: SPACE_BETWEEN
+widgets:
+  - button:
+      id: main_controls_${name}_down
+      state:
+        disabled: true
+      width: 55
+      height: 85
+      styles:
+        - main_controls_button
+      pressed:
+        styles:
+          - main_controls_button_pressed
+      focused:
+        styles:
+          - main_controls_button_focused
+      widgets:
+        - label:
+            id: main_controls_${name}_down_label
+            text: "\ue313"
+            text_font: "icons_xlarge"
+            align: center
+      on_press:
+        then:
+          - if:
+              condition:
+                lambda: |-
+                  return id(cover_${name}_state).state == "closing";
+              then:
+                - logger.log: "Stopping ${label} cover"
+                - homeassistant.action:
+                    action: cover.stop_cover
+                    data:
+                      entity_id: cover.${ha_entity}
+              else:
+                - logger.log: "Opening ${label} cover"
+                - homeassistant.action:
+                    action: cover.close_cover
+                    data:
+                      entity_id: cover.${ha_entity}
+  - slider:
+      id: main_controls_${name}_slider
+      state:
+        disabled: true
+      width: 5
+      height: 85
+      on_change:
+        then:
+          - lambda: ESP_LOGD("cover", "Setting cover ${label} to %d", int(x));
+          - homeassistant.action:
+              action: cover.set_cover_position
+              data:
+                entity_id: cover.${ha_entity}
+                position: !lambda "return int(x);"
+  - button:
+      id: main_controls_${name}_up
+      state:
+        disabled: true
+      width: 55
+      height: 85
+      styles:
+        - main_controls_button
+      pressed:
+        styles:
+          - main_controls_button_pressed
+      focused:
+        styles:
+          - main_controls_button_focused
+      widgets:
+        - label:
+            id: main_controls_${name}_up_label
+            text: "\ue316"
+            text_font: "icons_xlarge"
+            align: center
+      on_press:
+        then:
+          - if:
+              condition:
+                lambda: |-
+                  return id(cover_${name}_state).state == "opening";
+              then:
+                - logger.log: "Stopping ${label} cover"
+                - homeassistant.action:
+                    action: cover.stop_cover
+                    data:
+                      entity_id: cover.${ha_entity}
+              else:
+                - logger.log: "Opening ${label} cover"
+                - homeassistant.action:
+                    action: cover.open_cover
+                    data:
+                      entity_id: cover.${ha_entity}
+  - label:
+      text: "${label}"
+      styles: main_controls_label
+      long_mode: DOT

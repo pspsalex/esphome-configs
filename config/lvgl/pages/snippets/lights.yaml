@@ -1,0 +1,42 @@
+id: main_right_${name}_light
+styles: main_controls
+layout:
+  type: FLEX
+  flex_flow: ROW_WRAP
+  flex_align_main: SPACE_BETWEEN
+  flex_align_cross: CENTER
+  flex_align_track: SPACE_BETWEEN
+widgets:
+  - button:
+      id: main_controls_${name}_light
+      state:
+        disabled: true
+      width: 130
+      height: 85
+      checkable: true
+      styles:
+        - main_controls_button
+      pressed:
+        styles:
+          - main_controls_button_pressed
+      focused:
+        styles:
+          - main_controls_button_focused
+      checked:
+        styles:
+          - main_controls_button_checked
+      widgets:
+        - label:
+            id: main_controls_${name}_light_state
+            text: "\ue0f0"
+            text_font: "icons_xlarge"
+            align: center
+      on_click:
+        - homeassistant.action:
+            action: ${ha_action}
+            data:
+              entity_id: ${ha_entity}
+  - label:
+      text: "${label}"
+      styles: main_controls_label
+      long_mode: DOT

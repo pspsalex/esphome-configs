@@ -1,3 +1,10 @@
 # Enable logging
 logger:
   level: DEBUG
+  # hardware_uart: USB_SERIAL_JTAG
+  logs:
+    lvgl: INFO
+    i2c.idf: INFO
+    touchscreen: INFO
+    # api.connection: VERY_VERBOSE
+    # time: VERY_VERBOSE

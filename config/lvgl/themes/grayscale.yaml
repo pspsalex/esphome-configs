@@ -14,6 +14,9 @@ substitutions:
 
 lvgl:
   style_definitions:
+    ###
+    ### Generic styles used in the theme
+    ###
     - id: scrollbar
       bg_opa: COVER
       bg_color: "${lvgl_color_fg}"
@@ -109,6 +112,69 @@ lvgl:
     - id: matrix_border
       border_side: NONE
       radius: 10
+
+    ###
+    ### Custom styles used in the pages
+    ###
+    - id: header_footer
+      bg_color: 0xFFFFFF
+      bg_opa: COVER
+      border_color: 0x000000
+      border_width: 1
+      text_color: 0x000000
+      text_font: icons_large
+      pad_row: 4
+      pad_column: 4
+
+    - id: clean_obj
+      border_width: 0
+      pad_all: 0
+      radius: 0
+      outline_width: 0
+      shadow_width: 0
+
+    - id: main_controls_button
+      border_width: 0
+      pad_all: 0
+      radius: 0
+      outline_width: 0
+      shadow_width: 0
+
+    - id: main_controls_button_pressed
+      border_width: 0
+      pad_all: 0
+      radius: 0
+      outline_width: 1
+      shadow_width: 0
+
+    - id: main_controls_button_focused
+      border_width: 0
+      pad_all: 0
+      radius: 0
+      outline_width: 0
+      shadow_width: 0
+
+    - id: main_controls_button_checked
+      bg_color: 0x666666
+
+    - id: main_controls
+      border_width: 2
+      border_opa: COVER
+      border_color: 0xcccccc
+      radius: 5
+      pad_all: 5
+      width: 145
+      height: 145
+
+    - id: main_controls_label
+      width: 130
+      height: 40
+      border_width: 4
+      border_color: 0xcccccc
+      border_opa: COVER
+      border_side: TOP
+      text_font: "roboto_24"
+      text_align: center
 
   theme:
     # page:

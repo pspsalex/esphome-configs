@@ -1,0 +1,69 @@
+# To generate the file, you need cairosvg in the python venv:
+#   pip install cairosvg
+
+# esphome:
+#   on_boot:
+#     - priority: -100
+#       then:
+#         - lvgl.widget.hide: boot_screen
+
+# Show clock on top layer
+# Show connection status
+#   - WiFi w/ IP address
+#   - HA
+
+image:
+  - file: "assets/images/esphome_logo.svg"
+    id: boot_logo
+    resize: 597x117
+    type: RGB565
+    transparency: alpha_channel
+
+lvgl:
+  top_layer:
+    widgets:
+      - obj:
+          id: boot_screen
+          x: 0
+          y: 0
+          width: 100%
+          height: 100%
+          bg_color: 0xffffff
+          bg_opa: COVER
+          radius: 0
+          pad_all: 0
+          border_width: 0
+          widgets:
+            - label:
+                id: boot_clock
+                text: "00:00"
+                text_font: roboto_80_num_bold
+                text_color: 0x000000
+                align: TOP_LEFT
+                x: 15
+                y: 15
+            - image:
+                align: CENTER
+                src: boot_logo
+                y: -40
+            - spinner:
+                align: CENTER
+                y: 95
+                height: 50
+                width: 50
+                spin_time: 5s
+                arc_length: 60deg
+                arc_width: 8
+                indicator:
+                  arc_color: 0x666666
+                  arc_width: 8
+            - label:
+                id: boot_ip_info
+                x: 15
+                y: -15
+                align: BOTTOM_LEFT
+                text: "Connecting..."
+                text_font: roboto_18
+                # hidden: true
+          on_press:
+            - lvgl.widget.hide: boot_screen

@@ -52,6 +52,7 @@ font:
         "\U0000e0f0", # Lightbulb (on)
         "\U0000e9b8", # Lightbulb (off)
         "\U0000e047", # Stop
+        "\U0000ef64", # Hourglass
       ]
   - file: "gfonts://Material+Symbols+Rounded"
     glyphs: [
@@ -91,7 +92,7 @@ font:
     id: roboto_96_num_bold
     size: 96
     bpp: 4
-    glyphs: ["0123456789:.?"]
+    glyphs: ["0123456789:.-"]
   - file: "gfonts://Roboto@600"
     id: roboto_80_num_bold
     size: 80

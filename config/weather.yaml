@@ -1,5 +1,14 @@
 # Weather integration with Home Assistant
 # TODO: treat invalid inputs from HA (e.g. no data) gracefully
+external_components:
+  - source:
+      type: local
+      path: components
+    components: [timegm_helper]
+
+# Add the component to your configuration
+timegm_helper:
+
 globals:
   - id: data_updated
     type: bool
@@ -7,8 +16,7 @@ globals:
     initial_value: "false"
 
 time:
-  - platform: homeassistant
-    id: homeassistant_time
+  - id: !extend local_time
     on_time:
       - seconds: 0
         minutes: /1
@@ -141,16 +149,7 @@ text_sensor:
         - lvgl.label.update:
             id: main_left_forecast_4h_time
             text: !lambda |-
-              struct tm tm = {};
-              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
-              time_t utc_time = timegm(&tm);
-              struct tm buf = {};
-              struct tm* cest_tm = localtime_r(&utc_time, &buf);
-
-              char result[6];
-              strftime(result, sizeof(result), "%H:%M", cest_tm);
-
-              return std::string(result);
+              return esphome::timegm_helper::parse_time(x, "%H:%M", id(local_time));
 
   - platform: homeassistant
     entity_id: sensor.weather_forecast_temperature_8h
@@ -162,16 +161,7 @@ text_sensor:
         - lvgl.label.update:
             id: main_left_forecast_8h_time
             text: !lambda |-
-              struct tm tm = {};
-              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
-              time_t utc_time = timegm(&tm);
-              struct tm buf = {};
-              struct tm* cest_tm = localtime_r(&utc_time, &buf);
-
-              char result[6];
-              strftime(result, sizeof(result), "%H:%M", cest_tm);
-
-              return std::string(result);
+              return esphome::timegm_helper::parse_time(x, "%H:%M", id(local_time));
 
   - platform: homeassistant
     entity_id: sensor.weather_forecast_temperature_12h
@@ -183,16 +173,7 @@ text_sensor:
         - lvgl.label.update:
             id: main_left_forecast_12h_time
             text: !lambda |-
-              struct tm tm = {};
-              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
-              time_t utc_time = timegm(&tm);
-              struct tm buf = {};
-              struct tm* cest_tm = localtime_r(&utc_time, &buf);
-
-              char result[6];
-              strftime(result, sizeof(result), "%H:%M", cest_tm);
-
-              return std::string(result);
+              return esphome::timegm_helper::parse_time(x, "%H:%M", id(local_time));
 
   # Current weather condition
   - platform: homeassistant
@@ -224,16 +205,7 @@ text_sensor:
         - lvgl.label.update:
             id: main_left_weather_details_sunrise
             text: !lambda |-
-              struct tm tm = {};
-              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
-              time_t utc_time = timegm(&tm);
-              struct tm buf = {};
-              struct tm* cest_tm = localtime_r(&utc_time, &buf);
-
-              char result[6];
-              strftime(result, sizeof(result), "%H:%M", cest_tm);
-
-              return std::string(result);
+              return esphome::timegm_helper::parse_time(x, "%H:%M", id(local_time));
 
   # Sunset time
   - platform: homeassistant
@@ -246,16 +218,7 @@ text_sensor:
         - lvgl.label.update:
             id: main_left_weather_details_sunset
             text: !lambda |-
-              struct tm tm = {};
-              strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
-              time_t utc_time = timegm(&tm);
-              struct tm buf = {};
-              struct tm* cest_tm = localtime_r(&utc_time, &buf);
-
-              char result[6];
-              strftime(result, sizeof(result), "%H:%M", cest_tm);
-
-              return std::string(result);
+              return esphome::timegm_helper::parse_time(x, "%H:%M", id(local_time));
 
   # Forecast conditions - 4h
   - platform: homeassistant

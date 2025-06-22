@@ -1,0 +1,42 @@
+text_sensor:
+  - platform: homeassistant
+    id: cover_${name}_state
+    entity_id: cover.${ha_entity}
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_${name}_state", "State changed to: %s", x.c_str());
+            if (x == "opening") {
+              lv_label_set_text(id(main_controls_${name}_up_label), "\ue047"); // Stop icon
+            } else if ((x == "open") or (x == "closed")) {
+              lv_label_set_text(id(main_controls_${name}_down_label), "\ue313"); // Down icon
+              lv_label_set_text(id(main_controls_${name}_up_label), "\ue316"); // Up icon
+            } else if (x == "closing") {
+              lv_label_set_text(id(main_controls_${name}_down_label), "\ue047"); // Stop icon
+            }
+
+sensor:
+  - platform: homeassistant
+    id: cover_${name}_position
+    entity_id: cover.${ha_entity}
+    attribute: current_position
+    on_value:
+      - lambda: |-
+          ESP_LOGI("cover_${name}_position", "Position changed to: %d", int(x));
+          lv_slider_set_value(id(main_controls_${name}_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+      - if:
+          condition:
+            lambda: |-
+              return x == 100;
+          then:
+            - lvgl.widget.disable: main_controls_${name}_up
+          else:
+            - lvgl.widget.enable: main_controls_${name}_up
+      - if:
+          condition:
+            lambda: |-
+              return x == 0;
+          then:
+            - lvgl.widget.disable: main_controls_${name}_down
+          else:
+            - lvgl.widget.enable: main_controls_${name}_down

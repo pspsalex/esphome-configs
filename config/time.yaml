@@ -4,16 +4,6 @@ esphome:
       then:
         - logger.log: "Booting up M5Paper with time configuration"
         - lvgl.label.update:
-            id: lbl_top_bar_date
-            text:
-              time_format: "%a, %-d %b"
-              time: local_time
-        - lvgl.label.update:
-            id: lbl_top_bar_time
-            text:
-              time_format: "%H:%M"
-              time: local_time
-        - lvgl.label.update:
             id: main_left_date_weekday
             text:
               time_format: "%A"
@@ -21,7 +11,7 @@ esphome:
         - lvgl.label.update:
             id: main_left_date_day
             text:
-              time_format: "%-d %b"
+              time_format: "%d %b"
               time: local_time
         - lvgl.label.update:
             id: main_left_date_hour
@@ -33,20 +23,16 @@ esphome:
             text:
               time_format: ":%M"
               time: local_time
+        - lvgl.label.update:
+            id: boot_clock
+            text:
+              time_format: "%H:%M"
+              time: local_time
 
 time:
   - id: local_time
     on_time_sync:
-      - lvgl.label.update:
-          id: lbl_top_bar_date
-          text:
-            time_format: "%a, %-d %b"
-            time: local_time
-      - lvgl.label.update:
-          id: lbl_top_bar_time
-          text:
-            time_format: "%H:%M"
-            time: local_time
+      - logger.log: "on_time_sync local_time is here!"
       - lvgl.label.update:
           id: main_left_date_weekday
           text:
@@ -55,7 +41,7 @@ time:
       - lvgl.label.update:
           id: main_left_date_day
           text:
-            time_format: "%-d %b"
+            time_format: "%d %b"
             time: local_time
       - lvgl.label.update:
           id: main_left_date_hour
@@ -73,14 +59,14 @@ time:
         minutes: /1
         then:
           - lvgl.label.update:
-              id: lbl_top_bar_time
-              text:
-                time_format: "%H:%M"
-                time: local_time
-          - lvgl.label.update:
               id: main_left_date_minute
               text:
                 time_format: ":%M"
+                time: local_time
+          - lvgl.label.update:
+              id: boot_clock
+              text:
+                time_format: "%H:%M"
                 time: local_time
       # Update hours only when hour changes
       - seconds: 0
@@ -98,11 +84,6 @@ time:
         # hours: 0
         then:
           - lvgl.label.update:
-              id: lbl_top_bar_date
-              text:
-                time_format: "%a, %-d %b"
-                time: local_time
-          - lvgl.label.update:
               id: main_left_date_weekday
               text:
                 time_format: "%A"
@@ -110,5 +91,5 @@ time:
           - lvgl.label.update:
               id: main_left_date_day
               text:
-                time_format: "%-d %b"
+                time_format: "%d %b"
                 time: local_time

@@ -9,12 +9,16 @@ wifi:
 
   on_connect:
     - lvgl.label.update:
-        - id: lbl_status_wifi
-          text: "\U0000e2bf" # WiFi connected icon
+        id: lbl_status_wifi
+        text: "\U0000e1d8" # WiFi connected icon
+    - lvgl.label.update:
+        id: boot_ip_info
+        text: "Connected to AP"
+
   on_disconnect:
     - lvgl.label.update:
-        - id: lbl_status_wifi
-          text: "\U0000f063" # WiFi disconnected icon
+        id: lbl_status_wifi
+        text: "\U0000f063" # WiFi disconnected icon
 
 captive_portal:
 
@@ -22,12 +26,37 @@ ota:
   - platform: esphome
     password: !secret ota_password
 
+globals:
+  - id: wifi_bars
+    type: int
+    initial_value: "-1"
+
+  - id: last_wifi_bars
+    type: int
+    initial_value: "0"
+
 sensor:
   - platform: wifi_signal
     name: "RSSI"
     id: sensor_rssi
     update_interval: 60s
     entity_category: "diagnostic"
+    on_value:
+      - if:
+          condition:
+            wifi.connected:
+          then:
+            - lambda: |-
+                int sig = int(id(sensor_rssi).state);
+                int bars = -1;
+                if (sig > -55)      { bars =  4; }
+                else if (sig > -66) { bars =  3; }
+                else if (sig > -77) { bars =  2; }
+                else if (sig > -88) { bars =  1; }
+                else if (sig > -99) { bars =  0; }
+                id(wifi_bars) = bars;
+          else:
+            - lambda: "id(wifi_bars) = -1;"
 
 text_sensor:
   - platform: wifi_info
@@ -36,6 +65,14 @@ text_sensor:
       name: "IP Address"
       icon: "mdi:wan"
       entity_category: "diagnostic"
+      on_value:
+        - lvgl.label.update:
+            id: boot_ip_info
+            text: !lambda |-
+              char buf[128];
+              snprintf(buf, 128, "IP Address: %s", id(wifi_ip_address).state.c_str());
+              ESP_LOGD("XXXX", buf);
+              return buf;
     bssid:
       id: wifi_bssid
       name: "BSSID"
@@ -43,34 +80,28 @@ text_sensor:
       entity_category: "diagnostic"
 
 time:
-  - id: !extend ha_time
+  - id: !extend local_time
     on_time:
       - seconds: 0
         minutes: /1
         then:
           - if:
               condition:
-                wifi.connected: true
+                lambda: "return id(wifi_bars) != id(last_wifi_bars);"
               then:
-                # check wifi strength and return correct wifi icon
-                - if:
-                    condition:
-                      sensor.in_range: sensor_rssi
-                      above: -70 # Good signal strength
-                    then:
-                      - lvgl.label.update:
-                          id: lbl_status_wifi
-                          text: "\U0000e2bf" # WiFi connected icon
-                    else:
-                      - if:
-                          condition:
-                            sensor.in_range: sensor_rssi
-                            above: -85 # Fair signal strength
-                          then:
-                            - lvgl.label.update:
-                                id: lbl_status_wifi
-                                text: "\U0000e2c0" # WiFi weak icon
-              else:
+                - logger.log:
+                    format: "WiFi strength: %d bars"
+                    args: ["id(wifi_bars)"]
+                - lambda: "id(last_wifi_bars) = id(wifi_bars);"
                 - lvgl.label.update:
                     id: lbl_status_wifi
-                    text: "\U0000f063" # WiFi disconnected icon
+                    text: !lambda |-
+                      switch(id(wifi_bars)) {
+                        case  0: return "\U0000f0b0"; // 0 bars (x)
+                        case  1: return "\U0000ebe4"; // 1 bar
+                        case  2: return "\U0000ebd6"; // 2 bars
+                        case  3: return "\U0000ebe1"; // 3 bars
+                        case  4: return "\U0000e1d8"; // 4 bars
+                        case -1:
+                        default:  return "\U0000f0ef"; // Not connected
+                      }

@@ -6,14 +6,18 @@ esphome:
   platformio_options:
     build_flags:
       - "-DLV_USE_ANIMATION=0"
+      - "-DIT8951E_DEBUG_LOGGING=0"
+  on_boot:
+    - priority: 600
+      then:
+        - bm8563.clear_alarm
+        - bm8563.read_time
 
 external_components:
-  #- source: github://pspsalex/esphome-m5paper
-  - source:
-      type: git
-      url: file:///home/alex/Proiecte/esphome/esphome-m5paper
-  - source: github://timit3-github/m5paper_esphome
-    components: bm8563
+  - source: github://pspsalex/esphome-m5paper
+  #- source:
+  #    type: local
+  #    path: /home/alex/Proiecte/esphome/esphome-m5paper/components
 
 esp32:
   board: m5stack_paper
@@ -69,8 +73,8 @@ touchscreen:
   platform: gt911
   transform:
     swap_xy: true
-    mirror_x: true
-    mirror_y: false
+    mirror_x: false
+    mirror_y: true
   id: gt911_touchscreen
   display: m5paper_display
   interrupt_pin: GPIO36
@@ -96,13 +100,31 @@ lvgl:
 time:
   - id: !extend local_time
     platform: homeassistant
+    on_time_sync:
+      - bm8563.write_time
+      - logger.log: "did bm8563 sync"
+      - bm8563.set_fuzzy_alarm: 1 min
+      # - deep_sleep.enter
+      # - m5paper.shutdown_main_power
 
   - platform: bm8563
     id: rtc_time
-    sleep_duration: 3600000ms
+    update_interval: never
+
+globals:
+  - id: prev_battery_status
+    type: float
+    restore_value: false
+    initial_value: "0"
 
 sensor:
+  # - platform: template
+  #   name: "Wakeup Cause"
+  #   accuracy_decimals: 0
+  #   lambda: return esp_sleep_get_wakeup_cause();
+
   - platform: adc
+    id: battery_voltage_sensor
     pin: GPIO35
     name: "Battery Voltage"
     update_interval: 60s
@@ -110,34 +132,42 @@ sensor:
     samples: 16
     filters:
       - multiply: 2.0
+
     on_value:
-      - lvgl.label.update:
-          id: lbl_battery_status
-          text: !lambda |-
-            static char buf[10];
-            std::string icon;
-            if (x >= 4.2) {
-                icon = "\U0000e1a4"; // battery_full
-            } else if (x > 4.1) {
-                icon = "\U0000ebd2"; // battery_6_bar
-            } else if (x > 4.0) {
-                icon = "\U0000ebd4"; // battery_5_bar
-            } else if (x > 3.95) {
-                icon = "\U0000ebe2"; // battery_4_bar
-            } else if (x > 3.9) {
-                icon = "\U0000ebdd"; // battery_3_bar
-            } else if (x > 3.85) {
-                icon = "\U0000ebe0"; // battery_2_bar
-            } else if (x > 3.8) {
-                icon = "\U0000ebd9"; // battery_1_bar
-            } else if (x > 3.75) {
-                icon = "\U0000ebdc"; // battery_0_bar
-            } else {
-                icon = "\U0000e1a6"; // battery_unknown
-            }
-            snprintf(buf, sizeof(buf), "%s", icon.c_str());
-            ESP_LOGD("battery", "Battery voltage: %.2fV", x);
-            return buf;
+      - if:
+          condition:
+            lambda: "return id(battery_voltage_sensor).state != id(prev_battery_status);"
+          then:
+            - lambda: "id(prev_battery_status) = id(battery_voltage_sensor).state;"
+            - lvgl.label.update:
+                id: lbl_status_battery
+                text: !lambda |-
+                  static char buf[10];
+                  std::string icon;
+                  auto x = id(battery_voltage_sensor).state;
+                  if (x >= 4.2) {
+                      icon = "\U0000e1a4"; // battery_full
+                  } else if (x > 4.1) {
+                      icon = "\U0000ebd2"; // battery_6_bar
+                  } else if (x > 4.0) {
+                      icon = "\U0000ebd4"; // battery_5_bar
+                  } else if (x > 3.95) {
+                      icon = "\U0000ebe2"; // battery_4_bar
+                  } else if (x > 3.9) {
+                      icon = "\U0000ebdd"; // battery_3_bar
+                  } else if (x > 3.85) {
+                      icon = "\U0000ebe0"; // battery_2_bar
+                  } else if (x > 3.8) {
+                      icon = "\U0000ebd9"; // battery_1_bar
+                  } else if (x > 3.75) {
+                      icon = "\U0000ebdc"; // battery_0_bar
+                  } else {
+                      icon = "\U0000e1a6"; // battery_unknown
+                  }
+                  snprintf(buf, sizeof(buf), "%s", icon.c_str());
+                  id(data_updated) = true;
+                  ESP_LOGD("battery", "Battery voltage: %.2fV", x);
+                  return buf;
 
   - platform: sht3xd
     temperature:

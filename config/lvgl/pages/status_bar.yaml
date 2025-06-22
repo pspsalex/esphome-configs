@@ -1,0 +1,40 @@
+lvgl:
+  top_layer:
+    widgets:
+      - obj:
+          id: status_bar
+          align: TOP_RIGHT
+          pad_all: 0
+          pad_right: 5
+          height: 48
+          x: -2
+          y: 6
+          border_side: NONE
+          layout:
+            type: FLEX
+            pad_column: 0
+            pad_row: 0
+            flex_flow: ROW
+            flex_align_main: END
+          widgets:
+            - label:
+                text: "\U0000e2c1"
+                pad_left: 5
+                id: lbl_status_ha
+                hidden: false
+                text_align: right
+                text_color: 0x000000
+                text_font: icons_large
+            - label:
+                text: "\U0000f0ef"
+                pad_left: 5
+                id: lbl_status_wifi
+                hidden: false
+                text_align: right
+                text_color: 0x000000
+                text_font: icons_large
+            - label:
+                id: lbl_status_battery
+                text_font: icons_large
+                pad_left: 5
+                text: "\U0000e1a6" # start with mdi-battery-unknown

@@ -1,8 +1,130 @@
 # Generic config for any CYD device
 # Yes, Cheap Yellow Display.
 
+# Based on:
+#   - https://github.com/RyanEwen/esphome-lvgl.git
+#   - https://github.com/clowrey/esphome-sunton-esp32-8048s070c/blob/main/sunton-esp32-8048s070.yaml
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+  platformio_options:
+    build_flags: "-DBOARD_HAS_PSRAM"
+    board_build.esp-idf.memory_type: qio_opi
+    board_build.flash_mode: dio
+    board_upload.maximum_ram_size: 524288
+  # platformio_options:
+  #   build_flags:
+  #     - "-DLV_USE_ANIMATION=0"
+  #     - "-DIT8951E_DEBUG_LOGGING=0"
+  # on_boot:
+  #   - priority: 600
+  #     then:
+  #       - bm8563.read_time:
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+    # these versions prevent artifacting
+    #    version: 5.3.0
+    #    platform_version: 6.8.1
+    # Required to achieve sufficient PSRAM bandwidth
+    sdkconfig_options:
+      COMPILER_OPTIMIZATION_SIZE: y
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: y
+      CONFIG_ESP32S3_DATA_CACHE_64KB: y
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: y
+      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
+      CONFIG_SPIRAM_RODATA: y
+      CONFIG_ESPTOOLPY_FLASHSIZE_16MB: y # fix warning about 2mb found
+
 psram:
+  mode: octal
+  speed: 80MHz
+
+i2c:
+  - sda: 19
+    scl: 20
+    scan: true
 
 time:
   - id: !extend local_time
     platform: homeassistant
+
+# Setup a pin to control the backlight
+output:
+  - platform: ledc
+    pin: GPIO2
+    id: backlight_pwm
+    frequency: 1220
+
+light:
+  # Set up display backlight
+  - platform: monochromatic
+    output: backlight_pwm
+    name: Display Backlight
+    id: backlight
+    restore_mode: ALWAYS_ON
+
+display:
+  - id: cyd_display
+    platform: rpi_dpi_rgb
+    color_order: RGB
+    invert_colors: True
+    update_interval: never
+    auto_clear_enabled: false # takes 2.8 seconds to clear the display
+    dimensions:
+      width: 800
+      height: 480
+    de_pin: 41
+    hsync_pin: 39
+    vsync_pin: 40
+    pclk_pin: 42
+    pclk_frequency: 12MHz
+    data_pins:
+      red: [14, 21, 47, 48, 45]
+      green: [9, 46, 3, 8, 16, 1]
+      blue: [15, 7, 6, 5, 4]
+    # dimensions:
+    #   width: 800
+    #   height: 480
+    # rotation: 0
+    # color_order: RGB
+    # de_pin: 41 # 41 in my schematic
+    # hsync_pin: 39
+    # vsync_pin: 40 # 40 in my schematic
+    # pclk_pin: 42
+    # # pclk_inverted: true
+    # pclk_frequency: 12MHz # unsure about this
+    # hsync_front_porch: 8
+    # hsync_pulse_width: 4
+    # hsync_back_porch: 8
+    # vsync_front_porch: 8
+    # vsync_pulse_width: 4
+    # vsync_back_porch: 8
+    # data_pins:
+    #   red: [45, 48, 47, 21, 14]
+    #   green: [1, 16, 8, 3, 46, 9]
+    #   blue: [4, 5, 6, 7, 15]
+    #   #green: [5, 6, 7, 15, 16, 4]
+    #   #blue: [8, 3, 46, 9, 1]
+    # update_interval: never
+    # auto_clear_enabled: false
+
+touchscreen:
+  - id: cyd_touchscreen
+    platform: gt911
+    address: 0x5D
+    update_interval: 16ms
+    transform:
+      swap_xy: false
+      mirror_x: false
+
+lvgl:
+  displays:
+    - cyd_display
+  touchscreens:
+    - cyd_touchscreen
