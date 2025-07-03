@@ -4,6 +4,8 @@
 substitutions:
   device_name: "sdl"
   friendly_name: "SDL"
+  display_width: "960"
+  display_height: "540"
 
 packages:
   base: !include config/base.yaml

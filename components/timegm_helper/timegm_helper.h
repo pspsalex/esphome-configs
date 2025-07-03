@@ -26,7 +26,7 @@ std::string parse_time(const std::string &x, const char format[], time::RealTime
 
 class TimegmHelperComponent : public Component {
  public:
-  void setup() override;
+  void setup() override {};
 
   float get_setup_priority() const override {
     return esphome::setup_priority::LATE;

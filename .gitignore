@@ -4,3 +4,6 @@
 /.esphome/
 /secrets.yaml
 /.clangd
+/.venv
+/.zed
+__pycache__

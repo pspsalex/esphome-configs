@@ -2,21 +2,18 @@
 # Copyright (c) 2025 Alex Popescu (@pspsalex)
 
 substitutions:
-  device_name: "cyd"
-  friendly_name: "CYD"
+  device_name: "sdlcyd"
+  friendly_name: "SDLCYD"
+  display_width: "800"
+  display_height: "480"
 
 packages:
   base: !include config/base.yaml
-  device: !include config/device/cyd.yaml
-  theme: !include config/lvgl/themes/grayscale.yaml
+  device: !include config/device/host.yaml
+  theme: !include config/lvgl/themes/default.yaml
   # weather: !include config/weather.yaml
-  wifi: !include config/wifi.yaml
 
   boot_screen: !include config/lvgl/pages/boot_screen.yaml
   status_bar: !include config/lvgl/pages/status_bar.yaml
   main_page: !include config/lvgl/pages/doorbell.yaml
   # main_page: !include config/lvgl/pages/main_page.yaml
-# Ideas:
-# Try to show "live" picture from doorbell camera
-# Add icon when someone rang the door but door wasnt opened
-# Add list of events to review who rang the camera

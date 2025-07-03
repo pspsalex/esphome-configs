@@ -1,0 +1,61 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+#
+http_request:
+
+online_image:
+  - url: "http://10.0.40.33:8123/api/camera_proxy/camera.doorbell_reolink_sub?token=d0f04d05c1f6262ba5b4bf1a6294f663c7642c4c4cd0e9623e4444eab326f9ea"
+    format: jpg
+    id: my_online_image
+    type: RGB565
+    update_interval: 10s
+    on_download_finished:
+      - lvgl.image.update:
+          id: doorbell_image
+          src: my_online_image
+      - logger.log: "Download finished"
+
+esphome:
+  on_boot:
+    - priority: -100
+      then:
+        - logger.log:
+            format: "Will set URL"
+            level: WARN
+        - online_image.set_url:
+            id: my_online_image
+            url: "http://10.0.40.33:8123/api/camera_proxy/camera.doorbell_reolink_sub?token=d0f04d05c1f6262ba5b4bf1a6294f663c7642c4c4cd0e9623e4444eab326f9ea"
+
+lvgl:
+  pages:
+    - id: doorbell_page
+      widgets:
+        - image:
+            id: doorbell_image
+            src: my_online_image
+            x: 10
+            y: 10
+            width: 640
+            height: 480
+            align: CENTER
+
+text_sensor:
+  - platform: homeassistant
+    id: doorbell_token
+    entity_id: camera.doorbell_reolink_sub
+    attribute: entity_picture
+    on_value:
+      - logger.log:
+          format: "Path changed: `%s`"
+          args: ["x.c_str()"]
+          level: WARN
+      - online_image.set_url:
+          id: my_online_image
+          url: !lambda |-
+            return ("http://10.0.40.33:8123" + x).c_str();
+
+# text_sensor:
+#   - platform: homeassistant
+#     id: cover_dach_rol_state
+#     entity_id: cover.dach_large_roller_cover_1
+#     on_value:

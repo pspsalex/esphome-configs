@@ -12,10 +12,6 @@ namespace timegm_helper {
 
 static const char *const TAG = "timegm_helper";
 
-void TimegmHelperComponent::setup() {
-  ESP_LOGCONFIG(TAG, "Setting up TimegmHelper component");
-}
-
 std::string parse_time(const std::string &x, const char format[], time::RealTimeClock *rtc) {
     struct tm tm = {};
     strptime(x.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);

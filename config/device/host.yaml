@@ -9,6 +9,11 @@ esphome:
   platformio_options:
     build_flags:
       - "-DLV_USE_ANIMATION=0"
+      - "-DCPPHTTPLIB_OPENSSL_SUPPORT=1"
+      - "-D__LINUX__"
+      - -lssl
+      - -lcrypto
+
     build_type: debug
 
   on_boot:
@@ -25,8 +30,8 @@ host:
 display:
   - platform: sdl
     dimensions:
-      width: 960
-      height: 540
+      width: ${display_width}
+      height: ${display_height}
     auto_clear_enabled: false
     update_interval: 100ms
 
