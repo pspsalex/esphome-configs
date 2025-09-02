@@ -1,6 +1,249 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Alex Popescu (@pspsalex)
 
+esphome:
+  on_boot:
+    - priority: -100
+      then:
+        - lvgl.label.update:
+            id: main_left_date_weekday
+            text:
+              time_format: "%A"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_day
+            text:
+              time_format: "%d %b"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_hour
+            text:
+              time_format: "%H"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_minute
+            text:
+              time_format: ":%M"
+              time: local_time
+        - lvgl.label.update:
+            id: boot_clock
+            text:
+              time_format: "%H:%M"
+              time: local_time
+
+time:
+  - id: !extend local_time
+    on_time_sync:
+      - lvgl.label.update:
+          id: main_left_date_weekday
+          text:
+            time_format: "%A"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_day
+          text:
+            time_format: "%d %b"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_hour
+          text:
+            time_format: "%H"
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_minute
+          text:
+            time_format: ":%M"
+            time: local_time
+    on_time:
+      # Update minutes every minute
+      - seconds: 0
+        minutes: /1
+        then:
+          - lvgl.label.update:
+              id: main_left_date_minute
+              text:
+                time_format: ":%M"
+                time: local_time
+          - lvgl.label.update:
+              id: boot_clock
+              text:
+                time_format: "%H:%M"
+                time: local_time
+      # Update hours only when hour changes
+      - seconds: 0
+        minutes: /1
+        # hours: /1
+        then:
+          - lvgl.label.update:
+              id: main_left_date_hour
+              text:
+                time_format: "%H"
+                time: local_time
+      # Update date components only when date changes (daily at midnight)
+      - seconds: 0
+        minutes: /1
+        # hours: 0
+        then:
+          - lvgl.label.update:
+              id: main_left_date_weekday
+              text:
+                time_format: "%A"
+                time: local_time
+          - lvgl.label.update:
+              id: main_left_date_day
+              text:
+                time_format: "%d %b"
+                time: local_time
+
+# Enable Home Assistant API
+api:
+  on_client_connected:
+    then:
+      - lvgl.widget.enable:
+          - main_controls_dani_down
+          - main_controls_dani_up
+          - main_controls_dani_slider
+          - main_controls_oli_down
+          - main_controls_oli_slider
+          - main_controls_oli_up
+          - main_controls_eltern_down
+          - main_controls_eltern_slider
+          - main_controls_eltern_up
+          - main_controls_living_rol_down
+          - main_controls_living_rol_slider
+          - main_controls_living_rol_up
+          - main_controls_living_ros_down
+          - main_controls_living_ros_slider
+          - main_controls_living_ros_up
+          - main_controls_dach_rollers
+          - main_controls_office_light
+          - main_controls_keller_light_long
+          - main_controls_dach_light
+
+  on_client_disconnected:
+    then:
+      - lvgl.widget.disable:
+          - main_controls_dani_down
+          - main_controls_dani_up
+          - main_controls_dani_slider
+          - main_controls_oli_down
+          - main_controls_oli_slider
+          - main_controls_oli_up
+          - main_controls_eltern_down
+          - main_controls_eltern_slider
+          - main_controls_eltern_up
+          - main_controls_living_rol_down
+          - main_controls_living_rol_slider
+          - main_controls_living_rol_up
+          - main_controls_living_ros_down
+          - main_controls_living_ros_slider
+          - main_controls_living_ros_up
+          - main_controls_dach_rollers
+          - main_controls_office_light
+          - main_controls_keller_light_long
+          - main_controls_dach_light
+
+binary_sensor:
+  - platform: homeassistant
+    id: kg_office_light
+    entity_id: light.kg_office_light
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_office_light
+            state:
+              checked: !lambda return x;
+        - lvgl.label.update:
+            id: main_controls_office_light_state
+            text: !lambda |-
+              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+
+  - platform: homeassistant
+    id: dg_dach_light
+    entity_id: switch.dg_studio_lights
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_dach_light
+            state:
+              checked: !lambda return x;
+        - lvgl.label.update:
+            id: main_controls_dach_light_state
+            text: !lambda |-
+              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+
+  - platform: homeassistant
+    id: kg_keller_light_long
+    entity_id: light.kg_keller_light_long
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_keller_light_long
+            state:
+              checked: !lambda return x;
+        - lvgl.label.update:
+            id: main_controls_keller_light_long_state
+            text: !lambda |-
+              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+
+text_sensor:
+  - platform: homeassistant
+    id: cover_dach_rol_state
+    entity_id: cover.dach_large_roller_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_dach_rol_state", "State changed to: %s", x.c_str());
+            auto y = id(cover_dach_ros_state).state;
+            if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
+              lv_label_set_text(id(main_controls_dach_rollers_label), "\uef64"); // Hourglass icon
+            } else {
+              lv_label_set_text(id(main_controls_dach_rollers_label), "\ue2a7"); // Scene icon
+            }
+  - platform: homeassistant
+    id: cover_dach_ros_state
+    entity_id: cover.dach_large_roller_cover_1
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("cover_dach_ros_state", "State changed to: %s", x.c_str());
+            auto y = id(cover_dach_rol_state).state;
+            if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
+              lv_label_set_text(id(main_controls_dach_rollers_label), "\uef64"); // Hourglass icon
+            } else {
+              lv_label_set_text(id(main_controls_dach_rollers_label), "\ue2a7"); // Scene icon
+            }
+
+packages:
+  sensor_dani: !include
+    file: "snippets/sensors_rollers.yaml"
+    vars:
+      name: dani
+      ha_entity: dani_rollers_cover_1
+  sensor_oli: !include
+    file: "snippets/sensors_rollers.yaml"
+    vars:
+      name: oli
+      ha_entity: oli_roller_cover_1
+  sensor_eltern: !include
+    file: "snippets/sensors_rollers.yaml"
+    vars:
+      name: eltern
+      ha_entity: eltern_rollers_cover_1
+  sensor_living_rol: !include
+    file: "snippets/sensors_rollers.yaml"
+    vars:
+      name: living_rol
+      ha_entity: living_large_rollers_cover_1
+  sensor_living_ros: !include
+    file: "snippets/sensors_rollers.yaml"
+    vars:
+      name: living_ros
+      ha_entity: living_small_roller_cover_1
+
 lvgl:
   pages:
     - id: main_page

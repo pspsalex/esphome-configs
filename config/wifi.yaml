@@ -12,7 +12,7 @@ wifi:
 
   on_connect:
     - lvgl.label.update:
-        id: lbl_status_wifi
+        id: lbl_status_net
         text: "\U0000e1d8" # WiFi connected icon
     - lvgl.label.update:
         id: boot_ip_info
@@ -20,7 +20,7 @@ wifi:
 
   on_disconnect:
     - lvgl.label.update:
-        id: lbl_status_wifi
+        id: lbl_status_net
         text: "\U0000f063" # WiFi disconnected icon
 
 captive_portal:
@@ -97,7 +97,7 @@ time:
                     args: ["id(wifi_bars)"]
                 - lambda: "id(last_wifi_bars) = id(wifi_bars);"
                 - lvgl.label.update:
-                    id: lbl_status_wifi
+                    id: lbl_status_net
                     text: !lambda |-
                       switch(id(wifi_bars)) {
                         case  0: return "\U0000f0b0"; // 0 bars (x)

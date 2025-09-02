@@ -44,6 +44,10 @@ esp32:
       CONFIG_SPIRAM_RODATA: y
       CONFIG_ESPTOOLPY_FLASHSIZE_16MB: y # fix warning about 2mb found
 
+logger:
+  hardware_uart: UART0
+  baud_rate: 115200
+
 psram:
   mode: octal
   speed: 80MHz

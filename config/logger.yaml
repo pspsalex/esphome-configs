@@ -4,7 +4,7 @@
 # Enable logging
 logger:
   level: DEBUG
-  # hardware_uart: USB_SERIAL_JTAG
+
   logs:
     lvgl: INFO
     i2c.idf: INFO

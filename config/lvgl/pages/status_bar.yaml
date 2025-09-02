@@ -31,7 +31,7 @@ lvgl:
             - label:
                 text: "\U0000f0ef"
                 pad_left: 5
-                id: lbl_status_wifi
+                id: lbl_status_net
                 hidden: false
                 text_align: right
                 text_color: 0x000000
