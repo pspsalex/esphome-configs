@@ -1,9 +1,12 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Alex Popescu (@pspsalex)
 
-# https://github.com/lvgl/lvgl/blob/master/src/themes/mono/lv_theme_mono.c
-# https://miro.medium.com/v2/resize:fit:720/format:webp/1*XbXxXSbaB_-W3u7p-wm99Q.png
-#
+packages:
+  icons: !include
+    file: ../icons.yaml
+    vars:
+      theme: grayscale
+
 substitutions:
   lvgl_color_fg: "0x000000"
   lvgl_color_bg: "0xFFFFFF"
@@ -125,7 +128,6 @@ lvgl:
       border_color: 0x000000
       border_width: 1
       text_color: 0x000000
-      text_font: icons_large
       pad_row: 4
       pad_column: 4
 
@@ -203,18 +205,24 @@ lvgl:
       pressed:
         styles:
           - pr
+        bg_color: 0xCCCCCC
       checked:
         styles:
           - inv
+        bg_color: 0xEEEEEE
       disabled:
         styles:
           - disabled
+        bg_color: 0xCCCCCC
       focused:
         styles:
           - focus
+        bg_color: 0xFFFFFF
       edited:
         styles:
           - edit
+      bg_color: 0xFFFFFF
+      bg_opa: COVER
 
     bar:
       styles:
@@ -232,13 +240,16 @@ lvgl:
         - card
         # - pad_zero
         - slider
+      bg_color: 0xcccccc
       indicator:
         styles:
           - inv
+        bg_color: 0xcccccc
       knob:
         styles:
           - card
           - radius_circle
+        bg_color: 0x000000
       focused:
         styles:
           - focus

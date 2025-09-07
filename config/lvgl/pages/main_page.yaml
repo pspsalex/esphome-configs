@@ -154,10 +154,10 @@ binary_sensor:
             id: main_controls_office_light
             state:
               checked: !lambda return x;
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_controls_office_light_state
-            text: !lambda |-
-              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+            src: !lambda |-
+              return x ? id(icon_lightbulb_on_medium) : id(icon_lightbulb_off_medium);
 
   - platform: homeassistant
     id: dg_dach_light
@@ -169,10 +169,10 @@ binary_sensor:
             id: main_controls_dach_light
             state:
               checked: !lambda return x;
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_controls_dach_light_state
-            text: !lambda |-
-              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+            src: !lambda |-
+              return x ? id(icon_lightbulb_on_medium) : id(icon_lightbulb_off_medium);
 
   - platform: homeassistant
     id: kg_keller_light_long
@@ -184,10 +184,10 @@ binary_sensor:
             id: main_controls_keller_light_long
             state:
               checked: !lambda return x;
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_controls_keller_light_long_state
-            text: !lambda |-
-              return x ? std::string("\ue9b8") : std::string("\ue0f0");
+            src: !lambda |-
+              return x ? id(icon_lightbulb_on_medium) : id(icon_lightbulb_off_medium);
 
 text_sensor:
   - platform: homeassistant
@@ -199,9 +199,9 @@ text_sensor:
             ESP_LOGI("cover_dach_rol_state", "State changed to: %s", x.c_str());
             auto y = id(cover_dach_ros_state).state;
             if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "\uef64"); // Hourglass icon
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_hourglass_medium));
             } else {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "\ue2a7"); // Scene icon
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_scene_medium));
             }
   - platform: homeassistant
     id: cover_dach_ros_state
@@ -212,34 +212,34 @@ text_sensor:
             ESP_LOGI("cover_dach_ros_state", "State changed to: %s", x.c_str());
             auto y = id(cover_dach_rol_state).state;
             if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "\uef64"); // Hourglass icon
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_hourglass_medium));
             } else {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "\ue2a7"); // Scene icon
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_scene_medium));
             }
 
 packages:
   sensor_dani: !include
-    file: "snippets/sensors_rollers.yaml"
+    file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: dani
       ha_entity: dani_rollers_cover_1
   sensor_oli: !include
-    file: "snippets/sensors_rollers.yaml"
+    file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: oli
       ha_entity: oli_roller_cover_1
   sensor_eltern: !include
-    file: "snippets/sensors_rollers.yaml"
+    file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: eltern
       ha_entity: eltern_rollers_cover_1
   sensor_living_rol: !include
-    file: "snippets/sensors_rollers.yaml"
+    file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: living_rol
       ha_entity: living_large_rollers_cover_1
   sensor_living_ros: !include
-    file: "snippets/sensors_rollers.yaml"
+    file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: living_ros
       ha_entity: living_small_roller_cover_1
@@ -311,12 +311,11 @@ lvgl:
                   bg_color: 0xd9d9d9
                   styles: clean_obj
 
-              - label:
+              - image:
                   id: main_left_weather_logo_now
                   width: 130
-                  height: 150
-                  text: "\uf172"
-                  text_font: "weather_xxl"
+                  height: 130
+                  src: icon_partly_cloudy_day_large
 
               - obj:
                   id: main_left_weather_data
@@ -381,10 +380,9 @@ lvgl:
                           flex_align_main: START
                           flex_align_cross: CENTER
                         widgets:
-                          - label:
+                          - image:
                               id: main_left_weather_details_sunrise_logo
-                              text: "\ue81a"
-                              text_font: "icons_large"
+                              src: icon_sunny_small
                           - label:
                               id: main_left_weather_details_sunrise
                               text: "hh:mm"
@@ -400,10 +398,9 @@ lvgl:
                           flex_align_main: START
                           flex_align_cross: CENTER
                         widgets:
-                          - label:
+                          - image:
                               id: main_left_weather_details_sunset_logo
-                              text: "\ue1c6"
-                              text_font: "icons_large"
+                              src: icon_twilight_small
                           - label:
                               id: main_left_weather_details_sunset
                               text: "HH:MM"
@@ -421,10 +418,9 @@ lvgl:
                           flex_align_main: START
                           flex_align_cross: CENTER
                         widgets:
-                          - label:
+                          - image:
                               id: main_left_weather_details_wind_logo
-                              text: "\uefd8"
-                              text_font: "icons_large"
+                              src: icon_wind_small
                           - label:
                               id: main_left_weather_details_wind
                               text: "??km/h"
@@ -462,10 +458,9 @@ lvgl:
                               id: main_left_forecast_4h_time
                               text: "hh:mm"
                               text_font: "roboto_24"
-                          - label:
+                          - image:
                               id: main_left_forecast_4h_icon
-                              text: "\ue81a"
-                              text_font: "icons_large"
+                              src: icon_sunny_small
                           - label:
                               id: main_left_forecast_4h_temp
                               text: "??\u00b0C / ??%"
@@ -483,10 +478,9 @@ lvgl:
                               id: main_left_forecast_8h_time
                               text: "hh:mm"
                               text_font: "roboto_24"
-                          - label:
+                          - image:
                               id: main_left_forecast_8h_icon
-                              text: "\ue81a"
-                              text_font: "icons_large"
+                              src: icon_sunny_small
                           - label:
                               id: main_left_forecast_8h_temp
                               text_font: "roboto_24"
@@ -504,10 +498,9 @@ lvgl:
                               id: main_left_forecast_12h_time
                               text: "hh:mm"
                               text_font: "roboto_24"
-                          - label:
+                          - image:
                               id: main_left_forecast_12h_icon
-                              text: "\ue81a"
-                              text_font: "icons_large"
+                              src: icon_sunny_small
                           - label:
                               id: main_left_forecast_12h_temp
                               text: "??\u00b0C / ??%"
@@ -602,10 +595,9 @@ lvgl:
                               data:
                                 entity_id: scene.dg_studio_night
                         widgets:
-                          - label:
+                          - image:
                               id: main_controls_dach_rollers_label
-                              text: "\ue2a7"
-                              text_font: "icons_xlarge"
+                              src: icon_scene_medium
                               align: center
                     - label:
                         text: "Dach Rollers"
@@ -641,10 +633,9 @@ lvgl:
                           styles:
                             - main_controls_button_checked
                         widgets:
-                          - label:
+                          - image:
                               id: main_controls_keller_light_long_state
-                              text: "\ue0f0"
-                              text_font: "icons_xlarge"
+                              src: icon_lightbulb_off_medium
                               align: center
                         on_click:
                           - homeassistant.action:

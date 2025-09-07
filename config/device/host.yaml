@@ -19,11 +19,11 @@ esphome:
   on_boot:
     - priority: -100
       then:
-        - lvgl.label.update:
-            id: lbl_status_net
-            text: "\ueb2f"
+        - lvgl.image.update:
+            id: img_status_net
+            src: icon_lan_small
         - lvgl.widget.hide:
-            - lbl_status_battery
+            - img_status_battery
 
 host:
 

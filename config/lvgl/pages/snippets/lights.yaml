@@ -29,10 +29,9 @@ widgets:
         styles:
           - main_controls_button_checked
       widgets:
-        - label:
+        - image:
             id: main_controls_${name}_light_state
-            text: "\ue0f0"
-            text_font: "icons_xlarge"
+            src: icon_lightbulb_off_medium
             align: center
       on_click:
         - homeassistant.action:

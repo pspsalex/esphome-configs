@@ -185,17 +185,39 @@ text_sensor:
     on_value:
       then:
         - lambda: "id(data_updated) = true;"
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_left_weather_logo_now
-            text: !lambda |-
-              std::string condition = x;
-              if (condition == "sunny") return "\ue81a";
-              else if (condition == "partlycloudy") return "\uf172";
-              else if (condition == "cloudy") return "\ue2bd";
-              else if (condition == "rainy") return "\uebdb";
-              else if (condition == "clear-night") return "\uef44";
-              else if (condition == "snowy") return "\ue2a7";
-              else return "\uf172";
+            src: !lambda |-
+              if (x == "clear-night") {
+                return id(icon_night_large);
+              } else if (x == "cloudy") {
+                return id(icon_cloud_large);
+              } else if (x == "fog") {
+                return id(icon_cloud_large);
+              } else if (x == "hail") {
+                return id(icon_thunderstorm_large);
+              } else if (x == "lightning") {
+                return id(icon_thunderstorm_large);
+              } else if (x == "lightning-rainy") {
+                return id(icon_thunderstorm_large);
+              } else if (x == "partlycloudy") {
+                return id(icon_partly_cloudy_day_large);
+              } else if (x == "pouring") {
+                return id(icon_thunderstorm_large);
+              } else if (x == "rainy") {
+                return id(icon_thunderstorm_large);
+              } else if (x == "snowy") {
+                return id(icon_cloud_large);
+              } else if (x == "snowy-rainy") {
+                return id(icon_thunderstorm_large);
+              } else if (x == "sunny") {
+                return id(icon_sunny_large);
+              } else if (x == "windy") {
+                return id(icon_wind_large);
+              } else if (x == "windy-variant") {
+                return id(icon_wind_large);
+              }
+              return id(icon_sunny_large);
 
   # Sunrise time
   - platform: homeassistant
@@ -230,17 +252,25 @@ text_sensor:
     on_value:
       then:
         - lambda: "id(data_updated) = true;"
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_left_forecast_4h_icon
-            text: !lambda |-
-              std::string condition = x;
-              if (condition == "sunny") return "\ue81a";
-              else if (condition == "partlycloudy") return "\uf172";
-              else if (condition == "cloudy") return "\ue2bd";
-              else if (condition == "rainy") return "\uebdb";
-              else if (condition == "clear-night") return "\uef44";
-              else if (condition == "snowy") return "\ue2a7";
-              else return "\uf172";
+            src: !lambda |-
+              if (x == "clear-night") {           return id(icon_night_small); }
+              else if (x == "cloudy") {           return id(icon_cloud_small); }
+              else if (x == "fog") {              return id(icon_fog_small); }
+              else if (x == "hail") {             return id(icon_hail_small); }
+              else if (x == "lightning") {        return id(icon_thunderstorm_small); }
+              else if (x == "lightning-rainy") {  return id(icon_thunderstorm_rain_small); }
+              else if (x == "partlycloudy") {     return id(icon_partly_cloudy_day_small); }
+              else if (x == "pouring") {          return id(icon_heavy_rain_small); }
+              else if (x == "rainy") {            return id(icon_rain_small); }
+              else if (x == "snowy") {            return id(icon_snow_small); }
+              else if (x == "snowy-rainy") {      return id(icon_snow_rain_small); }
+              else if (x == "sunny") {            return id(icon_sunny_small); }
+              else if (x == "windy") {            return id(icon_wind_small); }
+              else if (x == "windy-variant") {    return id(icon_wind_small); }
+              else if (x == "exceptional") {      return id(icon_exceptional_small); }
+              else {                              return id(icon_unknown_small); }
 
   # Forecast conditions - 8h
   - platform: homeassistant
@@ -249,17 +279,25 @@ text_sensor:
     on_value:
       then:
         - lambda: "id(data_updated) = true;"
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_left_forecast_8h_icon
-            text: !lambda |-
-              std::string condition = x;
-              if (condition == "sunny") return "\ue81a";
-              else if (condition == "partlycloudy") return "\uf172";
-              else if (condition == "cloudy") return "\ue2bd";
-              else if (condition == "rainy") return "\uebdb";
-              else if (condition == "clear-night") return "\uef44";
-              else if (condition == "snowy") return "\ue2a7";
-              else return "\uf172";
+            src: !lambda |-
+              if (x == "clear-night") {           return id(icon_night_small); }
+              else if (x == "cloudy") {           return id(icon_cloud_small); }
+              else if (x == "fog") {              return id(icon_fog_small); }
+              else if (x == "hail") {             return id(icon_hail_small); }
+              else if (x == "lightning") {        return id(icon_thunderstorm_small); }
+              else if (x == "lightning-rainy") {  return id(icon_thunderstorm_rain_small); }
+              else if (x == "partlycloudy") {     return id(icon_partly_cloudy_day_small); }
+              else if (x == "pouring") {          return id(icon_heavy_rain_small); }
+              else if (x == "rainy") {            return id(icon_rain_small); }
+              else if (x == "snowy") {            return id(icon_snow_small); }
+              else if (x == "snowy-rainy") {      return id(icon_snow_rain_small); }
+              else if (x == "sunny") {            return id(icon_sunny_small); }
+              else if (x == "windy") {            return id(icon_wind_small); }
+              else if (x == "windy-variant") {    return id(icon_wind_small); }
+              else if (x == "exceptional") {      return id(icon_exceptional_small); }
+              else {                              return id(icon_unknown_small); }
 
   # Forecast conditions - 12h
   - platform: homeassistant
@@ -268,14 +306,22 @@ text_sensor:
     on_value:
       then:
         - lambda: "id(data_updated) = true;"
-        - lvgl.label.update:
+        - lvgl.image.update:
             id: main_left_forecast_12h_icon
-            text: !lambda |-
-              std::string condition = x;
-              if (condition == "sunny") return "\ue81a";
-              else if (condition == "partlycloudy") return "\uf172";
-              else if (condition == "cloudy") return "\ue2bd";
-              else if (condition == "rainy") return "\uebdb";
-              else if (condition == "clear-night") return "\uef44";
-              else if (condition == "snowy") return "\ue2a7";
-              else return "\uf172";
+            src: !lambda |-
+              if (x == "clear-night") {           return id(icon_night_small); }
+              else if (x == "cloudy") {           return id(icon_cloud_small); }
+              else if (x == "fog") {              return id(icon_fog_small); }
+              else if (x == "hail") {             return id(icon_hail_small); }
+              else if (x == "lightning") {        return id(icon_thunderstorm_small); }
+              else if (x == "lightning-rainy") {  return id(icon_thunderstorm_rain_small); }
+              else if (x == "partlycloudy") {     return id(icon_partly_cloudy_day_small); }
+              else if (x == "pouring") {          return id(icon_heavy_rain_small); }
+              else if (x == "rainy") {            return id(icon_rain_small); }
+              else if (x == "snowy") {            return id(icon_snow_small); }
+              else if (x == "snowy-rainy") {      return id(icon_snow_rain_small); }
+              else if (x == "sunny") {            return id(icon_sunny_small); }
+              else if (x == "windy") {            return id(icon_wind_small); }
+              else if (x == "windy-variant") {    return id(icon_wind_small); }
+              else if (x == "exceptional") {      return id(icon_exceptional_small); }
+              else {                              return id(icon_unknown_small); }

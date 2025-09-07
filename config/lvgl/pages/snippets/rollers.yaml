@@ -25,10 +25,13 @@ widgets:
         styles:
           - main_controls_button_focused
       widgets:
-        - label:
+        - image:
             id: main_controls_${name}_down_label
-            text: "\ue313"
-            text_font: "icons_xlarge"
+            src: !lambda |-
+              if (id(cover_${name}_state).state == "closing") {
+                return id(icon_stop_medium);
+              }
+              return id(icon_vert_align_bottom_medium);
             align: center
       on_press:
         then:
@@ -53,7 +56,8 @@ widgets:
       state:
         disabled: true
       width: 5
-      height: 85
+      x: 5
+      height: 77
       on_change:
         then:
           - lambda: ESP_LOGD("cover", "Setting cover ${label} to %d", int(x));
@@ -77,10 +81,13 @@ widgets:
         styles:
           - main_controls_button_focused
       widgets:
-        - label:
+        - image:
             id: main_controls_${name}_up_label
-            text: "\ue316"
-            text_font: "icons_xlarge"
+            src: !lambda |-
+              if (id(cover_${name}_state).state == "opening") {
+                return id(icon_stop_medium);
+              }
+              return id(icon_vert_align_top_medium);
             align: center
       on_press:
         then:

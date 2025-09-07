@@ -3,73 +3,6 @@
 
 # Fonts configuration
 font:
-  - file: "gfonts://Material+Symbols+Rounded"
-    glyphs: [
-        "\U0000e5e1", # Forward
-        "\U0000e2ea", # Backward
-        "\U0000e88a", # Home
-
-        "\U0000f0ef", # Wi-Fi unknown
-        "\U0000f063", # Wi-Fi 0
-        "\U0000f0b0", # Wi-Fi 1
-        "\U0000ebe4", # Wi-Fi 2
-        "\U0000ebd6", # Wi-Fi 3
-        "\U0000ebe1", # Wi-Fi 4
-        "\U0000e1d8", # Wi-Fi 5
-
-        "\U0000eb2f", # LAN
-
-        "\U0000e2c1", # Cloud Off
-        "\U0000e2bf", # Cloud Done
-
-        "\U0000e1a4", # battery_full
-        "\U0000ebd2", # battery_6_bar
-        "\U0000ebd4", # battery_5_bar
-        "\U0000ebe2", # battery_4_bar
-        "\U0000ebdd", # battery_3_bar
-        "\U0000ebe0", # battery_2_bar
-        "\U0000ebd9", # battery_1_bar
-        "\U0000ebdc", # battery_0_bar
-        "\U0000e1a6", # battery_unknown
-
-        "\U0000e81a", # Sunny
-        "\U0000f172", # Partly Cloudy Day
-        "\U0000e2bd", # Cloud
-        "\U0000ebdb", # Thunderstorm
-        "\U0000ef44", # Night
-        "\U0000e1c6", # Twilight
-        "\U0000efd8", # Wind
-        "\U0000e2a7", # Scene
-      ]
-    id: icons_large
-    size: 32
-    bpp: 4
-  - file: "gfonts://Material+Symbols+Rounded"
-    id: icons_xlarge
-    size: 48
-    bpp: 4
-    glyphs: [
-        "\U0000e2a7", # Scene
-        "\U0000e316", # Vert Align top (up)
-        "\U0000e313", # Vert Align bot (down)
-        "\U0000e0f0", # Lightbulb (on)
-        "\U0000e9b8", # Lightbulb (off)
-        "\U0000e047", # Stop
-        "\U0000ef64", # Hourglass
-      ]
-  - file: "gfonts://Material+Symbols+Rounded"
-    glyphs: [
-        "\U0000e81a", # Sunny
-        "\U0000f172", # Partly Cloudy Day
-        "\U0000e2bd", # Cloud
-        "\U0000ebdb", # Thunderstorm
-        "\U0000ef44", # Night
-        "\U0000e1c6", # Twilight
-        "\U0000efd8", # Wind
-      ]
-    id: weather_xxl
-    size: 128
-    bpp: 4
   - file: "gfonts://Roboto"
     id: roboto_48
     size: 48
@@ -109,22 +42,3 @@ font:
     id: roboto_18
     size: 18
     bpp: 4
-    extras:
-      - file: "gfonts://Material+Symbols+Rounded"
-        glyphs: [
-            "\U0000e5e1", # Forward
-            "\U0000e2ea", # Backward
-            "\U0000e88a", # Home
-
-            "\U0000f0ef", # Wi-Fi unknown
-
-            "\U0000e1a4", # battery_full
-            "\U0000ebd2", # battery_6_bar
-            "\U0000ebd4", # battery_5_bar
-            "\U0000ebe2", # battery_4_bar
-            "\U0000ebdd", # battery_3_bar
-            "\U0000ebe0", # battery_2_bar
-            "\U0000ebd9", # battery_1_bar
-            "\U0000ebdc", # battery_0_bar
-            "\U0000e1a6", # battery_unknown
-          ]

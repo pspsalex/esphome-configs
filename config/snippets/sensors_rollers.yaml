@@ -10,12 +10,12 @@ text_sensor:
         - lambda: |-
             ESP_LOGI("cover_${name}_state", "State changed to: %s", x.c_str());
             if (x == "opening") {
-              lv_label_set_text(id(main_controls_${name}_up_label), "\ue047"); // Stop icon
+              lv_img_set_src(id(main_controls_${name}_up_label), id(icon_stop_medium));
             } else if ((x == "open") or (x == "closed")) {
-              lv_label_set_text(id(main_controls_${name}_down_label), "\ue313"); // Down icon
-              lv_label_set_text(id(main_controls_${name}_up_label), "\ue316"); // Up icon
+              lv_img_set_src(id(main_controls_${name}_up_label), id(icon_vert_align_top_medium));
+              lv_img_set_src(id(main_controls_${name}_down_label), id(icon_vert_align_bottom_medium));
             } else if (x == "closing") {
-              lv_label_set_text(id(main_controls_${name}_down_label), "\ue047"); // Stop icon
+              lv_img_set_src(id(main_controls_${name}_down_label), id(icon_stop_medium));
             }
 
 sensor:

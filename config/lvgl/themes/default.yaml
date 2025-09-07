@@ -1,6 +1,12 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Alex Popescu (@pspsalex)
 
+packages:
+  icons: !include
+    file: ../icons.yaml
+    vars:
+      theme: default
+
 lvgl:
   style_definitions:
     - id: header_footer
