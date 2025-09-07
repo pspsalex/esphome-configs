@@ -46,7 +46,9 @@ logger = logging.getLogger(__name__)
 
 # Constants
 SCRIPT_DIR = Path(__file__).parent
-ASSETS_BASE = SCRIPT_DIR.parent.parent
+PROJECT_DIR = SCRIPT_DIR.parent
+ASSETS_BASE = PROJECT_DIR / "assets" / "gen"
+CONFIG_BASE = PROJECT_DIR / "config"
 GOOGLE_FONTS_API = "https://fonts.googleapis.com/css2"
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 
@@ -81,6 +83,7 @@ class GenerationConfig:
     font_name: str = "MaterialSymbolsRounded"
     color: Color = Color.BLACK
     output_base: Path = field(default_factory=lambda: ASSETS_BASE)
+    config_base: Path = field(default_factory=lambda: CONFIG_BASE)
     theme: str = "default"
 
     @property
@@ -91,52 +94,12 @@ class GenerationConfig:
     @property
     def icons_dir(self) -> Path:
         """Get icons directory path."""
-        return self.output_base / "themes" / self.theme / "icons"
+        return self.output_base / self.theme / "icons"
 
-
-
-
-
-class DependencyChecker:
-    """Check and validate required dependencies."""
-
-    REQUIRED_PACKAGES = ["requests", "pillow", "pyyaml"]
-    OPTIONAL_PACKAGES = {"fonttools": "woff2 conversion"}
-
-    @classmethod
-    def check_required(cls) -> bool:
-        """Check if all required dependencies are available."""
-        missing = []
-
-        for package in cls.REQUIRED_PACKAGES:
-            try:
-                __import__(package.replace("-", "_"))
-            except ImportError:
-                missing.append(package)
-
-        if missing:
-            logger.error(f"Missing required dependencies: {', '.join(missing)}")
-            logger.info(f"Install with: pip install {' '.join(missing)}")
-            return False
-
-        return True
-
-    @classmethod
-    def check_optional(cls) -> Dict[str, bool]:
-        """Check availability of optional dependencies."""
-        available = {}
-
-        for package, purpose in cls.OPTIONAL_PACKAGES.items():
-            try:
-                __import__(package)
-                available[package] = True
-                logger.debug(f"Optional dependency {package} available ({purpose})")
-            except ImportError:
-                available[package] = False
-                logger.debug(f"Optional dependency {package} not available ({purpose})")
-
-        return available
-
+    @property
+    def config_dir(self) -> Path:
+        """Get config directory path."""
+        return self.config_base / "lvgl"
 
 class FontManager:
     """Manage font download, conversion, and local discovery."""
@@ -150,8 +113,7 @@ class FontManager:
     def find_local_font(self) -> Optional[Path]:
         """Find existing local font file."""
         possible_paths = [
-            self.config.output_base / "themes" / self.config.theme / "fonts" / f"{self.config.font_name}.{fmt.value}"
-            for fmt in [FontFormat.TTF]
+            self.config.fonts_dir / f"{self.config.font_name}.{fmt.value}" for fmt in [FontFormat.TTF]
         ]
 
         for path in possible_paths:
@@ -188,8 +150,7 @@ class FontManager:
             font_response.raise_for_status()
 
             # Save and optionally convert
-            font_dir = self.config.output_base / "themes" / self.config.theme / "fonts"
-            font_dir.mkdir(parents=True, exist_ok=True)
+            self.config.fonts_dir.mkdir(parents=True, exist_ok=True)
 
             if font_format == FontFormat.TTF:
                 return self._save_ttf_font(font_response.content)
@@ -209,7 +170,7 @@ class FontManager:
 
     def _save_ttf_font(self, font_data: bytes) -> FontDownloadResult:
         """Save TTF font data directly."""
-        font_path = self.config.output_base / "themes" / self.config.theme / "fonts" / f"{self.config.font_name}.ttf"
+        font_path = self.config.fonts_dir / f"{self.config.font_name}.ttf"
 
         try:
             font_path.write_bytes(font_data)
@@ -362,23 +323,24 @@ class IconGeneratorApp:
         logger.info("Icon generation complete!")
 
     def _generate_icons_yaml(self) -> None:
-        """Generate the icons.yaml file for the theme."""
-        logger.info(f"Generating icons.yaml for theme: {self.config.theme}")
+        """Generate the icons.yaml file."""
+        logger.info(f"Generating icons.yaml")
 
-        icons_yaml = []
+        icons_yaml = {"image": []}
         for icon in IconDefinitions.ICONS:
             for size in IconDefinitions.SIZES:
                 icon_path = self.config.icons_dir / size.name / f"{icon.name}.png"
-                icons_yaml.append({
-                    "file": str(icon_path.relative_to(self.config.output_base)),
+                icons_yaml["image"].append({
+                    "file": str(icon_path.relative_to(PROJECT_DIR)),
                     "id": f"icon_{icon.name}_{size.name}",
                     "resize": f"{size.pixels}x{size.pixels}",
                     "type": "RGB565",
                     "transparency": "alpha_channel",
                 })
 
-        output_path = self.config.output_base / "themes" / self.config.theme / "icons.yaml"
+        output_path = self.config.config_dir / "icons.gen.yaml"
         with open(output_path, "w") as f:
+            f.write("# Auto-generated file. Re-run `scripts/generate.py` to regenerate.\n")
             yaml.dump(icons_yaml, f, default_flow_style=False)
 
         logger.info(f"Generated {output_path}")

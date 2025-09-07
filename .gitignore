@@ -10,3 +10,4 @@ __pycache__
 
 # Generated assets
 /assets/gen/
+*.gen.yaml

@@ -64,14 +64,25 @@ class IconDefinitions:
         Icon("battery_unknown", "\U0000e1a6", "Battery unknown", "power"),
 
         # Weather
-        Icon("sunny", "\U0000e81a", "Sunny weather", "weather"),
-        Icon("partly_cloudy_day", "\U0000f172", "Partly cloudy", "weather"),
-        Icon("cloud", "\U0000e2bd", "Cloudy weather", "weather"),
-        Icon("thunderstorm", "\U0000ebdb", "Storm weather", "weather"),
         Icon("night", "\U0000ef44", "Night/moon", "weather"),
-        Icon("twilight", "\U0000e1c6", "Twilight", "weather"),
+        Icon("cloud", "\U0000e2bd", "Cloudy weather", "weather"),
+        Icon("fog", "\U0000e818", "Foggy weather", "weather"),
+        Icon("hail", "\U0000f67f", "Hail weather", "weather"),
+        Icon("thunderstorm", "\U0000ebdb", "Storm weather", "weather"),
+        Icon("thunderstorm_rain", "\U0000ebdb", "Storm weather / rainy", "weather"),
+        Icon("partly_cloudy_day", "\U0000f172", "Partly cloudy - day", "weather"),
+        Icon("partly_cloudy_night", "\U0000f174", "Partly cloudy - night", "weather"),
+        Icon("heavy_rain", "\U0000f61f", "Pouring rain", "weather"),
+        Icon("rain", "\U0000f176", "Rainy weather", "weather"),
+        Icon("snow", "\U0000e2cd", "Snowy weather", "weather"),
+        Icon("snow_rain", "\U0000f60b", "Snowy and rainy weather", "weather"),
+        Icon("sunny", "\U0000e81a", "Sunny weather", "weather"),
         Icon("wind", "\U0000efd8", "Windy weather", "weather"),
+        Icon("exceptional", "\U0000f3cc", "Exceptionalweather condition", "weather"),
+        Icon("unknown", "\U0000eb8b", "Unknown weather condition", "weather"),
         Icon("scene", "\U0000e2a7", "Scene/landscape", "weather"),
+        Icon("twilight", "\U0000e1c6", "Twilight weather", "weather"),
+
 
         # Controls
         Icon("vert_align_top", "\U0000e316", "Up arrow", "controls"),

@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
+# Include auto-generated icons file.
+packages:
+  icons: !include
+    file: icons.gen.yaml
+    vars:
+      theme: ${theme}
+#
+
+# Further custom icons / image configurations can be added here.
+# Example:
+# image:
+#   - name: custom_icon
+#     file: custom_icon.png
+#     size: 32x32
+#     color: white
