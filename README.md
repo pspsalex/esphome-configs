@@ -33,7 +33,7 @@ If you find them useful, a mention or a pull request is always appreciated!
 Contains 3rd party assets:
 * [Material Symbols Rounded font](assets/3rdparty/msr/REPO.md), licensed under [Apache License 2.0](assets/3rdparty/msr/LICENSE)
 * [Material Design Icons](assets/3rdparty/mdi/REPO.md), licensed under [Pictogrammers Free License](assets/3rdparty/mdi/LICENSE)
-* [KDE Oxygen Weather Icons](assets/3rdparty/oxygen/REPO.md), licensed under [LGPLv3](assets/3rdparty/oxygen/COPYING
+* [KDE Oxygen Weather Icons](assets/3rdparty/oxygen/REPO.md), licensed under [LGPLv3](assets/3rdparty/oxygen/COPYING)
 * [Photorealistic weather icons v2, by Apexxx_Sensei](assets/3rdparty/da/REPO.md), licensed under [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/)
 
 # Acknowledgments
