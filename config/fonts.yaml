@@ -1,11 +1,116 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Alex Popescu (@pspsalex)
 
+substitutions:
+  msr_wifi_unknown: "\U0000f0ef"
+  msr_wifi_0: "\U0000f063"
+  msr_wifi_1: "\U0000f0b0"
+  msr_wifi_2: "\U0000ebe4"
+  msr_wifi_3: "\U0000ebd6"
+  msr_wifi_4: "\U0000ebe1"
+  msr_wifi_5: "\U0000e1d8"
+  msr_lan: "\U0000eb2f"
+  msr_cloud_off: "\U0000e2c1"
+  msr_cloud_done: "\U0000e2bf"
+  msr_battery_full: "\U0000e1a4"
+  msr_battery_6_bar: "\U0000ebd2"
+  msr_battery_5_bar: "\U0000ebd4"
+  msr_battery_4_bar: "\U0000ebe2"
+  msr_battery_3_bar: "\U0000ebdd"
+  msr_battery_2_bar: "\U0000ebe0"
+  msr_battery_1_bar: "\U0000ebd9"
+  msr_battery_0_bar: "\U0000ebdc"
+  msr_battery_unknown: "\U0000e1a6"
+
+  msr_night: "\U0000ef44"
+  msr_cloud: "\U0000e2bd"
+  msr_fog: "\U0000e818"
+  msr_hail: "\U0000f67f"
+  msr_thunderstorm: "\U0000ebdb"
+  msr_thunderstorm_rain: "\U0000ebdb"
+  msr_partly_cloudy_day: "\U0000f172"
+  msr_heavy_rain: "\U0000f61f"
+  msr_rain: "\U0000f176"
+  msr_snow: "\U0000e2cd"
+  msr_snow_rain: "\U0000f60b"
+  msr_sunny: "\U0000e81a"
+  msr_wind: "\U0000efd8"
+  msr_exceptional: "\U0000f3cc"
+  msr_unknown: "\U0000eb8b"
+  msr_scene: "\U0000e2a7"
+  msr_twilight: "\U0000e1c6"
+  msr_vert_align_top: "\U0000e316"
+  msr_vert_align_bottom: "\U0000e313"
+  msr_lightbulb_on: "\U0000e0f0"
+  msr_lightbulb_off: "\U0000e9b8"
+  msr_stop: "\U0000e047"
+  msr_hourglass: "\U0000ef64"
+
 # Fonts configuration
 font:
+  - file: "gfonts://Material+Symbols+Rounded"
+    glyphs: [
+        # "\U0000e5e1", # Forward
+        # "\U0000e2ea", # Backward
+        # "\U0000e88a", # Home
+
+        "${msr_unknown}", # Wi-Fi unknown
+        "${msr_wifi_0}", # Wi-Fi 0
+        "${msr_wifi_1}", # Wi-Fi 1
+        "${msr_wifi_2}", # Wi-Fi 2
+        "${msr_wifi_3}", # Wi-Fi 3
+        "${msr_wifi_4}", # Wi-Fi 4
+        "${msr_wifi_5}", # Wi-Fi 5
+
+        "${msr_lan}", # LAN
+
+        "${msr_cloud_off}", # Cloud Off
+        "${msr_cloud_done}", # Cloud Done
+
+        "${msr_battery_full}", # battery_full
+        "${msr_battery_6_bar}", # battery_6_bar
+        "${msr_battery_5_bar}", # battery_5_bar
+        "${msr_battery_4_bar}", # battery_4_bar
+        "${msr_battery_3_bar}", # battery_3_bar
+        "${msr_battery_2_bar}", # battery_2_bar
+        "${msr_battery_1_bar}", # battery_1_bar
+        "${msr_battery_0_bar}", # battery_0_bar
+        "${msr_battery_unknown}", # battery_unknown
+
+        "${msr_scene}", # Scene
+        "${msr_stop}", # Stop
+        "${msr_vert_align_top}", # Vert Align Top
+        "${msr_vert_align_bottom}", # Vert Align Bottom
+
+        # "\U0000e81a", # Sunny
+        # "\U0000f172", # Partly Cloudy Day
+        # "\U0000e2bd", # Cloud
+        # "\U0000ebdb", # Thunderstorm
+        # "\U0000ef44", # Night
+        # "\U0000e1c6", # Twilight
+        # "\U0000efd8", # Wind
+        # "\U0000e2a7", # Scene
+      ]
+    id: icons_large
+    size: 32
+    bpp: 4
+  - file: "gfonts://Material+Symbols+Rounded"
+    id: icons_xlarge
+    size: 48
+    bpp: 4
+    glyphs: [
+        "${msr_scene}", # Scene
+        "${msr_stop}", # Stop
+        "${msr_vert_align_top}", # Vert Align Top
+        "${msr_vert_align_bottom}", # Vert Align Bottom
+      ]
   - file: "gfonts://Roboto"
     id: roboto_48
     size: 48
+    bpp: 4
+  - file: "gfonts://Roboto"
+    id: roboto_12
+    size: 12
     bpp: 4
   - file: "gfonts://Roboto"
     id: roboto_16
@@ -19,6 +124,11 @@ font:
     id: roboto_32_bold
     size: 32
     bpp: 4
+  - file: "gfonts://Roboto@600"
+    id: roboto_48_num_bold
+    size: 48
+    bpp: 4
+    glyphs: ["0123456789:,.-W"]
   - file: "gfonts://Roboto"
     id: roboto_96_num
     size: 96
@@ -28,10 +138,15 @@ font:
     id: roboto_96_num_bold
     size: 96
     bpp: 4
-    glyphs: ["0123456789:.-"]
+    glyphs: ["0123456789:.-?"]
   - file: "gfonts://Roboto@600"
     id: roboto_80_num_bold
     size: 80
+    bpp: 4
+    glyphs: ["0123456789:.?"]
+  - file: "gfonts://Roboto@600"
+    id: roboto_64_num_bold
+    size: 64
     bpp: 4
     glyphs: ["0123456789:.?"]
   - file: "gfonts://Roboto"

@@ -20,8 +20,12 @@ esphome:
   #   build_flags:
   #     - "-DLV_USE_ANIMATION=0"
   #     - "-DIT8951E_DEBUG_LOGGING=0"
-  # on_boot:
-  #   - priority: 600
+  on_boot:
+    - priority: -100
+      then:
+        - lvgl.image.update:
+            id: img_status_battery
+            src: ${theme_status_battery_plugged}
   #     then:
   #       - bm8563.read_time:
 
@@ -57,9 +61,17 @@ i2c:
     scl: 20
     scan: true
 
-time:
-  - id: !extend local_time
-    platform: homeassistant
+sun:
+  on_sunrise:
+    then:
+      - light.turn_on:
+          id: backlight
+          brightness: 1
+  on_sunset:
+    then:
+      - light.turn_on:
+          id: backlight
+          brightness: 1
 
 # Setup a pin to control the backlight
 output:
@@ -90,7 +102,7 @@ display:
     hsync_pin: 39
     vsync_pin: 40
     pclk_pin: 42
-    pclk_frequency: 12MHz
+    pclk_frequency: 20MHz
     data_pins:
       red: [14, 21, 47, 48, 45]
       green: [9, 46, 3, 8, 16, 1]
@@ -122,7 +134,7 @@ display:
     # auto_clear_enabled: false
 
 touchscreen:
-  - id: cyd_touchscreen
+  - id: touchscreen_main
     platform: gt911
     address: 0x5D
     update_interval: 16ms
@@ -134,4 +146,8 @@ lvgl:
   displays:
     - cyd_display
   touchscreens:
-    - cyd_touchscreen
+    - touchscreen_main
+
+time:
+  - id: !extend local_time
+    platform: homeassistant

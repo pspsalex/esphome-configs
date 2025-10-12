@@ -8,10 +8,14 @@ substitutions:
 packages:
   base: !include config/base.yaml
   device: !include config/device/m5paper.yaml
-  theme: !include config/lvgl/themes/grayscale.yaml
+  theme: !include config/lvgl/themes/grayscale/theme.yaml
   weather: !include config/weather.yaml
   wifi: !include config/wifi.yaml
 
   boot_screen: !include config/lvgl/pages/boot_screen.yaml
-  status_bar: !include config/lvgl/pages/status_bar.yaml
+  status_bar: !include
+    file: config/lvgl/pages/status_bar.yaml
+    vars:
+      lvgl_status_bar_x: 0
+      lvgl_status_bar_y: 0
   main_page: !include config/lvgl/pages/main_page.yaml

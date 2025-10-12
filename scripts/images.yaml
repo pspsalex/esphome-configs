@@ -1,0 +1,472 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
+themes:
+  base:
+    description: "Base Theme"
+    color: "BLACK"
+    generate: false
+
+    fonts:
+      msr:
+        name: "Material Symbols Rounded"
+        path: "assets/3rdparty/msr/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf"
+        weight: 400
+
+      mdi:
+        name: "Material Design Icons"
+        path: "assets/3rdparty/mdi/materialdesignicons-webfont.ttf"
+        weight: 400
+
+    sizes:
+      xsmall: { slug: "xsmall", width: 24, height: 24 }
+      small: { slug: "small", width: 32, height: 32 }
+      medium_40: { slug: "medium", width: 40, height: 40 }
+      medium: { slug: "medium", width: 48, height: 48 }
+      large: { slug: "large", width: 128, height: 128 }
+      large_72: { slug: "large", width: 72, height: 72 }
+      large_w: { slug: "large", width: 210, height: 210 }
+      small_w: { slug: "small", width: 64, height: 64 }
+
+    images:
+      - name: "forward"
+        description: "Forward navigation"
+        text: "msr:\ue5e1"
+        sizes: [small]
+
+      - name: "backward"
+        description: "Back navigation"
+        text: "msr:\ue5e0"
+        sizes: [small]
+
+      - name: "home"
+        description: "Home button"
+        text: "msr:\ue88a"
+        sizes: [small]
+
+      - name: "wifi_unknown"
+        description: "WiFi unknown state"
+        text: "msr:\uf0ef"
+        sizes: [small]
+
+      - name: "wifi_0"
+        description: "WiFi no signal"
+        text: "msr:\uf063"
+        sizes: [small]
+
+      - name: "wifi_1"
+        description: "WiFi 1 bar"
+        text: "msr:\uf0b0"
+        sizes: [small]
+
+      - name: "wifi_2"
+        description: "WiFi 2 bars"
+        text: "msr:\uebe4"
+        sizes: [small]
+
+      - name: "wifi_3"
+        description: "WiFi 3 bars"
+        text: "msr:\uebd6"
+        sizes: [small]
+
+      - name: "wifi_4"
+        description: "WiFi 4 bars"
+        text: "msr:\uebe1"
+        sizes: [small]
+
+      - name: "wifi_5"
+        description: "WiFi full signal"
+        text: "msr:\ue1d8"
+        sizes: [small]
+
+      - name: "lan"
+        description: "LAN connection"
+        text: "msr:\ueb2f"
+        sizes: [small]
+
+      - name: "cloud_off"
+        description: "Cloud disconnected"
+        text: "msr:\ue2c1"
+        sizes: [small]
+
+      - name: "cloud_done"
+        description: "Cloud connected"
+        text: "msr:\ue2bf"
+        sizes: [small]
+
+      - name: "battery_full"
+        description: "Battery full"
+        text: "msr:\ue1a4"
+        sizes: [small]
+
+      - name: "battery_6_bar"
+        description: "Battery 6/6"
+        text: "msr:\uebd2"
+        sizes: [small]
+
+      - name: "battery_5_bar"
+        description: "Battery 5/6"
+        text: "msr:\uebd4"
+        sizes: [small]
+
+      - name: "battery_4_bar"
+        description: "Battery 4/6"
+        text: "msr:\uebe2"
+        sizes: [small]
+
+      - name: "battery_3_bar"
+        description: "Battery 3/6"
+        text: "msr:\uebdd"
+        sizes: [small]
+
+      - name: "battery_2_bar"
+        description: "Battery 2/6"
+        text: "msr:\uebe0"
+        sizes: [small]
+
+      - name: "battery_1_bar"
+        description: "Battery 1/6"
+        text: "msr:\uebd9"
+        sizes: [small]
+
+      - name: "battery_0_bar"
+        description: "Battery empty"
+        text: "msr:\uebdc"
+        sizes: [small]
+
+      - name: "battery_unknown"
+        description: "Battery unknown"
+        text: "msr:\ue1a6"
+        sizes: [small]
+
+      - name: "power"
+        description: "Power"
+        text: "msr:\ue63c"
+        sizes: [small]
+
+      - name: "solar_power"
+        description: "Solar power"
+        text: "msr:\uec0f"
+        sizes: [large_72]
+
+      - name: "power_usage"
+        description: "Power usage"
+        text: "mdi:\U000f192c"
+        sizes: [xsmall, small]
+
+      - name: "battery_share"
+        description: "Battery share"
+        text: "msr:\uf67e"
+        sizes: [small]
+
+      - name: "sun"
+        description: "Sun"
+        text: "mdi:\U000f0599"
+        sizes: [small]
+
+      - name: "24h"
+        description: "24h"
+        text: "mdi:\U000f1478"
+        sizes: [small]
+
+      - name: "money"
+        description: "Money"
+        text: "mdi:\U000f0115"
+        sizes: [small]
+
+      - name: "blur"
+        description: "Blur"
+        text: "msr:\uf029"
+        sizes: [small]
+
+      - name: "screen_off"
+        description: "Screen off"
+        text: "msr:\ue647"
+        sizes: [small]
+
+      - name: "backlight_off"
+        description: "Backlight off"
+        text: "msr:\uf4ef"
+        sizes: [small]
+
+      - name: "scene"
+        description: "Scene/landscape"
+        text: "msr:\ue2a7"
+        sizes: [medium]
+
+      - name: "vert_align_top"
+        description: "Up arrow"
+        text: "msr:\ue316"
+        sizes: [medium]
+
+      - name: "vert_align_bottom"
+        description: "Down arrow"
+        text: "msr:\ue313"
+        sizes: [medium]
+
+      - name: "lightbulb_on"
+        description: "Light on"
+        text: "msr:\ue0f0"
+        sizes: []
+
+      - name: "lightbulb_off"
+        description: "Light off"
+        text: "msr:\ue9b8"
+        sizes: []
+
+      - name: "controls"
+        description: "Light off"
+        text: "msr:\ue026"
+        sizes: []
+
+      - name: "stop"
+        description: "Stop button"
+        text: "msr:\ue047"
+        sizes: [medium]
+
+      - name: "hourglass"
+        description: "Loading/waiting"
+        text: "msr:\uef64"
+        sizes: [medium]
+
+      - name: "sunrise"
+        description: "Sunrise"
+        text: "mdi:\U000f059c"
+        sizes:
+          - xsmall:
+              color: "#E2E8F0"
+
+      - name: "sunset"
+        description: "Sunset"
+        text: "mdi:\U000f059b"
+        sizes:
+          - xsmall:
+              color: "#E2E8F0"
+
+      - name: "wind_speed"
+        description: "Wind speed"
+        text: "mdi:\U000f059d"
+        sizes:
+          - xsmall:
+              color: "#E2E8F0"
+
+      - name: "twilight"
+        description: "Twilight weather"
+        text: "msr:\ue1c6"
+        sizes: [small]
+
+  default:
+    description: "Default Theme"
+    color: "BLACK"
+
+    base: base
+
+
+  dark:
+    description: "Dark Theme"
+    color: "#A0AEC0"
+    base: base
+
+    images:
+      - name: "weather_windy"
+        description: "Windy"
+        source: "assets/3rdparty/da/prwi/weather-windy.png"
+        sizes: [large_w, small_w]
+
+      - name: "weather_windy_variant"
+        description: "Windy and cloudy"
+        source: "assets/3rdparty/da/prwi/weather-windy-variant.png"
+        sizes: [large_w, small_w]
+
+      - name: "weather_exceptional"
+        description: "Exceptional weather condition"
+        source: "assets/3rdparty/da/prwi/weather-exceptional.png"
+        sizes: [large_w, small_w]
+
+      - name: "weather_unknown"
+        description: "Unknown weather condition"
+        source: "assets/3rdparty/da/prwi/weather-unknown.png"
+        sizes: [large_w, small_w]
+
+      - name: "weather_night"
+        description: "Clear night"
+        source: "assets/3rdparty/oxygen/weather-clear-night.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_cloudy"
+        description: "Cloudy"
+        source: "assets/3rdparty/oxygen/weather-clouds.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_fog"
+        description: "Fog"
+        source: "assets/3rdparty/oxygen/weather-mist.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_hail"
+        description: "Hail"
+        source: "assets/3rdparty/oxygen/weather-hail.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_lightning"
+        description: "Lightning"
+        source: "assets/3rdparty/oxygen/weather-storm.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_lightning_rainy"
+        description: "Lightning w/ rain"
+        source: "assets/3rdparty/oxygen/weather-storm.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_partlycloudy"
+        description: "Partly cloudy"
+        source: "assets/3rdparty/oxygen/weather-few-clouds.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_pouring"
+        description: "Pouring rain"
+        source: "assets/3rdparty/oxygen/weather-showers.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_rainy"
+        description: "Rainy"
+        source: "assets/3rdparty/oxygen/weather-showers-scattered.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_snowy"
+        description: "Snowy"
+        source: "assets/3rdparty/oxygen/weather-snow.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_snowy_rainy"
+        description: "Snowy and rainy"
+        source: "assets/3rdparty/oxygen/weather-snow-rain.svg"
+        sizes: [large_w, small_w]
+
+      - name: "weather_sunny"
+        description: "Sunny"
+        source: "assets/3rdparty/oxygen/weather-clear.svg"
+        sizes: [large_w, small_w]
+
+
+      - name: "lightbulb_on"
+        description: "Light on"
+        text: "msr:\ue0f0"
+        sizes:
+          - medium_40:
+              color: "#A0AEC0"
+
+      - name: "lightbulb_off"
+        description: "Light off"
+        text: "msr:\ue9b8"
+        sizes:
+          - medium_40:
+              color: "#A0AEC0"
+
+      - name: "controls"
+        description: "Light off"
+        text: "msr:\ue026"
+        sizes:
+          - medium_40:
+              color: "#A0AEC0"
+
+  grayscale:
+    description: "Grayscale Theme, for e-ink devices"
+    color: "BLACK"
+    base: base
+
+    images:
+      - name: "weather_night"
+        description: "Clear night"
+        text: "msr:\U0000ef44"
+        sizes: [large, small]
+
+      - name: "weather_cloudy"
+        description: "Cloudy"
+        text: "msr:\ue2bd"
+        sizes: [large, small]
+
+      - name: "weather_fog"
+        description: "Fog"
+        text: "msr:\ue818"
+        sizes: [large, small]
+
+      - name: "weather_hail"
+        description: "Hail"
+        text: "msr:\uf67f"
+        sizes: [large, small]
+
+      - name: "weather_lightning"
+        description: "Lightning"
+        text: "msr:\uebdb"
+        sizes: [large, small]
+
+      - name: "weather_lightning_rainy"
+        description: "Lightning w/ rain"
+        text: "msr:\uebdb"
+        sizes: [large, small]
+
+      - name: "weather_partlycloudy"
+        description: "Partly cloudy"
+        text: "msr:\uf172"
+        sizes: [large, small]
+
+      - name: "weather_pouring"
+        description: "Pouring rain"
+        text: "msr:\uf61f"
+        sizes: [large, small]
+
+      - name: "weather_rainy"
+        description: "Rainy"
+        text: "msr:\uf176"
+        sizes: [large, small]
+
+      - name: "weather_snowy"
+        description: "Snowy"
+        text: "msr:\ue2cd"
+        sizes: [large, small]
+
+      - name: "weather_snowy_rainy"
+        description: "Snowy and rainy"
+        text: "msr:\uf60b"
+        sizes: [large, small]
+
+      - name: "weather_sunny"
+        description: "Sunny"
+        text: "msr:\ue81a"
+        sizes: [large, small]
+
+      - name: "weather_windy"
+        description: "Windy"
+        text: "msr:\uefd8"
+        sizes: [large, small]
+
+      - name: "weather_windy_variant"
+        description: "Windy and cloudy"
+        text: "msr:\uefd8"
+        sizes: [large, small]
+
+      - name: "weather_exceptional"
+        description: "Exceptional weather condition"
+        text: "msr:\uf3cc"
+        sizes: [large, small]
+
+      - name: "weather_unknown"
+        description: "Unknown weather condition"
+        text: "msr:\ueb8b"
+        sizes: [large, small]
+
+      - name: "lightbulb_on"
+        description: "Light on"
+        text: "msr:\ue0f0"
+        sizes: [medium]
+
+      - name: "lightbulb_off"
+        description: "Light off"
+        text: "msr:\ue9b8"
+        sizes: [medium]
+
+      - name: "controls"
+        description: "Light off"
+        text: "msr:\ue026"
+        sizes: [medium]

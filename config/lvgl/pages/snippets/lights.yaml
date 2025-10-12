@@ -27,11 +27,13 @@ widgets:
           - main_controls_button_focused
       checked:
         styles:
-          - main_controls_button_checked
+          - main_controls_button
+        # border_width: 2
+        # radius: 10
       widgets:
         - image:
             id: main_controls_${name}_light_state
-            src: icon_lightbulb_off_medium
+            src: image_lightbulb_off_medium
             align: center
       on_click:
         - homeassistant.action:

@@ -29,9 +29,9 @@ widgets:
             id: main_controls_${name}_down_label
             src: !lambda |-
               if (id(cover_${name}_state).state == "closing") {
-                return id(icon_stop_medium);
+                return id(image_stop_medium);
               }
-              return id(icon_vert_align_bottom_medium);
+              return id(image_vert_align_bottom_medium);
             align: center
       on_press:
         then:
@@ -53,6 +53,9 @@ widgets:
                       entity_id: cover.${ha_entity}
   - slider:
       id: main_controls_${name}_slider
+      outline_width: 1
+      outline_color: black
+      outline_opa: COVER
       state:
         disabled: true
       width: 5
@@ -85,9 +88,9 @@ widgets:
             id: main_controls_${name}_up_label
             src: !lambda |-
               if (id(cover_${name}_state).state == "opening") {
-                return id(icon_stop_medium);
+                return id(image_stop_medium);
               }
-              return id(icon_vert_align_top_medium);
+              return id(image_vert_align_top_medium);
             align: center
       on_press:
         then:

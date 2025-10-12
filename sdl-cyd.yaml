@@ -10,10 +10,18 @@ substitutions:
 packages:
   base: !include config/base.yaml
   device: !include config/device/host.yaml
-  theme: !include config/lvgl/themes/default.yaml
-  # weather: !include config/weather.yaml
+  theme: !include config/lvgl/themes/dark/theme.yaml
+  weather: !include config/weather.yaml
 
   boot_screen: !include config/lvgl/pages/boot_screen.yaml
-  status_bar: !include config/lvgl/pages/status_bar.yaml
-  main_page: !include config/lvgl/pages/doorbell.yaml
-  # main_page: !include config/lvgl/pages/main_page.yaml
+  status_bar: !include
+    file: config/lvgl/pages/status_bar.yaml
+    vars:
+      lvgl_status_bar_x: -25
+      lvgl_status_bar_y: 20
+
+  # main_page: !include config/lvgl/pages/doorbell.yaml
+  main_page: !include
+    file: config/lvgl/pages/main_page_cyd.yaml
+    vars:
+      solar_generation_offset: 545

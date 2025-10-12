@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
+packages:
+  sun: !include ../sun.yaml
+
+# https://esphome.io/cookbook/lvgl/#prevent-burn-in-of-lcd
+
+time:
+  - id: !extend local_time
+    on_time:
+      - hours: 2,3,4,5
+        minutes: 5
+        seconds: 0
+        then:
+          - switch.turn_on: switch_antiburn
+      - hours: 2,3,4,5
+        minutes: 35
+        seconds: 0
+        then:
+          - switch.turn_off: switch_antiburn
+
+switch:
+  - platform: template
+    name: Antiburn
+    id: switch_antiburn
+    icon: mdi:television-shimmer
+    optimistic: true
+    entity_category: "config"
+    turn_on_action:
+      - logger.log: "Starting Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+      - lvgl.pause:
+          show_snow: true
+    turn_off_action:
+      - logger.log: "Stopping Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - light.turn_on: backlight
+
+touchscreen:
+  - id: !extend touchscreen_main
+    on_release:
+      then:
+        - if:
+            condition: lvgl.is_paused
+            then:
+              - lvgl.resume:
+              - lvgl.widget.redraw:

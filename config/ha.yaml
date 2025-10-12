@@ -17,7 +17,7 @@ api:
       - logger.log: "Home Assistant client connected"
       - lvgl.image.update:
           id: img_status_ha
-          src: icon_cloud_done_small
+          src: ${theme_status_cloud_done}
       - lvgl.label.update:
           id: boot_ip_info
           text: "Home Assistant connected..."
@@ -28,4 +28,4 @@ api:
       - logger.log: "Home Assistant client disconnected"
       - lvgl.image.update:
           id: img_status_ha
-          src: icon_cloud_off_small
+          src: ${theme_status_cloud_off}

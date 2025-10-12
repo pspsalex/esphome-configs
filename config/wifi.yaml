@@ -4,6 +4,7 @@
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  domain: !secret wifi_domain
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
@@ -11,17 +12,17 @@ wifi:
     password: !secret wifi_ap_password
 
   on_connect:
-    - lvgl.label.update:
-        id: lbl_status_net
-        text: "\U0000e1d8" # WiFi connected icon
+    - lvgl.image.update:
+        id: img_status_net
+        src: ${theme_status_wifi_0}
     - lvgl.label.update:
         id: boot_ip_info
         text: "Connected to AP"
 
   on_disconnect:
-    - lvgl.label.update:
-        id: lbl_status_net
-        text: "\U0000f063" # WiFi disconnected icon
+    - lvgl.image.update:
+        id: img_status_net
+        src: ${theme_status_wifi_unknown}
 
 captive_portal:
 
@@ -52,7 +53,8 @@ sensor:
             - lambda: |-
                 int sig = int(id(sensor_rssi).state);
                 int bars = -1;
-                if (sig > -55)      { bars =  4; }
+                if (sig > -44)      { bars =  5; }
+                else if (sig > -55) { bars =  4; }
                 else if (sig > -66) { bars =  3; }
                 else if (sig > -77) { bars =  2; }
                 else if (sig > -88) { bars =  1; }
@@ -96,15 +98,16 @@ time:
                     format: "WiFi strength: %d bars"
                     args: ["id(wifi_bars)"]
                 - lambda: "id(last_wifi_bars) = id(wifi_bars);"
-                - lvgl.label.update:
-                    id: lbl_status_net
-                    text: !lambda |-
+                - lvgl.image.update:
+                    id: img_status_net
+                    src: !lambda |-
                       switch(id(wifi_bars)) {
-                        case  0: return "\U0000f0b0"; // 0 bars (x)
-                        case  1: return "\U0000ebe4"; // 1 bar
-                        case  2: return "\U0000ebd6"; // 2 bars
-                        case  3: return "\U0000ebe1"; // 3 bars
-                        case  4: return "\U0000e1d8"; // 4 bars
+                        case  0: return id(${theme_status_wifi_0});
+                        case  1: return id(${theme_status_wifi_1});
+                        case  2: return id(${theme_status_wifi_2});
+                        case  3: return id(${theme_status_wifi_3});
+                        case  4: return id(${theme_status_wifi_4});
+                        case  5: return id(${theme_status_wifi_5});
                         case -1:
-                        default:  return "\U0000f0ef"; // Not connected
+                        default:  return id(${theme_status_wifi_unknown});
                       }

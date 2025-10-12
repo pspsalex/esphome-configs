@@ -15,13 +15,6 @@
 #   - WiFi w/ IP address
 #   - HA
 
-image:
-  - file: "assets/images/esphome_logo.svg"
-    id: boot_logo
-    resize: 597x117
-    type: RGB565
-    transparency: alpha_channel
-
 lvgl:
   top_layer:
     widgets:
@@ -31,8 +24,10 @@ lvgl:
           y: 0
           width: 100%
           height: 100%
-          bg_color: 0xffffff
-          bg_opa: COVER
+          styles:
+            - page
+          # bg_color: 0xffffff
+          # bg_opa: COVER
           radius: 0
           pad_all: 0
           border_width: 0
@@ -41,7 +36,7 @@ lvgl:
                 id: boot_clock
                 text: "00:00"
                 text_font: roboto_80_num_bold
-                text_color: 0x000000
+                # text_color: 0x000000
                 align: TOP_LEFT
                 x: 15
                 y: 15

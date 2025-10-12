@@ -1,37 +1,36 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Alex Popescu (@pspsalex)
 
+# backlight-off only for cyd / sdl-cyd
+
 lvgl:
   top_layer:
     widgets:
       - obj:
           id: status_bar
           align: TOP_RIGHT
-          pad_all: 0
-          pad_right: 5
-          height: 48
-          x: -2
-          y: 6
+          pad_all: 5
+          height: SIZE_CONTENT
+          width: SIZE_CONTENT
+          x: ${lvgl_status_bar_x}
+          y: ${lvgl_status_bar_y}
           border_side: NONE
+          styles:
+            - clean_obj
+            - status_bar_style
           layout:
             type: FLEX
-            pad_column: 0
+            pad_column: 5
             pad_row: 0
             flex_flow: ROW
-            flex_align_main: END
+            flex_align_main: CENTER
           widgets:
             - image:
                 id: img_status_ha
-                src: icon_cloud_off_small
-                height: 32
-                width: 32
+                src: image_cloud_off_small
             - image:
                 id: img_status_net
-                src: icon_wifi_unknown_small
-                height: 32
-                width: 32
+                src: image_wifi_unknown_small
             - image:
                 id: img_status_battery
-                src: icon_battery_unknown_small
-                height: 32
-                width: 32
+                src: image_battery_unknown_small

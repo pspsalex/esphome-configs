@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
+packages:
+  # Include the common images for all themes
+  common_images: !include ../../images.yaml
+
+  # Include the generated images for this theme
+  generated_images: !include images.gen.yaml
+
+# Define any theme-specific images here:
+image:
+  - file: "assets/images/esphome_logo_dark.svg"
+    id: boot_logo
+    resize: 597x117
+    type: RGB565
+    transparency: alpha_channel

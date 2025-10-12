@@ -147,7 +147,7 @@ binary_sensor:
   - platform: homeassistant
     id: kg_office_light
     entity_id: light.kg_office_light
-    publish_initial_state: true
+    trigger_on_initial_state: true
     on_state:
       then:
         - lvgl.widget.update:
@@ -157,12 +157,12 @@ binary_sensor:
         - lvgl.image.update:
             id: main_controls_office_light_state
             src: !lambda |-
-              return x ? id(icon_lightbulb_on_medium) : id(icon_lightbulb_off_medium);
+              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
 
   - platform: homeassistant
     id: dg_dach_light
     entity_id: switch.dg_studio_lights
-    publish_initial_state: true
+    trigger_on_initial_state: true
     on_state:
       then:
         - lvgl.widget.update:
@@ -172,12 +172,12 @@ binary_sensor:
         - lvgl.image.update:
             id: main_controls_dach_light_state
             src: !lambda |-
-              return x ? id(icon_lightbulb_on_medium) : id(icon_lightbulb_off_medium);
+              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
 
   - platform: homeassistant
     id: kg_keller_light_long
     entity_id: light.kg_keller_light_long
-    publish_initial_state: true
+    trigger_on_initial_state: true
     on_state:
       then:
         - lvgl.widget.update:
@@ -187,7 +187,7 @@ binary_sensor:
         - lvgl.image.update:
             id: main_controls_keller_light_long_state
             src: !lambda |-
-              return x ? id(icon_lightbulb_on_medium) : id(icon_lightbulb_off_medium);
+              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
 
 text_sensor:
   - platform: homeassistant
@@ -199,9 +199,9 @@ text_sensor:
             ESP_LOGI("cover_dach_rol_state", "State changed to: %s", x.c_str());
             auto y = id(cover_dach_ros_state).state;
             if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
-              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_hourglass_medium));
+              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_hourglass}");
             } else {
-              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_scene_medium));
+              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_scene}");
             }
   - platform: homeassistant
     id: cover_dach_ros_state
@@ -212,9 +212,9 @@ text_sensor:
             ESP_LOGI("cover_dach_ros_state", "State changed to: %s", x.c_str());
             auto y = id(cover_dach_rol_state).state;
             if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
-              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_hourglass_medium));
+              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_hourglass}");
             } else {
-              lv_img_set_src(id(main_controls_dach_rollers_label), id(icon_scene_medium));
+              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_scene}");
             }
 
 packages:
@@ -247,8 +247,10 @@ packages:
 lvgl:
   pages:
     - id: main_page
-      bg_opa: COVER
-      bg_color: 0xffffff
+      styles:
+        - page
+      # bg_opa: COVER
+      # bg_color: 0xffffff
       widgets:
         - obj:
             id: main_left_pane
@@ -269,7 +271,9 @@ lvgl:
                   id: main_left_date_date
                   width: 460
                   height: 40
-                  styles: clean_obj
+                  styles:
+                    - clean_obj
+                    - main_date
                   layout:
                     type: FLEX
                     flex_flow: ROW
@@ -286,7 +290,9 @@ lvgl:
               - obj:
                   width: 460
                   height: 120
-                  styles: clean_obj
+                  styles:
+                    - clean_obj
+                    - main_time
                   id: main_left_date_time
                   layout:
                     type: FLEX
@@ -307,15 +313,15 @@ lvgl:
                   id: main_left_splitter1
                   width: 460
                   height: 2
-                  bg_opa: COVER
-                  bg_color: 0xd9d9d9
-                  styles: clean_obj
+                  styles:
+                    - clean_obj
+                    - splitter
 
               - image:
                   id: main_left_weather_logo_now
                   width: 130
                   height: 130
-                  src: icon_partly_cloudy_day_large
+                  src: image_weather_partlycloudy_large
 
               - obj:
                   id: main_left_weather_data
@@ -382,7 +388,7 @@ lvgl:
                         widgets:
                           - image:
                               id: main_left_weather_details_sunrise_logo
-                              src: icon_sunny_small
+                              src: image_weather_sunny_small
                           - label:
                               id: main_left_weather_details_sunrise
                               text: "hh:mm"
@@ -400,7 +406,7 @@ lvgl:
                         widgets:
                           - image:
                               id: main_left_weather_details_sunset_logo
-                              src: icon_twilight_small
+                              src: image_twilight_small
                           - label:
                               id: main_left_weather_details_sunset
                               text: "HH:MM"
@@ -408,8 +414,8 @@ lvgl:
                     - obj:
                         id: main_left_weather_details_wind_cont
                         styles: clean_obj
-                        bg_color: 0xffffff
-                        bg_opa: COVER
+                        # bg_color: 0xffffff
+                        # bg_opa: COVER
                         width: SIZE_CONTENT
                         height: 38
                         layout:
@@ -420,7 +426,7 @@ lvgl:
                         widgets:
                           - image:
                               id: main_left_weather_details_wind_logo
-                              src: icon_wind_small
+                              src: image_weather_windy_small
                           - label:
                               id: main_left_weather_details_wind
                               text: "??km/h"
@@ -430,9 +436,9 @@ lvgl:
                   id: main_left_splitter_1
                   width: 460
                   height: 2
-                  bg_opa: COVER
-                  bg_color: 0xd9d9d9
-                  styles: clean_obj
+                  styles:
+                    - clean_obj
+                    - splitter
 
               - obj:
                   id: main_left_forecast
@@ -460,7 +466,7 @@ lvgl:
                               text_font: "roboto_24"
                           - image:
                               id: main_left_forecast_4h_icon
-                              src: icon_sunny_small
+                              src: image_weather_sunny_small
                           - label:
                               id: main_left_forecast_4h_temp
                               text: "??\u00b0C / ??%"
@@ -480,7 +486,7 @@ lvgl:
                               text_font: "roboto_24"
                           - image:
                               id: main_left_forecast_8h_icon
-                              src: icon_sunny_small
+                              src: image_weather_sunny_small
                           - label:
                               id: main_left_forecast_8h_temp
                               text_font: "roboto_24"
@@ -500,7 +506,7 @@ lvgl:
                               text_font: "roboto_24"
                           - image:
                               id: main_left_forecast_12h_icon
-                              src: icon_sunny_small
+                              src: image_weather_sunny_small
                           - label:
                               id: main_left_forecast_12h_temp
                               text: "??\u00b0C / ??%"
@@ -528,8 +534,8 @@ lvgl:
               flex_flow: ROW_WRAP
               flex_align_main: SPACE_BETWEEN
               flex_align_cross: START
-            bg_color: 0xffffff
-            bg_opa: COVER
+            # bg_color: 0xffffff
+            # bg_opa: COVER
             widgets:
               - obj: !include
                   file: "snippets/rollers.yaml"
@@ -595,10 +601,11 @@ lvgl:
                               data:
                                 entity_id: scene.dg_studio_night
                         widgets:
-                          - image:
+                          - label:
                               id: main_controls_dach_rollers_label
-                              src: icon_scene_medium
+                              text: "${msr_scene}"
                               align: center
+                              text_font: icons_xlarge
                     - label:
                         text: "Dach Rollers"
                         styles: main_controls_label
@@ -635,7 +642,7 @@ lvgl:
                         widgets:
                           - image:
                               id: main_controls_keller_light_long_state
-                              src: icon_lightbulb_off_medium
+                              src: image_lightbulb_off_medium
                               align: center
                         on_click:
                           - homeassistant.action:

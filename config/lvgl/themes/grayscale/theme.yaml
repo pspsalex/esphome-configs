@@ -1,0 +1,114 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+#
+substitutions:
+  theme_status_net: image_lan_small
+  theme_status_cloud_off: image_cloud_off_small
+  theme_status_cloud_done: image_cloud_done_small
+  theme_status_battery_plugged: image_power_small
+
+  theme_icon_forecast_night: image_weather_night_small
+  theme_icon_forecast_cloudy: image_weather_cloudy_small
+  theme_icon_forecast_fog: image_weather_fog_small
+  theme_icon_forecast_hail: image_weather_hail_small
+  theme_icon_forecast_lightning: image_weather_lightning_small
+  theme_icon_forecast_lightning_rainy: image_weather_lightning_rainy_small
+  theme_icon_forecast_partlycloudy: image_weather_partlycloudy_small
+  theme_icon_forecast_pouring: image_weather_pouring_small
+  theme_icon_forecast_rainy: image_weather_rainy_small
+  theme_icon_forecast_snowy: image_weather_snowy_small
+  theme_icon_forecast_snowy_rainy: image_weather_snowy_rainy_small
+  theme_icon_forecast_sunny: image_weather_sunny_small
+  theme_icon_forecast_windy: image_weather_windy_small
+  theme_icon_forecast_windy_variant: image_weather_windy_variant_small
+  theme_icon_forecast_exceptional: image_weather_exceptional_small
+  theme_icon_forecast_unknown: image_weather_unknown_small
+
+  theme_icon_weather_night: image_weather_night_large
+  theme_icon_weather_cloudy: image_weather_cloudy_large
+  theme_icon_weather_fog: image_weather_fog_large
+  theme_icon_weather_hail: image_weather_hail_large
+  theme_icon_weather_lightning: image_weather_lightning_large
+  theme_icon_weather_lightning_rainy: image_weather_lightning_rainy_large
+  theme_icon_weather_partlycloudy: image_weather_partlycloudy_large
+  theme_icon_weather_pouring: image_weather_pouring_large
+  theme_icon_weather_rainy: image_weather_rainy_large
+  theme_icon_weather_snowy: image_weather_snowy_large
+  theme_icon_weather_snowy_rainy: image_weather_snowy_rainy_large
+  theme_icon_weather_sunny: image_weather_sunny_large
+  theme_icon_weather_windy: image_weather_windy_large
+  theme_icon_weather_windy_variant: image_weather_windy_variant_large
+  theme_icon_weather_exceptional: image_weather_exceptional_large
+  theme_icon_weather_unknown: image_weather_unknown_large
+
+  theme_status_wifi_0: image_wifi_0_small
+  theme_status_wifi_1: image_wifi_1_small
+  theme_status_wifi_2: image_wifi_2_small
+  theme_status_wifi_3: image_wifi_3_small
+  theme_status_wifi_4: image_wifi_4_small
+  theme_status_wifi_5: image_wifi_5_small
+  theme_status_wifi_unknown: image_wifi_unknown_small
+
+  theme_status_battery_full: image_battery_full_small
+  theme_status_battery_6_bar: image_battery_6_bar_small
+  theme_status_battery_5_bar: image_battery_5_bar_small
+  theme_status_battery_4_bar: image_battery_4_bar_small
+  theme_status_battery_3_bar: image_battery_3_bar_small
+  theme_status_battery_2_bar: image_battery_2_bar_small
+  theme_status_battery_1_bar: image_battery_1_bar_small
+  theme_status_battery_0_bar: image_battery_0_bar_small
+  theme_status_battery_unknown: image_battery_unknown_small
+
+  shadow_active: 0
+
+packages:
+  icons: !include images.yaml
+
+  base: !include
+    file: ../_base.yaml
+    vars:
+      lvgl_color_page_bg: "0xFFFFFF"
+      lvgl_color_fg: "0x000000"
+      lvgl_color_bg: "0xFFFFFF"
+      lvgl_color_bg_accent: "0xFFFFFF"
+      lvgl_color_splitter: "0xd9d9d9"
+      lvgl_color_fg_secondary: "0x000000"
+      lvgl_color_accent: "0x000000"
+      lvgl_border_w_normal: "1"
+      lvgl_border_w_pressed: "3"
+      lvgl_border_w_disabled: "0"
+      lvgl_border_w_focused: "1"
+      lvgl_border_w_edit: "2"
+      lvgl_padding_default: "4"
+      default_font: "roboto_18"
+      lvgl_font_small: "roboto_16"
+
+      lvgl_color_bg_statusbar: "0xffffff"
+      lvgl_color_shadow: "0x000000"
+      statusbar_font: "icons_large"
+      lvgl_color_bg_checked: 0xffffff
+      lvgl_color_bg_disabled: 0x666666
+
+lvgl:
+  style_definitions:
+    - id: !extend main_controls_button_pressed
+      radius: 0
+    - id: !extend main_controls_button_focused
+      radius: 0
+    - id: !extend main_controls
+      border_width: 2
+      border_opa: COVER
+      border_color: 0xcccccc
+      radius: 5
+      pad_all: 5
+      width: 145
+      height: 145
+    - id: !extend main_controls_label
+      width: 130
+      height: 40
+      border_width: 4
+      border_color: 0xcccccc
+      border_opa: COVER
+      border_side: TOP
+      text_font: "roboto_24"
+      text_align: center

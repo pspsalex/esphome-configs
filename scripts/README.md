@@ -1,83 +1,34 @@
 # esphome scripts
 
-## generate_icons.py
+## imagen.py
 
-The script is used to generate image icons initially referenced as UTF characters from the material icons fonts. It
-takes a list of font names and sizes as input and generates PNG files for each icon. Check the script for more details.
+Generates images and ESPHome configurations for those images, based on the `images.yaml` configuration file.
+
+Supports generating images based on:
+* a font and text (usually a single UTF-8 or UTF-16 character pointing to an MDI or MSR icon), with configurable color and
+  size
+* an SVG input file and given size
+* an image file (expected: PNG) and given output size. The image is resized to fit the given size, while keeping the aspect
+  ratio.
 
 ### Prerequisites
 
 Install the required Python dependencies:
 
 ```bash
-pip install requests pillow fonttools
+pip install pillow cairosvg pyyaml"
 ```
 
 ### Quick Start
 
 1. **Generate the icons:**
    ```bash
-   cd esphome-configs
-   python3 scripts/generate_icons.py
+   python3 scripts/imagen.py
    ```
 
+### Configuration
 
-### Generation Options
+See `images.yaml` for an example.
 
-#### Automatic Download (Default)
-
-The script will automatically download the Material Symbols Rounded font from Google Fonts:
-
-```bash
-python3 scripts/generate_icons.py
-```
-
-#### Use Local Font
-
-If you already have the font file or want to use a specific version:
-
-```bash
-# Place your font file as assets/fonts/MaterialSymbolsRounded.ttf
-python3 scripts/generate_icons.py --use-local-font
-```
-
-#### Custom Colors
-
-Generate icons in different colors:
-
-```bash
-python3 scripts/generate_icons.py --color white  # For dark backgrounds
-python3 scripts/generate_icons.py --color gray   # For subtle appearance
-```
-
-
-### Troubleshooting
-
-#### Download Failure
-
-If the automatic download fails:
-
-   - Go to [Google Fonts Material Symbols](https://fonts.google.com/icons)
-   - Download the Material Symbols Rounded font
-   - Extract and place the `.ttf` file as `assets/fonts/MaterialSymbolsRounded.ttf`
-   - Run: `python3 scripts/generate_icons.py --use-local-font`
-
-#### Missing Icons
-
-If specific icons don't generate:
-1. Check the Unicode values in `scripts/generate_icons.py`
-2. Verify the font supports those characters
-3. Use fallback generation for problematic icons
-
-### Customization
-
-#### Adding New Icons
-
-1. Find the Unicode value for the Material Symbol
-2. Add it to the `ICONS` dictionary in `scripts/generate_icons.py`
-3. Re-run the generation script
-4. Add the image definition to `config/icons.yaml`
-
-#### Custom Sizes
-
-Modify the `SIZES` dictionary in `scripts/generate_icons.py` to add new size variants.
+Output folders for image generation, folder structure and expected input file structure are hard-coded in the script and
+assume the current repository layout.

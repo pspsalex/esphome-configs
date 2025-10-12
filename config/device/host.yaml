@@ -13,17 +13,19 @@ esphome:
       - "-D__LINUX__"
       - -lssl
       - -lcrypto
-
     build_type: debug
+  # includes:
+  #   - <format>
 
   on_boot:
     - priority: -100
       then:
         - lvgl.image.update:
             id: img_status_net
-            src: icon_lan_small
-        - lvgl.widget.hide:
-            - img_status_battery
+            src: ${theme_status_net}
+        - lvgl.image.update:
+            id: img_status_battery
+            src: ${theme_status_battery_plugged}
 
 host:
 
@@ -36,19 +38,20 @@ display:
     update_interval: 100ms
 
 touchscreen:
-  platform: sdl
+  - id: touchscreen_main
+    platform: sdl
 
-  on_touch:
-    - logger.log:
-        format: Touch at (%d, %d)
-        args: [touch.x, touch.y]
-    - lambda: |-
-        ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
-            touch.x,
-            touch.y,
-            touch.x_raw,
-            touch.y_raw
-            );
+    on_touch:
+      - logger.log:
+          format: Touch at (%d, %d)
+          args: [touch.x, touch.y]
+      - lambda: |-
+          ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
+              touch.x,
+              touch.y,
+              touch.x_raw,
+              touch.y_raw
+              );
 
 lvgl:
 

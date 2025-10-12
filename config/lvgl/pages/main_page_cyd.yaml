@@ -1,0 +1,958 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
+# Material: Tune Icon
+
+esphome:
+  on_boot:
+    - priority: -100
+      then:
+        - lvgl.label.update:
+            id: main_left_date_weekday
+            text:
+              time_format: "%A, "
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_day
+            text:
+              time_format: "%b. %d"
+              time: local_time
+        - lvgl.label.update:
+            id: main_left_date_time
+            text:
+              time_format: "%H:%M"
+              time: local_time
+        # TODO: move away from here?
+        - lvgl.label.update:
+            id: boot_clock
+            text:
+              time_format: "%H:%M"
+              time: local_time
+
+time:
+  - id: !extend local_time
+    on_time_sync:
+      - lvgl.label.update:
+          id: main_left_date_weekday
+          text:
+            time_format: "%A, "
+            time: local_time
+      - lvgl.label.update:
+          id: main_left_date_day
+          text:
+            time_format: "%b. %d"
+            time: local_time
+
+      - lvgl.label.update:
+          id: main_left_date_time
+          text:
+            time_format: "%H:%M"
+            time: local_time
+
+    on_time:
+      # Update minutes every minute
+      - seconds: 0
+        minutes: /1
+        then:
+          - lvgl.label.update:
+              id: main_left_date_time
+              text:
+                time_format: "%H:%M"
+                time: local_time
+          - lvgl.label.update:
+              id: boot_clock
+              text:
+                time_format: "%H:%M"
+                time: local_time
+      # Update date components only when date changes (daily at midnight)
+      - seconds: 0
+        minutes: /1
+        # hours: 0
+        then:
+          - lvgl.label.update:
+              id: main_left_date_weekday
+              text:
+                time_format: "%A, "
+                time: local_time
+          - lvgl.label.update:
+              id: main_left_date_day
+              text:
+                time_format: "%b. %d"
+                time: local_time
+
+# Enable Home Assistant API
+api:
+  on_client_connected:
+    then:
+      - lvgl.widget.enable:
+          # - main_controls_dani_down
+          # - main_controls_dani_up
+          # - main_controls_dani_slider
+          # - main_controls_oli_down
+          # - main_controls_oli_slider
+          # - main_controls_oli_up
+          # - main_controls_eltern_down
+          # - main_controls_eltern_slider
+          # - main_controls_eltern_up
+          # - main_controls_living_rol_down
+          # - main_controls_living_rol_slider
+          # - main_controls_living_rol_up
+          # - main_controls_living_ros_down
+          # - main_controls_living_ros_slider
+          # - main_controls_living_ros_up
+          # - main_controls_dach_rollers
+          - main_controls_office_light
+          - main_controls_keller_light_long
+          # - main_controls_dach_light
+
+  on_client_disconnected:
+    then:
+      - lvgl.widget.disable:
+          # - main_controls_dani_down
+          # - main_controls_dani_up
+          # - main_controls_dani_slider
+          # - main_controls_oli_down
+          # - main_controls_oli_slider
+          # - main_controls_oli_up
+          # - main_controls_eltern_down
+          # - main_controls_eltern_slider
+          # - main_controls_eltern_up
+          # - main_controls_living_rol_down
+          # - main_controls_living_rol_slider
+          # - main_controls_living_rol_up
+          # - main_controls_living_ros_down
+          # - main_controls_living_ros_slider
+          # - main_controls_living_ros_up
+          # - main_controls_dach_rollers
+          - main_controls_office_light
+          - main_controls_keller_light_long
+          # - main_controls_dach_light
+
+number:
+  - platform: homeassistant
+    id: solar_gen
+    entity_id: sensor.solarbank_2_e1600_pro_solar_power
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: main_right_solar_gen
+            text:
+              format: "%.0fW"
+              args: [x]
+
+  - platform: homeassistant
+    id: power_usage
+    entity_id: sensor.kg_keller_energy_meter_sgm_power
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: main_right_power_usage
+            text:
+              format: "%.0fW"
+              args: [x]
+
+  - platform: homeassistant
+    id: solar_gen_total
+    entity_id: sensor.solarbank_power_to_home
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: lbl_main_power_stats_total_generated
+            text: !lambda |-
+              auto y = x + ${solar_generation_offset};
+              char buf[30];
+              snprintf(buf, sizeof(buf), "%.0f€", y * 0.35f);
+              lv_label_set_text(id(lbl_main_power_stats_total_saved), buf);
+              snprintf(buf, sizeof(buf), "%.0fkWh", y);
+              return buf;
+
+  - platform: homeassistant
+    id: solar_battery_level
+    entity_id: sensor.solarbank_2_e1600_pro_state_of_charge
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: lbl_main_power_stats_battery
+            text: !lambda |-
+              if (x < 12.5f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_0_bar_small)); }
+              else if ( x < 25.0f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_1_bar_small)); }
+              else if ( x < 37.5f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_2_bar_small)); }
+              else if ( x < 50.0f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_3_bar_small)); }
+              else if ( x < 62.5f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_4_bar_small)); }
+              else if ( x < 75.0f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_5_bar_small)); }
+              else if ( x < 87.5f) { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_6_bar_small)); }
+              else { lv_img_set_src(id(img_main_power_stats_battery), id(image_battery_full_small)); }
+
+              char buf[30];
+              snprintf(buf, sizeof(buf), "%.0f%%", x);
+              return buf;
+
+  - platform: homeassistant
+    id: solar_battery_output
+    entity_id: sensor.solarbank_2_e1600_pro_ac_home_power
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: lbl_battery_output
+            text:
+              format: "%.0fW"
+              args: [x]
+
+binary_sensor:
+  - platform: homeassistant
+    id: kg_office_light
+    entity_id: light.kg_office_light
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_office_light
+            state:
+              checked: !lambda return x;
+        - lvgl.image.update:
+            id: main_controls_office_light_state
+            src: !lambda |-
+              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
+
+  - platform: homeassistant
+    id: kg_keller_light_long
+    entity_id: light.kg_keller_light_long
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: main_controls_keller_light_long
+            state:
+              checked: !lambda return x;
+        - lvgl.image.update:
+            id: main_controls_keller_light_long_state
+            src: !lambda |-
+              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
+
+lvgl:
+  pages:
+    - id: main_page
+      styles:
+        - page
+
+      widgets:
+        - obj:
+            id: main_container
+            width: 760
+            height: 440
+            x: 20
+            y: 20
+            styles:
+              - clean_obj
+              - main_container_style
+            widgets:
+              - obj:
+                  id: main_top
+                  width: 720
+                  height: 105
+                  x: 20
+                  y: 0
+                  styles:
+                    - clean_obj
+                    - main_header_style
+                  widgets:
+                    - label:
+                        id: main_left_date_time
+                        x: 0
+                        y: 0
+                        width: 340
+                        height: 100
+                        styles:
+                          - clean_obj
+                          - main_time
+                        text: "--:--"
+
+                    - obj:
+                        id: main_left_date_date
+                        x: 0
+                        y: 0
+                        align: BOTTOM_RIGHT
+                        width: 400
+                        height: 48
+                        styles:
+                          - clean_obj
+                          - main_date
+                        layout:
+                          type: FLEX
+                          flex_flow: ROW
+                          flex_align_main: END
+                        widgets:
+                          - label:
+                              id: main_left_date_weekday
+                              text: "Aaaaaaa"
+                              text_font: "roboto_32"
+                          - label:
+                              id: main_left_date_day
+                              text: "xx Xxxxxxx"
+                              text_font: "roboto_32"
+              - obj:
+                  id: main_left_pane
+                  width: 450
+                  height: 295
+                  border_side: RIGHT
+                  border_width: 1
+                  border_color: 0xd9d9d9
+                  x: 20
+                  y: 125
+                  styles:
+                    - clean_obj
+                    - main_pane
+                  pad_all: 0
+                  # layout:
+                  #   type: FLEX
+                  #   flex_flow: ROW_WRAP
+                  #   flex_align_main: START
+                  #   flex_align_cross: SPACE_EVENLY
+                  #   flex_align_track: SPACE_AROUND
+                  widgets:
+                    - image:
+                        x: 0
+                        y: 0
+                        id: main_left_weather_logo_now
+                        width: 210
+                        height: 210
+                        src: image_weather_night_large
+
+                    - obj:
+                        id: main_left_weather_data_shadow
+                        height: 170
+                        width: 160
+                        x: 152
+                        y: 2
+                        styles: clean_obj
+                        layout:
+                          type: FLEX
+                          flex_flow: COLUMN
+                          flex_align_main: START
+                          flex_align_cross: CENTER
+                          flex_align_track: CENTER
+                          pad_column: 0
+                          pad_row: 0
+                        widgets:
+                          - obj:
+                              id: main_left_weather_temp_shadow
+                              width: 150
+                              height: 70
+                              radius: 0
+                              styles: clean_obj
+                              layout:
+                                type: FLEX
+                                flex_flow: ROW
+                                flex_align_main: CENTER
+                                pad_column: 0
+                                pad_row: 0
+                              widgets:
+                                - label:
+                                    id: main_left_weather_temp_now_shadow
+                                    text: "??"
+                                    height: 70
+                                    text_font: "roboto_64_num_bold"
+                                    styles:
+                                      - main_weather_temp_style
+                                      - main_weather_shadow
+                                    pad_top: 10
+                                - label:
+                                    id: main_left_weather_temp_txt_shadow
+                                    text: "\u00b0C"
+                                    text_font: "roboto_32"
+                                    styles:
+                                      - main_weather_temp_label_style
+                                      - main_weather_shadow
+                                    pad_top: 15
+                          - label:
+                              id: main_left_weather_temp_feels_shadow
+                              text: "Feels like: ??\u00b0C"
+                              text_font: "roboto_16"
+                              styles:
+                                - main_weather_feels_style
+                                - main_weather_shadow
+                              pad_top: 10
+                          - label:
+                              id: main_left_weather_temp_rain_shadow
+                              text: "Rain: ??%"
+                              text_font: "roboto_16"
+                              styles:
+                                - main_weather_rain_style
+                                - main_weather_shadow
+                    - obj:
+                        id: main_left_weather_data
+                        height: 170
+                        width: 160
+                        x: 150
+                        y: 0
+                        styles: clean_obj
+                        layout:
+                          type: FLEX
+                          flex_flow: COLUMN
+                          flex_align_main: START
+                          flex_align_cross: CENTER
+                          flex_align_track: CENTER
+                          pad_column: 0
+                          pad_row: 0
+                        widgets:
+                          - obj:
+                              id: main_left_weather_temp
+                              width: 150
+                              height: 70
+                              radius: 0
+                              styles: clean_obj
+                              layout:
+                                type: FLEX
+                                flex_flow: ROW
+                                flex_align_main: CENTER
+                                pad_column: 0
+                                pad_row: 0
+                              widgets:
+                                - label:
+                                    id: main_left_weather_temp_now
+                                    text: "??"
+                                    height: 70
+                                    text_font: "roboto_64_num_bold"
+                                    styles:
+                                      - main_weather_temp_style
+                                    pad_top: 10
+                                - label:
+                                    id: main_left_weather_temp_txt
+                                    text: "\u00b0C"
+                                    text_font: "roboto_32"
+                                    styles:
+                                      - main_weather_temp_label_style
+                                    pad_top: 15
+                          - label:
+                              id: main_left_weather_temp_feels
+                              text: "Feels like: ??\u00b0C"
+                              text_font: "roboto_16"
+                              styles:
+                                - main_weather_feels_style
+                              pad_top: 10
+                          - label:
+                              id: main_left_weather_temp_rain
+                              text: "Rain: ??%"
+                              text_font: "roboto_16"
+                              styles:
+                                - main_weather_rain_style
+
+                    - obj:
+                        id: main_left_weather_details
+                        width: 110
+                        height: 140
+                        y: 0
+                        x: 320
+                        styles: clean_obj
+                        layout:
+                          type: FLEX
+                          flex_flow: COLUMN
+                          flex_align_main: CENTER
+                          flex_align_track: CENTER
+                          pad_row: 20
+                        widgets:
+                          - obj:
+                              id: main_left_weather_details_sunrise_cont
+                              styles: clean_obj
+                              width: SIZE_CONTENT
+                              height: 24
+                              layout:
+                                type: FLEX
+                                flex_flow: ROW
+                                flex_align_main: START
+                                flex_align_cross: CENTER
+                              widgets:
+                                - image:
+                                    id: main_left_weather_details_sunrise_logo
+                                    src: image_sunrise_xsmall
+                                - label:
+                                    id: main_left_weather_details_sunrise
+                                    styles:
+                                      - main_weather_details
+                                    text: "hh:mm"
+                                    text_font: "roboto_16"
+                          - obj:
+                              id: main_left_weather_details_sunset_cont
+                              styles: clean_obj
+                              width: SIZE_CONTENT
+                              height: 24
+                              layout:
+                                type: FLEX
+                                flex_flow: ROW
+                                flex_align_main: START
+                                flex_align_cross: CENTER
+                              widgets:
+                                - image:
+                                    id: main_left_weather_details_sunset_logo
+                                    src: image_sunset_xsmall
+                                - label:
+                                    id: main_left_weather_details_sunset
+                                    styles:
+                                      - main_weather_details
+                                    text: "HH:MM"
+                                    text_font: "roboto_16"
+                          - obj:
+                              id: main_left_weather_details_wind_cont
+                              styles: clean_obj
+                              # bg_color: 0xffffff
+                              # bg_opa: COVER
+                              width: SIZE_CONTENT
+                              height: 24
+                              layout:
+                                type: FLEX
+                                flex_flow: ROW
+                                flex_align_main: START
+                                flex_align_cross: CENTER
+                              widgets:
+                                - image:
+                                    id: main_left_weather_details_wind_logo
+                                    src: image_wind_speed_xsmall
+                                - label:
+                                    id: main_left_weather_details_wind
+                                    styles:
+                                      - main_weather_details
+                                    text: "??km/h"
+                                    text_font: "roboto_16"
+
+                    - obj:
+                        id: main_left_forecast
+                        styles: clean_obj
+                        width: 430
+                        height: 150
+                        border_width: 0
+                        pad_all: 0
+                        x: 0
+                        y: 143
+                        layout:
+                          type: FLEX
+                          flex_flow: ROW
+                          flex_align_main: SPACE_BETWEEN
+                          flex_align_cross: START
+                          pad_row: 0
+                          pad_column: 0
+                        widgets:
+                          - obj:
+                              id: main_left_forecast_4h
+                              width: 130
+                              height: 150
+                              pad_top: 5
+                              pad_bottom: 5
+                              styles:
+                                - clean_obj
+                                - main_weather_forecast_style
+                              widgets:
+                                - label:
+                                    id: main_left_forecast_4h_time
+                                    styles:
+                                      - clean_obj
+                                      - main_weather_forecast_detail_style
+                                    text: "hh:mm"
+                                    text_font: "roboto_24"
+                                    x: 0
+                                    y: 0
+                                    align: TOP_MID
+                                - image:
+                                    id: main_left_forecast_4h_icon
+                                    src: ${theme_icon_forecast_sunny}
+                                    x: 0
+                                    y: 0
+                                    align: CENTER
+                                - label:
+                                    id: main_left_forecast_4h_temp
+                                    styles:
+                                      - clean_obj
+                                      - main_weather_forecast_detail_style
+                                    text: "??\u00b0C / ??%"
+                                    text_font: "roboto_24"
+                                    x: 0
+                                    y: 0
+                                    align: BOTTOM_MID
+                          - obj:
+                              id: main_left_forecast_8h
+                              width: 130
+                              height: 150
+                              pad_top: 5
+                              pad_bottom: 5
+                              styles:
+                                - clean_obj
+                                - main_weather_forecast_style
+                              widgets:
+                                - label:
+                                    id: main_left_forecast_8h_time
+                                    styles:
+                                      - clean_obj
+                                      - main_weather_forecast_detail_style
+                                    height: 32
+                                    width: 130
+                                    text: "hh:mm"
+                                    text_font: "roboto_24"
+                                    x: 0
+                                    y: 0
+                                    align: TOP_MID
+                                - image:
+                                    id: main_left_forecast_8h_icon
+                                    src: image_weather_sunny_small
+                                    x: 0
+                                    y: 0
+                                    align: CENTER
+                                - label:
+                                    id: main_left_forecast_8h_temp
+                                    styles:
+                                      - clean_obj
+                                      - main_weather_forecast_detail_style
+                                    height: 32
+                                    width: 130
+                                    text_font: "roboto_24"
+                                    text: "??\u00b0C / ??%"
+                                    x: 0
+                                    y: 0
+                                    align: BOTTOM_MID
+                          - obj:
+                              id: main_left_forecast_12h
+                              width: 130
+                              height: 150
+                              pad_top: 5
+                              pad_bottom: 5
+                              styles:
+                                - clean_obj
+                                - main_weather_forecast_style
+                              widgets:
+                                - label:
+                                    id: main_left_forecast_12h_time
+                                    styles:
+                                      - clean_obj
+                                      - main_weather_forecast_detail_style
+                                    height: 32
+                                    width: 130
+                                    text: "hh:mm"
+                                    text_font: "roboto_24"
+                                    x: 0
+                                    y: 0
+                                    align: TOP_MID
+                                - image:
+                                    id: main_left_forecast_12h_icon
+                                    src: image_weather_sunny_small
+                                    x: 0
+                                    y: 0
+                                    align: CENTER
+                                - label:
+                                    id: main_left_forecast_12h_temp
+                                    styles:
+                                      - clean_obj
+                                      - main_weather_forecast_detail_style
+                                    height: 32
+                                    width: 130
+                                    text: "??\u00b0C / ??%"
+                                    text_font: "roboto_24"
+                                    x: 0
+                                    y: 0
+                                    align: BOTTOM_MID
+
+                    # Button to show a popup confirmation dialog to restart the system
+                    # TODO: fix hallucination below
+                    # - button:
+                    #     id: main_left_forecast_restart_button
+                    #     text: "Restart"
+                    #     text_font: "roboto_24"
+                    #     outline_width: 1
+                    #     on_click:
+                    #       - service: restart
+                    #         id: restart_service
+                    #     y: 300
+                    #     x: 460
+                    #
+                    # Display sleep button, and wake-up button
+                    # - button:
+                    #     id: main_left_forecast_sleep_button
+                    #     text: "Sleep"
+                    #     text_font: "roboto_24"
+                    #     outline_width: 1
+                    #     on_click:
+                    #       - service: sleep
+                    #         id: sleep_service
+                    #     y: 300
+                    #     x: 460
+                    #
+                    # - button:
+                    #     id: main_left_forecast_wakeup_button
+                    #     text: "Wake Up"
+                    #     text_font: "roboto_24"
+                    #     outline_width: 1
+                    #     on_click:
+                    #       - service: wakeup
+                    #         id: wakeup_service
+                    #     y: 300
+                    #     x: 460
+                    #
+
+              - obj:
+                  id: main_right_pane
+                  styles: clean_obj
+                  x: 485
+                  y: 125
+                  width: 250
+                  height: 300
+                  widgets:
+                    - image:
+                        id: main_right_solar
+                        src: image_solar_power_large
+                        x: 0
+                        y: 0
+                        align: TOP_LEFT
+
+                    - label:
+                        id: main_right_solar_gen
+                        text: 0W
+                        styles:
+                          - main_solar_gen_style
+                        text_font: roboto_48_num_bold
+                        x: 75
+                        y: -5
+                        align: TOP_LEFT
+                        height: 45
+                        width: 175
+
+                    - obj:
+                        id: main_right_power_usage_container
+                        x: 75
+                        y: 45
+                        width: 175
+                        height: 32
+                        styles:
+                          - clean_obj
+                        layout:
+                          type: FLEX
+                          flex_flow: ROW_WRAP
+                          flex_align_main: START
+                          flex_align_cross: CENTER
+                          pad_column: 5
+                          pad_row: 20
+                        widgets:
+                          - label:
+                              id: main_right_power_usage
+                              text: "0W"
+                              styles:
+                                - main_power_usage_style
+                              text_font: roboto_24
+                              align: TOP_LEFT
+                              height: 32
+                          - image:
+                              id: main_right_power_usage_icon
+                              src: image_power_usage_xsmall
+                              align: TOP_LEFT
+                    - obj:
+                        id: main_power_stats_details
+                        x: 0
+                        y: 90
+                        width: 250
+                        height: 205
+                        styles:
+                          - clean_obj
+                          # - main_power_stats_details_style
+                        layout:
+                          type: FLEX
+                          flex_flow: ROW_WRAP
+                          flex_align_main: SPACE_BETWEEN
+                          flex_align_cross: CENTER
+                          flex_align_track: SPACE_BETWEEN
+                          pad_row: 0
+                          pad_column: 0
+                        widgets:
+                          - image:
+                              id: img_main_power_stats_battery
+                              src: image_battery_2_bar_small
+                          - label:
+                              id: lbl_main_power_stats_battery
+                              styles:
+                                - main_power_stats_details_label_style
+                              text: "0%"
+                              width: 80
+                              pad_left: 10
+
+                          - image:
+                              src: image_sun_small
+                          - label:
+                              id: lbl_main_power_stats_total_generated
+                              styles:
+                                - main_power_stats_details_label_style
+                              text: "0 kWh"
+                              width: 80
+                              pad_left: 10
+
+                          - image:
+                              src: image_battery_share_small
+                          - label:
+                              id: lbl_battery_output
+                              styles:
+                                - main_power_stats_details_label_style
+                              text: "0 kWh"
+                              width: 80
+                              pad_left: 10
+
+                          - image:
+                              src: image_money_small
+                          - label:
+                              id: lbl_main_power_stats_total_saved
+                              styles:
+                                - main_power_stats_details_label_style
+                              text: "0 €"
+                              width: 80
+                              pad_left: 10
+
+                          - line:
+                              points:
+                                - 0, 0
+                                - 248, 0
+                              line_width: 1
+                              line_color: 0xd9d9d9
+
+                          - button:
+                              # id: main_right_keller_light
+                              id: main_controls_keller_light_long
+                              styles:
+                                - clean_obj
+                                - main_controls
+                              pressed:
+                                styles:
+                                  - main_controls_button_pressed
+                              focused:
+                                styles:
+                                  - main_controls
+                              checked:
+                                styles:
+                                  - main_controls_button_checked
+                                bg_color: 0xffff00
+                              disabled:
+                                styles:
+                                  - main_controls_button_checked
+                                bg_color: 0x000000
+                              width: 75
+                              height: 75
+                              radius: 5
+                              state:
+                                disabled: true
+                              checkable: false
+                              widgets:
+                                - image:
+                                    id: main_controls_keller_light_long_state
+                                    src: image_lightbulb_off_medium
+                                    align: center
+                                    x: 0
+                                    y: -10
+                                - label:
+                                    text: "Keller Lights"
+                                    styles: main_controls_label
+                                    long_mode: DOT
+                                    x: 0
+                                    y: 0
+                                    width: 75
+                                    height: 20
+                                    align: BOTTOM_MID
+                                    text_font: roboto_12
+                                    text_align: CENTER
+                              on_click:
+                                - homeassistant.action:
+                                    action: light.toggle
+                                    data:
+                                      entity_id: light.kg_keller_light_long
+                                - if:
+                                    condition:
+                                      binary_sensor.is_on: kg_keller_light_long
+                                    then:
+                                      - homeassistant.action:
+                                          # The "new" state is not yet propagated
+                                          action: light.turn_off
+                                          data:
+                                            entity_id: light.kg_keller_light_big
+                                    else:
+                                      - homeassistant.action:
+                                          action: light.turn_on
+                                          data:
+                                            entity_id: light.kg_keller_light_big
+
+                          - button:
+                              # id: main_right_keller_light
+                              id: main_controls_office_light
+                              styles:
+                                - clean_obj
+                                - main_controls
+                              pressed:
+                                styles:
+                                  - main_controls_button_pressed
+                              focused:
+                                styles:
+                                  - main_controls
+                              checked:
+                                styles:
+                                  - main_controls_button_checked
+                              disabled:
+                                styles:
+                                  - main_controls_button_disabled
+                              width: 75
+                              height: 75
+                              radius: 5
+                              state:
+                                disabled: true
+                              checkable: false
+                              widgets:
+                                - image:
+                                    id: main_controls_office_light_state
+                                    src: image_lightbulb_off_medium
+                                    align: center
+                                    x: 0
+                                    y: -10
+                                - label:
+                                    text: "Office Lights"
+                                    styles: main_controls_label
+                                    long_mode: DOT
+                                    x: 0
+                                    y: 0
+                                    width: 75
+                                    height: 20
+                                    align: BOTTOM_MID
+                                    text_font: roboto_12
+                                    text_align: CENTER
+                              on_click:
+                                - homeassistant.action:
+                                    action: light.toggle
+                                    data:
+                                      entity_id: light.kg_office_light
+
+                          - button:
+                              # id: main_right_keller_light
+                              id: main_controls_more
+                              styles:
+                                - clean_obj
+                                - main_controls
+                              pressed:
+                                styles:
+                                  - main_controls_button_pressed
+                              focused:
+                                styles:
+                                  - main_controls
+                              checked:
+                                styles:
+                                  - main_controls_button_checked
+                              disabled:
+                                styles:
+                                  - main_controls_button_checked
+                              width: 75
+                              height: 75
+                              radius: 5
+                              widgets:
+                                - image:
+                                    src: image_controls_medium
+                                    align: center
+                                    x: 0
+                                    y: -10
+                                - label:
+                                    text: "More..."
+                                    styles: main_controls_label
+                                    long_mode: DOT
+                                    x: 0
+                                    y: 0
+                                    width: 75
+                                    height: 20
+                                    align: BOTTOM_MID
+                                    text_font: roboto_12
+                                    text_align: CENTER

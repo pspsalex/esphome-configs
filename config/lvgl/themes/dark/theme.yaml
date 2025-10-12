@@ -1,0 +1,89 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Alex Popescu (@pspsalex)
+
+substitutions:
+  theme_status_net: image_lan_small
+  theme_status_cloud_off: image_cloud_off_small
+  theme_status_cloud_done: image_cloud_done_small
+  theme_status_battery_plugged: image_power_small
+
+  theme_icon_forecast_night: image_weather_night_small
+  theme_icon_forecast_cloudy: image_weather_cloudy_small
+  theme_icon_forecast_fog: image_weather_fog_small
+  theme_icon_forecast_hail: image_weather_hail_small
+  theme_icon_forecast_lightning: image_weather_lightning_small
+  theme_icon_forecast_lightning_rainy: image_weather_lightning_rainy_small
+  theme_icon_forecast_partlycloudy: image_weather_partlycloudy_small
+  theme_icon_forecast_pouring: image_weather_pouring_small
+  theme_icon_forecast_rainy: image_weather_rainy_small
+  theme_icon_forecast_snowy: image_weather_snowy_small
+  theme_icon_forecast_snowy_rainy: image_weather_snowy_rainy_small
+  theme_icon_forecast_sunny: image_weather_sunny_small
+  theme_icon_forecast_windy: image_weather_windy_small
+  theme_icon_forecast_windy_variant: image_weather_windy_variant_small
+  theme_icon_forecast_exceptional: image_weather_exceptional_small
+  theme_icon_forecast_unknown: image_weather_unknown_small
+
+  theme_icon_weather_night: image_weather_night_large
+  theme_icon_weather_cloudy: image_weather_cloudy_large
+  theme_icon_weather_fog: image_weather_fog_large
+  theme_icon_weather_hail: image_weather_hail_large
+  theme_icon_weather_lightning: image_weather_lightning_large
+  theme_icon_weather_lightning_rainy: image_weather_lightning_rainy_large
+  theme_icon_weather_partlycloudy: image_weather_partlycloudy_large
+  theme_icon_weather_pouring: image_weather_pouring_large
+  theme_icon_weather_rainy: image_weather_rainy_large
+  theme_icon_weather_snowy: image_weather_snowy_large
+  theme_icon_weather_snowy_rainy: image_weather_snowy_rainy_large
+  theme_icon_weather_sunny: image_weather_sunny_large
+  theme_icon_weather_windy: image_weather_windy_large
+  theme_icon_weather_windy_variant: image_weather_windy_variant_large
+  theme_icon_weather_exceptional: image_weather_exceptional_large
+  theme_icon_weather_unknown: image_weather_unknown_large
+
+  theme_status_wifi_0: image_wifi_0_small
+  theme_status_wifi_1: image_wifi_1_small
+  theme_status_wifi_2: image_wifi_2_small
+  theme_status_wifi_3: image_wifi_3_small
+  theme_status_wifi_4: image_wifi_4_small
+  theme_status_wifi_5: image_wifi_5_small
+  theme_status_wifi_unknown: image_wifi_unknown_small
+
+  shadow_active: 1
+
+packages:
+  images: !include images.yaml
+
+  base: !include
+    file: ../_base.yaml
+    vars:
+      lvgl_color_page_bg: "0x1a202c"
+      lvgl_color_bg: "0x2c3646"
+      lvgl_color_bg_statusbar: "0x2c3646"
+      lvgl_color_fg: "0xe2e8f0"
+      lvgl_color_fg_secondary: "0xa0aec0"
+      lvgl_color_accent: "0x93c5fd"
+      lvgl_color_bg_accent: "0x4A5568"
+      lvgl_color_shadow: "0x000000"
+      statusbar_font: "icons_large"
+
+      lvgl_color_bg_checked: 0x4A5568
+      lvgl_color_bg_disabled: 0x666666
+
+      lvgl_color_splitter: "0xd9d9d9"
+      lvgl_border_w_normal: "1"
+      lvgl_border_w_pressed: "3"
+      lvgl_border_w_disabled: "0"
+      lvgl_border_w_focused: "1"
+      lvgl_border_w_edit: "2"
+      lvgl_padding_default: "4"
+
+      default_font: "roboto_18"
+      lvgl_font_small: "roboto_16"
+
+lvgl:
+  style_definitions:
+    - id: !extend main_time
+      text_font: "roboto_96_num"
+    - id: !extend main_container_style
+      radius: 10

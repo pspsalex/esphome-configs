@@ -26,6 +26,8 @@ esp32:
   board: m5stack_paper
   framework:
     type: esp-idf
+  flash_size: 16MB
+  partitions: partitions_16mb.csv
 
 psram:
 
@@ -78,7 +80,7 @@ touchscreen:
     swap_xy: true
     mirror_x: false
     mirror_y: true
-  id: gt911_touchscreen
+  id: touchscreen_main
   display: m5paper_display
   interrupt_pin: GPIO36
 
@@ -98,7 +100,7 @@ lvgl:
   displays:
     - m5paper_display
   touchscreens:
-    - gt911_touchscreen
+    - touchscreen_main
 
 time:
   - id: !extend local_time
@@ -142,35 +144,22 @@ sensor:
             lambda: "return id(battery_voltage_sensor).state != id(prev_battery_status);"
           then:
             - lambda: "id(prev_battery_status) = id(battery_voltage_sensor).state;"
-            - lvgl.label.update:
-                id: lbl_status_battery
-                text: !lambda |-
-                  static char buf[10];
-                  std::string icon;
+            - lvgl.image.update:
+                id: img_status_battery
+                src: !lambda |-
                   auto x = id(battery_voltage_sensor).state;
-                  if (x >= 4.2) {
-                      icon = "\U0000e1a4"; // battery_full
-                  } else if (x > 4.1) {
-                      icon = "\U0000ebd2"; // battery_6_bar
-                  } else if (x > 4.0) {
-                      icon = "\U0000ebd4"; // battery_5_bar
-                  } else if (x > 3.95) {
-                      icon = "\U0000ebe2"; // battery_4_bar
-                  } else if (x > 3.9) {
-                      icon = "\U0000ebdd"; // battery_3_bar
-                  } else if (x > 3.85) {
-                      icon = "\U0000ebe0"; // battery_2_bar
-                  } else if (x > 3.8) {
-                      icon = "\U0000ebd9"; // battery_1_bar
-                  } else if (x > 3.75) {
-                      icon = "\U0000ebdc"; // battery_0_bar
-                  } else {
-                      icon = "\U0000e1a6"; // battery_unknown
-                  }
-                  snprintf(buf, sizeof(buf), "%s", icon.c_str());
                   id(data_updated) = true;
                   ESP_LOGD("battery", "Battery voltage: %.2fV", x);
-                  return buf;
+
+                  if (x >= 4.2)      { return id(${theme_status_battery_full});   }
+                  else if (x > 4.1)  { return id(${theme_status_battery_6_bar});   }
+                  else if (x > 4.0)  { return id(${theme_status_battery_5_bar});   }
+                  else if (x > 3.95) { return id(${theme_status_battery_4_bar});   }
+                  else if (x > 3.9)  { return id(${theme_status_battery_3_bar});   }
+                  else if (x > 3.85) { return id(${theme_status_battery_2_bar});   }
+                  else if (x > 3.8)  { return id(${theme_status_battery_1_bar});   }
+                  else if (x > 3.75) { return id(${theme_status_battery_0_bar});   }
+                  else               { return id(${theme_status_battery_unknown}); }
 
   - platform: sht3xd
     temperature:
