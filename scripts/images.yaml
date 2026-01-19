@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 themes:
   base:
@@ -38,6 +38,11 @@ themes:
         description: "Back navigation"
         text: "msr:\ue5e0"
         sizes: [small]
+
+      - name: "back_arrow"
+        description: "Back navigation"
+        text: "mdi:\U000f004E"
+        sizes: [xsmall]
 
       - name: "home"
         description: "Home button"
@@ -268,6 +273,16 @@ themes:
     base: base
 
     images:
+
+      - name: "back_arrow"
+        description: "Back navigation"
+        text: "mdi:\U000f004E"
+        sizes:
+          - xsmall:
+              width: 16
+              height: 16
+              color: "#FFFFFF"
+
       - name: "weather_windy"
         description: "Windy"
         source: "assets/3rdparty/da/prwi/weather-windy.png"
@@ -286,7 +301,14 @@ themes:
       - name: "weather_unknown"
         description: "Unknown weather condition"
         source: "assets/3rdparty/da/prwi/weather-unknown.png"
-        sizes: [large_w, small_w]
+        sizes:
+          - large_w
+          - small_w
+          - xsmall:
+              width: 32
+              height: 32
+              text: "msr:\ueb8b"
+              color: white
 
       - name: "weather_night"
         description: "Clear night"
@@ -348,20 +370,63 @@ themes:
         source: "assets/3rdparty/oxygen/weather-clear.svg"
         sizes: [large_w, small_w]
 
+      - name: "window_closed"
+        description: "Window - closed"
+        source: "assets/images/window-closed.svg"
+        sizes: [large_72]
+
+      - name: "window_open"
+        description: "Window - open"
+        source: "assets/images/window-open.svg"
+        sizes: [large_72]
+
+      - name: "window_tilted"
+        description: "Window - tilted"
+        source: "assets/images/window-tilted.svg"
+        sizes: [large_72]
+
 
       - name: "lightbulb_on"
         description: "Light on"
-        text: "msr:\ue0f0"
+        text: "mdi:\U000F06E8"
         sizes:
           - medium_40:
               color: "#A0AEC0"
+          - medium_40_w:
+              color: white
+              width: 40
+              height: 40
+              slug: "medium_w"
+          - large:
+              color: "#A0AEC0"
+              width: 64
+              height: 64
+          - large_w:
+              slug: large_w
+              color: "#FFFFFF"
+              width: 64
+              height: 64
 
       - name: "lightbulb_off"
         description: "Light off"
-        text: "msr:\ue9b8"
+        text: "mdi:\U000F0336"
         sizes:
           - medium_40:
               color: "#A0AEC0"
+          - medium_40_w:
+              color: white
+              width: 40
+              height: 40
+              slug: "medium_w"
+          - large:
+              color: "#A0AEC0"
+              width: 64
+              height: 64
+          - large_w:
+              slug: large_w
+              color: "#FFFFFF"
+              width: 64
+              height: 64
 
       - name: "controls"
         description: "Light off"
@@ -369,6 +434,64 @@ themes:
         sizes:
           - medium_40:
               color: "#A0AEC0"
+
+      - name: "fire"
+        description: "Fire"
+        text: "mdi:\U000f0238"
+        sizes:
+          - small:
+              color: "#fc8181"
+
+      - name: "fire_off"
+        description: "Fire off"
+        text: "mdi:\U000F1722"
+        sizes:
+          - small:
+              color: "#a0aec0"
+
+      - name: minus_thick
+        description: "Minus Thick"
+        text: "mdi:\U000F1639"
+        sizes:
+          - small:
+              color: "#ffffff"
+
+      - name: plus_thick
+        description: "Plus Thick"
+        text: "mdi:\U000F11EC"
+        sizes: [small]
+        sizes:
+          - small:
+              color: "#ffffff"
+
+      - name: "vert_align_top"
+        description: "Up arrow"
+        text: "msr:\ue316"
+        sizes:
+          - medium:
+              color: white
+
+
+      - name: "vert_align_bottom"
+        description: "Down arrow"
+        text: "msr:\ue313"
+        sizes:
+          - medium:
+              color: white
+
+      - name: "stop"
+        description: "Stop button"
+        text: "msr:\ue047"
+        sizes:
+          - medium:
+              color: white
+
+      - name: "refresh_auto"
+        description: "Refresh auto"
+        text: "mdi:\U000F18F2"
+        sizes:
+          - small:
+              color: white
 
   grayscale:
     description: "Grayscale Theme, for e-ink devices"

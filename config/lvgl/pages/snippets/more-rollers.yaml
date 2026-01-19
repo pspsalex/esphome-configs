@@ -1,0 +1,115 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO:
+# Colors to theme
+# Styles
+
+# Climate control
+id: main_right_${name}_ro
+width: 165
+height: 185
+bg_color: ${lvgl_color_bg_accent}
+bg_opa: COVER
+radius: 5
+styles:
+  - clean_obj
+widgets:
+  - label:
+      x: 0
+      y: 0
+      align: TOP_MID
+      text: "${label}"
+      text_font: roboto_18_bold
+      text_color: ${lvgl_color_fg_secondary}
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+      pad_top: 5
+      pad_bottom: 5
+  - obj:
+      width: 135
+      height: 135
+      align: CENTER
+      y: 15
+      styles:
+        - clean_obj
+      widgets:
+        - image:
+            id: main_controls_${name}_slider_image
+            src: shutter_slide
+            align: CENTER
+            y: 0
+        - image:
+            src: shutter_open
+            align: CENTER
+
+        - button:
+            id: main_controls_${name}_up
+            styles:
+              - clean_obj
+            width: 135
+            height: 67
+            x: 0
+            y: 0
+            align: TOP_MID
+            bg_color: 0x000000
+            bg_opa: 0.2
+            widgets:
+              - image:
+                  id: main_controls_${name}_up_label
+                  src: image_vert_align_top_medium
+                  align: CENTER
+            on_press:
+              then:
+                - if:
+                    condition:
+                      lambda: |-
+                        return id(cover_${name}_state).state == "opening";
+                    then:
+                      - logger.log: "Stopping ${label} cover"
+                      - homeassistant.action:
+                          action: cover.stop_cover
+                          data:
+                            entity_id: cover.${ha_entity}
+                    else:
+                      - logger.log: "Opening ${label} cover"
+                      - homeassistant.action:
+                          action: cover.open_cover
+                          data:
+                            entity_id: cover.${ha_entity}
+
+        - button:
+            id: main_controls_${name}_down
+            styles:
+              - clean_obj
+            width: 135
+            x: 0
+            y: 0
+            align: BOTTOM_MID
+            height: 67
+            bg_color: 0x000000
+            bg_opa: 0.2
+            widgets:
+              - image:
+                  id: main_controls_${name}_down_label
+                  src: image_vert_align_bottom_medium
+                  align: CENTER
+            on_press:
+              then:
+                - if:
+                    condition:
+                      lambda: |-
+                        return id(cover_${name}_state).state == "closing";
+                    then:
+                      - logger.log: "Stopping ${label} cover"
+                      - homeassistant.action:
+                          action: cover.stop_cover
+                          data:
+                            entity_id: cover.${ha_entity}
+                    else:
+                      - logger.log: "Opening ${label} cover"
+                      - homeassistant.action:
+                          action: cover.close_cover
+                          data:
+                            entity_id: cover.${ha_entity}

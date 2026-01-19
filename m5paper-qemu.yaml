@@ -1,5 +1,8 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO: doesn't work with emulator. Debug qemu driver and/or update driver(s) to latest qemu.
+# TODO: remove static ip config, not that it matters much
 
 substitutions:
   device_name: "m5paper-qemu"

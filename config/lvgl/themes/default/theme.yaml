@@ -1,5 +1,16 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+substitutions:
+  lvgl_color_fg: "0x000000"
+  lvgl_color_bg: "0xFFFFFF"
+  lvgl_border_w_normal: "1"
+  lvgl_border_w_pressed: "3"
+  lvgl_border_w_disabled: "0"
+  lvgl_border_w_focused: "1"
+  lvgl_border_w_edit: "2"
+  lvgl_padding_default: "4"
+  default_font: "roboto_18"
 
 packages:
   icons: !include
@@ -9,16 +20,6 @@ packages:
 
   base: !include
     file: _base.yaml
-    vars:
-      lvgl_color_fg: "0x000000"
-      lvgl_color_bg: "0xFFFFFF"
-      lvgl_border_w_normal: "1"
-      lvgl_border_w_pressed: "3"
-      lvgl_border_w_disabled: "0"
-      lvgl_border_w_focused: "1"
-      lvgl_border_w_edit: "2"
-      lvgl_padding_default: "4"
-      default_font: "roboto_18"
 
 image:
   - file: "assets/images/esphome_logo.svg"

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 lvgl:
   style_definitions:
@@ -237,6 +237,7 @@ lvgl:
 
     - id: main_controls_button_disabled
       bg_color: ${lvgl_color_bg_disabled}
+      text_color: ${lvgl_color_fg_secondary}
 
     - id: main_controls
       bg_color: ${lvgl_color_bg_accent}
@@ -244,6 +245,20 @@ lvgl:
 
 
     - id: main_controls_label
+
+
+    - id: style_nav_bar
+
+
+    - id: nav_controls
+      bg_color: ${lvgl_color_bg_accent_inactive}
+      bg_opa: COVER
+      pad_left: 10
+      pad_right: 10
+
+    - id: nav_controls_checked
+      bg_color: ${lvgl_color_bg_accent_active}
+
 
 
   theme:
@@ -270,24 +285,24 @@ lvgl:
       pressed:
         styles:
           - pr
-        bg_color: 0xCCCCCC
+        # bg_color: 0xCCCCCC
       checked:
         styles:
           - inv
-        bg_color: 0xEEEEEE
+        # bg_color: 0xEEEEEE
       disabled:
         styles:
           - disabled
-        bg_color: 0xCCCCCC
+        # bg_color: 0xCCCCCC
       focused:
         styles:
           - focus
-        bg_color: 0xFFFFFF
+        # bg_color: 0xFFFFFF
       edited:
         styles:
           - edit
-      bg_color: 0xFFFFFF
-      bg_opa: COVER
+      # bg_color: 0xFFFFFF
+      # bg_opa: COVER
 
     bar:
       styles:

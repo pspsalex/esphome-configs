@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
-
-# Material: Tune Icon
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 esphome:
   on_boot:
@@ -28,6 +26,26 @@ esphome:
             text:
               time_format: "%H:%M"
               time: local_time
+
+script:
+  - id: return_to_main_page
+    mode: restart
+    then:
+      - delay: 30s
+      # TODO: check if we can improve this dependency to the nav_bar --> script.execute?
+      - lvgl.widget.hide: nav_bar
+      - lvgl.page.show: main_page
+      - lvgl.matrix.button.update:
+          id: nav_controls_home
+          selected: true
+          control:
+            checked: true
+
+touchscreen:
+  - id: !extend touchscreen_main
+    on_release:
+      - script.execute: return_to_main_page
+
 
 time:
   - id: !extend local_time
@@ -85,48 +103,14 @@ api:
   on_client_connected:
     then:
       - lvgl.widget.enable:
-          # - main_controls_dani_down
-          # - main_controls_dani_up
-          # - main_controls_dani_slider
-          # - main_controls_oli_down
-          # - main_controls_oli_slider
-          # - main_controls_oli_up
-          # - main_controls_eltern_down
-          # - main_controls_eltern_slider
-          # - main_controls_eltern_up
-          # - main_controls_living_rol_down
-          # - main_controls_living_rol_slider
-          # - main_controls_living_rol_up
-          # - main_controls_living_ros_down
-          # - main_controls_living_ros_slider
-          # - main_controls_living_ros_up
-          # - main_controls_dach_rollers
           - main_controls_office_light
           - main_controls_keller_light_long
-          # - main_controls_dach_light
 
   on_client_disconnected:
     then:
       - lvgl.widget.disable:
-          # - main_controls_dani_down
-          # - main_controls_dani_up
-          # - main_controls_dani_slider
-          # - main_controls_oli_down
-          # - main_controls_oli_slider
-          # - main_controls_oli_up
-          # - main_controls_eltern_down
-          # - main_controls_eltern_slider
-          # - main_controls_eltern_up
-          # - main_controls_living_rol_down
-          # - main_controls_living_rol_slider
-          # - main_controls_living_rol_up
-          # - main_controls_living_ros_down
-          # - main_controls_living_ros_slider
-          # - main_controls_living_ros_up
-          # - main_controls_dach_rollers
           - main_controls_office_light
           - main_controls_keller_light_long
-          # - main_controls_dach_light
 
 number:
   - platform: homeassistant
@@ -212,7 +196,7 @@ binary_sensor:
         - lvgl.image.update:
             id: main_controls_office_light_state
             src: !lambda |-
-              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
+              return x ? id(image_lightbulb_on_medium_w) : id(image_lightbulb_off_medium);
 
   - platform: homeassistant
     id: kg_keller_light_long
@@ -227,7 +211,7 @@ binary_sensor:
         - lvgl.image.update:
             id: main_controls_keller_light_long_state
             src: !lambda |-
-              return x ? id(image_lightbulb_on_medium) : id(image_lightbulb_off_medium);
+              return x ? id(image_lightbulb_on_medium_w) : id(image_lightbulb_off_medium);
 
 lvgl:
   pages:
@@ -337,7 +321,7 @@ lvgl:
                           - obj:
                               id: main_left_weather_temp_shadow
                               width: 150
-                              height: 70
+                              height: 75
                               radius: 0
                               styles: clean_obj
                               layout:
@@ -350,7 +334,7 @@ lvgl:
                                 - label:
                                     id: main_left_weather_temp_now_shadow
                                     text: "??"
-                                    height: 70
+                                    height: 75
                                     text_font: "roboto_64_num_bold"
                                     styles:
                                       - main_weather_temp_style
@@ -398,7 +382,7 @@ lvgl:
                           - obj:
                               id: main_left_weather_temp
                               width: 150
-                              height: 70
+                              height: 75
                               radius: 0
                               styles: clean_obj
                               layout:
@@ -411,7 +395,7 @@ lvgl:
                                 - label:
                                     id: main_left_weather_temp_now
                                     text: "??"
-                                    height: 70
+                                    height: 75
                                     text_font: "roboto_64_num_bold"
                                     styles:
                                       - main_weather_temp_style
@@ -563,7 +547,7 @@ lvgl:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
                                     text: "??\u00b0C / ??%"
-                                    text_font: "roboto_24"
+                                    text_font: "roboto_18"
                                     x: 0
                                     y: 0
                                     align: BOTTOM_MID
@@ -600,9 +584,7 @@ lvgl:
                                     styles:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
-                                    height: 32
-                                    width: 130
-                                    text_font: "roboto_24"
+                                    text_font: "roboto_18"
                                     text: "??\u00b0C / ??%"
                                     x: 0
                                     y: 0
@@ -640,50 +622,11 @@ lvgl:
                                     styles:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
-                                    height: 32
-                                    width: 130
                                     text: "??\u00b0C / ??%"
-                                    text_font: "roboto_24"
+                                    text_font: "roboto_18"
                                     x: 0
                                     y: 0
                                     align: BOTTOM_MID
-
-                    # Button to show a popup confirmation dialog to restart the system
-                    # TODO: fix hallucination below
-                    # - button:
-                    #     id: main_left_forecast_restart_button
-                    #     text: "Restart"
-                    #     text_font: "roboto_24"
-                    #     outline_width: 1
-                    #     on_click:
-                    #       - service: restart
-                    #         id: restart_service
-                    #     y: 300
-                    #     x: 460
-                    #
-                    # Display sleep button, and wake-up button
-                    # - button:
-                    #     id: main_left_forecast_sleep_button
-                    #     text: "Sleep"
-                    #     text_font: "roboto_24"
-                    #     outline_width: 1
-                    #     on_click:
-                    #       - service: sleep
-                    #         id: sleep_service
-                    #     y: 300
-                    #     x: 460
-                    #
-                    # - button:
-                    #     id: main_left_forecast_wakeup_button
-                    #     text: "Wake Up"
-                    #     text_font: "roboto_24"
-                    #     outline_width: 1
-                    #     on_click:
-                    #       - service: wakeup
-                    #         id: wakeup_service
-                    #     y: 300
-                    #     x: 460
-                    #
 
               - obj:
                   id: main_right_pane
@@ -767,7 +710,7 @@ lvgl:
                                 - main_power_stats_details_label_style
                               text: "0%"
                               width: 80
-                              pad_left: 10
+                              pad_left: 5
 
                           - image:
                               src: image_sun_small
@@ -777,7 +720,7 @@ lvgl:
                                 - main_power_stats_details_label_style
                               text: "0 kWh"
                               width: 80
-                              pad_left: 10
+                              pad_left: 5
 
                           - image:
                               src: image_battery_share_small
@@ -787,7 +730,7 @@ lvgl:
                                 - main_power_stats_details_label_style
                               text: "0 kWh"
                               width: 80
-                              pad_left: 10
+                              pad_left: 5
 
                           - image:
                               src: image_money_small
@@ -797,7 +740,7 @@ lvgl:
                                 - main_power_stats_details_label_style
                               text: "0 €"
                               width: 80
-                              pad_left: 10
+                              pad_left: 5
 
                           - line:
                               points:
@@ -812,26 +755,26 @@ lvgl:
                               styles:
                                 - clean_obj
                                 - main_controls
-                              pressed:
-                                styles:
-                                  - main_controls_button_pressed
-                              focused:
-                                styles:
-                                  - main_controls
                               checked:
                                 styles:
                                   - main_controls_button_checked
-                                bg_color: 0xffff00
                               disabled:
                                 styles:
-                                  - main_controls_button_checked
-                                bg_color: 0x000000
+                                  - main_controls_button_disabled
+                              # focused:
+                              #   bg_color: 0x883333
+                              # edited:
+                              #   bg_color: 0x338833
+                              # pressed:
+                              #   bg_color: 0x000088
+
                               width: 75
                               height: 75
                               radius: 5
                               state:
                                 disabled: true
-                              checkable: false
+                              checkable: true
+                              click_focusable: false
                               widgets:
                                 - image:
                                     id: main_controls_keller_light_long_state
@@ -873,27 +816,30 @@ lvgl:
                           - button:
                               # id: main_right_keller_light
                               id: main_controls_office_light
+
                               styles:
                                 - clean_obj
                                 - main_controls
-                              pressed:
-                                styles:
-                                  - main_controls_button_pressed
-                              focused:
-                                styles:
-                                  - main_controls
                               checked:
                                 styles:
                                   - main_controls_button_checked
                               disabled:
                                 styles:
                                   - main_controls_button_disabled
+                              # focused:
+                              #   bg_color: 0x883333
+                              # edited:
+                              #   bg_color: 0x338833
+                              # pressed:
+                              #   bg_color: 0x000088
+
                               width: 75
                               height: 75
                               radius: 5
                               state:
                                 disabled: true
-                              checkable: false
+                              checkable: true
+                              click_focusable: false
                               widgets:
                                 - image:
                                     id: main_controls_office_light_state
@@ -939,6 +885,16 @@ lvgl:
                               width: 75
                               height: 75
                               radius: 5
+                              on_click:
+                                then:
+                                  - lvgl.page.show: rollers_page
+                                  - lvgl.widget.show: nav_bar
+                                  - lvgl.matrix.button.update:
+                                      id: nav_controls_rollers
+                                      selected: true
+                                      control:
+                                        checked: true
+
                               widgets:
                                 - image:
                                     src: image_controls_medium

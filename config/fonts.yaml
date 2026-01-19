@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 substitutions:
   msr_wifi_unknown: "\U0000f0ef"
@@ -45,6 +45,10 @@ substitutions:
   msr_lightbulb_off: "\U0000e9b8"
   msr_stop: "\U0000e047"
   msr_hourglass: "\U0000ef64"
+
+
+  # text_font: "gfonts://Roboto"
+  text_font: "gfonts://Inter"
 
 # Fonts configuration
 font:
@@ -94,6 +98,7 @@ font:
     id: icons_large
     size: 32
     bpp: 4
+
   - file: "gfonts://Material+Symbols+Rounded"
     id: icons_xlarge
     size: 48
@@ -104,56 +109,69 @@ font:
         "${msr_vert_align_top}", # Vert Align Top
         "${msr_vert_align_bottom}", # Vert Align Bottom
       ]
-  - file: "gfonts://Roboto"
+
+  - file: "${text_font}"
     id: roboto_48
     size: 48
     bpp: 4
-  - file: "gfonts://Roboto"
+  - file: "${text_font}"
     id: roboto_12
     size: 12
     bpp: 4
-  - file: "gfonts://Roboto"
+  - file: "${text_font}"
+    id: roboto_14
+    size: 14
+    bpp: 4
+  - file: "${text_font}@700"
+    id: roboto_14_bold
+    size: 14
+    bpp: 4
+  - file: "${text_font}"
     id: roboto_16
     size: 16
     bpp: 4
-  - file: "gfonts://Roboto"
+  - file: "${text_font}@700"
+    id: roboto_18_bold
+    size: 18
+    bpp: 4
+  - file: "${text_font}"
     id: roboto_32
     size: 32
     bpp: 4
-  - file: "gfonts://Roboto@600"
+  - file: "${text_font}@600"
     id: roboto_32_bold
     size: 32
     bpp: 4
-  - file: "gfonts://Roboto@600"
+  - file: "${text_font}@600"
     id: roboto_48_num_bold
     size: 48
     bpp: 4
-    glyphs: ["0123456789:,.-W"]
-  - file: "gfonts://Roboto"
+    glyphs: ["0123456789:,.-?!Wna"]
+  - file: "${text_font}"
     id: roboto_96_num
     size: 96
     bpp: 4
-    glyphs: ["0123456789:.?"]
-  - file: "gfonts://Roboto@600"
+    glyphs: ["0123456789:,.-?!Wna"]
+  - file: "${text_font}@600"
     id: roboto_96_num_bold
     size: 96
     bpp: 4
-    glyphs: ["0123456789:.-?"]
-  - file: "gfonts://Roboto@600"
+    glyphs: ["0123456789:,.-?!Wna"]
+  - file: "${text_font}@600"
     id: roboto_80_num_bold
     size: 80
     bpp: 4
-    glyphs: ["0123456789:.?"]
-  - file: "gfonts://Roboto@600"
+    glyphs: ["0123456789:,.-?!Wna"]
+  - file: "${text_font}@600"
     id: roboto_64_num_bold
     size: 64
     bpp: 4
-    glyphs: ["0123456789:.?"]
-  - file: "gfonts://Roboto"
+    glyphs: ["0123456789:,.-?!Wna"]
+  - file: "${text_font}"
     id: roboto_24
     size: 24
     bpp: 4
-  - file: "gfonts://Roboto"
+  - file: "${text_font}"
     id: roboto_18
     size: 18
     bpp: 4

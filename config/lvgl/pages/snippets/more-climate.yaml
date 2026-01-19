@@ -1,0 +1,140 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO:
+# Change temperature color when room is heating
+# Styles
+# Add warning if there is an open window and actively heating?
+
+# Climate control
+id: control_${name}_climate
+width: 124
+height: 175
+bg_color: ${lvgl_color_bg_accent}
+bg_opa: COVER
+radius: 5
+styles:
+  - clean_obj
+layout:
+  type: FLEX
+  flex_flow: COLUMN
+  flex_align_main: SPACE_BETWEEN
+  flex_align_cross: START
+  pad_row: 0
+widgets:
+  - label:
+      text: "${label}"
+      text_font: roboto_14_bold
+      text_color: ${lvgl_color_fg_secondary}
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+      pad_top: 5
+      pad_bottom: 5
+  - label:
+      id: control_${name}_climate_act_temp
+      text: "--.-"
+      text_font: roboto_32_bold
+      text_color: 0xffffff
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+  - label:
+      id: control_${name}_climate_set_temp_hum
+      text: "Set: --.-°C\n--% RH"
+      text_font: roboto_12
+      text_color: ${lvgl_color_fg_accent}
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+  - obj:
+      width: 100%
+      height: 40
+      styles:
+        - clean_obj
+      layout:
+        type: FLEX
+        flex_flow: ROW
+        flex_align_main: SPACE_BETWEEN
+      widgets:
+        - button:
+            id: control_${name}_climate_minus
+            styles:
+              - clean_obj
+            width: 40
+            height: 40
+            radius: 5
+            bg_color: ${lvgl_color_bg_widget}
+            bg_opa: cover
+            widgets:
+              - image:
+                  src: ${climate_minus_small}
+                  align: CENTER
+            on_click:
+              then:
+                - homeassistant.action:
+                    action: climate.set_temperature
+                    data:
+                      entity_id: "climate.${ha_entity}"
+                    data_template:
+                      temperature: "{{ temperature }}"
+                    variables:
+                      temperature: |-
+                        auto temp = id(climate_${name}_temp_set).state;
+                        auto step = 0.5f;
+                        return temp - step;
+        - button:
+            id: control_${name}_climate_mode
+            styles:
+              - clean_obj
+            width: 40
+            height: 40
+            radius: 5
+            # bg_color: ${lvgl_color_bg_widget}
+            bg_opa: TRANSP
+            widgets:
+              - image:
+                  id: control_${name}_climate_mode_image
+                  src: ${climate_heating_off_small}
+                  align: CENTER
+            on_click:
+              then:
+                - homeassistant.action:
+                    action: climate.set_hvac_mode
+                    data:
+                      entity_id: "climate.${ha_entity}"
+                    data_template:
+                      hvac_mode: "{{ mode }}"
+                    variables:
+                      mode: |-
+                        auto state = id(climate_${name}_state).state;
+                        if      (state.compare("heat") == 0)  { return "auto"; }
+                        else if (state.compare("auto") == 0)   { return "off"; }
+                        else if (state.compare("off") == 0) { return "heat"; }
+                        return "auto";
+        - button:
+            id: control_${name}_climate_plus
+            styles:
+              - clean_obj
+            width: 40
+            radius: 5
+            height: 40
+            bg_color: ${lvgl_color_bg_widget}
+            bg_opa: cover
+            widgets:
+              - image:
+                  src: ${climate_plus_small}
+                  align: CENTER
+            on_click:
+              then:
+                - homeassistant.action:
+                    action: climate.set_temperature
+                    data:
+                      entity_id: "climate.${ha_entity}"
+                    data_template:
+                      temperature: "{{ temperature }}"
+                    variables:
+                      temperature: |-
+                        auto temp = id(climate_${name}_temp_set).state;
+                        auto step = 0.5f;
+                        return temp + step;

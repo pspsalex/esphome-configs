@@ -1,0 +1,65 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+binary_sensor:
+  - platform: homeassistant
+    id: window_${name}_lower_state
+    entity_id: binary_sensor.${ha_lower}
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        - lvgl.image.update:
+            id: status_${name}_opening_image
+            src: !lambda |-
+              auto lower_open = x;
+              auto upper_open = id(window_${name}_upper_state).get_state();
+              if (lower_open) {
+                // Lower sensor reports open, so the window must be open
+                lv_obj_add_state(id(status_${name}_opening), LV_STATE_USER_1);
+                lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_2);
+                return id(image_window_open_large);
+              } else {
+                // Lower sensor reports closed, so the window could be tilted or closed
+                if (upper_open) {
+                  // Upper sensor reports open, so the window is tilted
+                  lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_1);
+                  lv_obj_add_state(id(status_${name}_opening), LV_STATE_USER_2);
+                  return id(image_window_tilted_large);
+                } else  {
+                  // Upper sensor reports closed, so the window is closed
+                  lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_1);
+                  lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_2);
+                  return id(image_window_open_large);
+                }
+              }
+
+  - platform: homeassistant
+    id: window_${name}_upper_state
+    entity_id: binary_sensor.${ha_upper}
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        - lvgl.image.update:
+            id: status_${name}_opening_image
+            src: !lambda |-
+              auto lower_open = id(window_${name}_lower_state).get_state();
+              auto upper_open = x;
+              if (lower_open) {
+                // Lower sensor reports open, so the window must be open
+                lv_obj_add_state(id(status_${name}_opening), LV_STATE_USER_1);
+                lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_2);
+                return id(image_window_open_large);
+              } else {
+                // Lower sensor reports closed, so the window could be tilted or closed
+                if (upper_open) {
+                  // Upper sensor reports open, so the window is tilted
+                  lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_1);
+                  lv_obj_add_state(id(status_${name}_opening), LV_STATE_USER_2);
+                  return id(image_window_tilted_large);
+                } else  {
+                  // Upper sensor reports closed, so the window is closed
+                  lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_1);
+                  lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_2);
+                  return id(image_window_closed_large);
+                }
+              }

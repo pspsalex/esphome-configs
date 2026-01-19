@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+binary_sensor:
+  - platform: homeassistant
+    id: light_${name}_state
+    entity_id: ${type}.${ha_entity}
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: control_${type}_${name}
+            state:
+              checked: !lambda return x;
+
+        - lvgl.image.update:
+            id: control_${type}_${name}_image
+            src: !lambda |-
+              return x ? id(image_lightbulb_on_large_w) : id(image_lightbulb_off_large);

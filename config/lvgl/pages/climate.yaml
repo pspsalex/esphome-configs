@@ -1,0 +1,171 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+
+# Sensor: current temperature: climate.${thermostat}.current_temperature
+# Sensor: set temperature:     climate.${thermostat}.temperature
+# Sensor: humidity:            sensor.eg_kitchen_th_sensor_humidity
+# Sensor: On / Off / Auto:    climate.${thermostat}
+# Action: Enable / Disable:   climate.set_hvac_mode / target.entity_id: climate.${thermostat} data.hvac_mode: heat / off / auto
+# Action: Decrease set:       climate.set_temperature / target.entity_id: climate.${thermostat} data.temperature: 20C
+# Action: Increase set:       see above
+
+packages:
+  sensor_kitchen: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: eg_kitchen
+      thermostat: eg_kitchen_th_eg_kitchen_th
+      humidity: eg_kitchen_th_sensor_humidity
+
+  sensor_living: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: eg_living
+      thermostat: eg_living_th
+      humidity: eg_living_th_sensor_humidity
+
+  sensor_dani: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: og_dani
+      thermostat: og_dani_th
+      humidity: additional_indoor_module_humidity
+
+  sensor_oli: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: og_oli
+      thermostat: og_oli_th
+      humidity: og_oli_th_sensor_humidity
+
+  sensor_eltern: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: og_eltern
+      thermostat: og_eltern_th
+      humidity: og_eltern_th_sensor_humidity
+
+  sensor_og_bad: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: og_bad
+      thermostat: og_bad_th
+      humidity: og_bad_th_sensor_humidity
+
+  sensor_studio: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: dg_studio
+      thermostat: dg_studio_th
+      humidity: weather_station_humidity
+
+  sensor_dg_bad: !include
+    file: "../../snippets/sensors_climate.yaml"
+    vars:
+      name: dg_bad
+      thermostat: dg_bad_th_dg_bad_th
+      humidity: dg_bad_th_sensor_humidity
+
+lvgl:
+  pages:
+    - id: climate_page
+      styles:
+        - page
+
+      widgets:
+        - obj:
+            width: 760
+            height: 440
+            x: 20
+            y: 20
+            pad_all: 20
+
+            styles:
+              - clean_obj
+              - main_container_style
+
+            layout:
+              type: FLEX
+              flex_flow: COLUMN
+              flex_align_main: START
+              flex_align_cross: START
+
+            widgets:
+              - label:
+                  # Climate Control
+                  text: "CLIMATE CONTROL"
+                  text_font: roboto_18_bold
+                  text_color: 0xffffff
+                  pad_bottom: 15
+
+              - obj:
+                  # Climate Controls
+                  width: 100%
+                  height: SIZE_CONTENT
+                  styles:
+                    - clean_obj
+                  layout:
+                    type: FLEX
+                    flex_flow: ROW_WRAP
+                    flex_align_main: START
+                    flex_align_cross: START
+                    pad_column: 20
+                    pad_row: 20
+
+                  widgets:
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "eg_kitchen"
+                          label: "KITCHEN"
+                          ha_entity: "eg_kitchen_th_eg_kitchen_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "eg_living"
+                          label: "LIVING"
+                          ha_entity: "eg_living_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "og_dani"
+                          label: "DANI"
+                          ha_entity: "og_dani_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "og_oli"
+                          label: "OLI"
+                          ha_entity: "og_oli_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "og_eltern"
+                          label: "ELTERN"
+                          ha_entity: "og_eltern_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "og_bad"
+                          label: "OG BATH"
+                          ha_entity: "og_bad_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "dg_studio"
+                          label: "STUDIO"
+                          ha_entity: "dg_studio_th"
+
+                    - obj: !include
+                        file: "snippets/more-climate.yaml"
+                        vars:
+                          name: "dg_bad"
+                          label: "STUDIO BATH"
+                          ha_entity: "dg_bad_th_dg_bad_th"

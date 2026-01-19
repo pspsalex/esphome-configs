@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="window-tilted.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title8">window-tilted</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.8044997"
+     inkscape:cx="258.79749"
+     inkscape:cy="129.95292"
+     inkscape:window-width="2256"
+     inkscape:window-height="1432"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showgrid="true" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       down_right_point="380.36884,362.38751"
+       down_left_point="131.63,362.38751"
+       up_right_point="331.73161,134.75"
+       up_left_point="82,134.75"
+       effect="perspective-envelope"
+       id="path-effect4"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="133.75517,86.823525"
+       up_right_point="382.49285,86.823525"
+       down_left_point="133.75517,333.80128"
+       down_right_point="382.49285,333.80128"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="114.39587,68.63752"
+       up_right_point="401.85217,68.63752"
+       down_left_point="114.39587,351.98728"
+       down_right_point="401.85217,351.98728"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="131.04,85.662926"
+       up_right_point="379.77383,85.662926"
+       down_left_point="131.03615,332.64068"
+       down_right_point="379.77383,332.64068"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+  </defs>
+  <g
+     inkscape:label="Strat 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="font-variation-settings:'wght' 500;fill:#ffffff;stroke:#000000;stroke-width:7.55906;stroke-linecap:round;stroke-linejoin:round"
+       id="rect11"
+       width="431.18442"
+       height="34.025436"
+       x="40.407791"
+       y="380.75082" />
+    <path
+       id="rect10"
+       style="font-variation-settings:'wght' 500;fill:#ffffff;stroke:#000000;stroke-width:7.55906;stroke-linecap:round;stroke-linejoin:round"
+       d="M 112.27148 97.224609 L 112.27148 380.57422 L 399.72852 380.57422 L 399.72852 97.224609 L 112.27148 97.224609 z M 131.63086 115.41016 L 380.36914 115.41016 L 380.36914 362.38672 L 131.63086 362.38672 L 131.63086 115.41016 z " />
+    <g
+       id="g3"
+       transform="matrix(-1,0,0,1,512,0)"
+       inkscape:path-effect="#path-effect4">
+      <path
+         id="rect9"
+         style="font-variation-settings:'wght' 500;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:7.55906;stroke-linecap:round;stroke-linejoin:round"
+         d="m 82,134.75 49.63,227.63751 H 380.36884 L 331.73161,134.75 Z m 135.44832,15.42358 98.79027,0 19.69547,92.03963 h -98.63143 z m -113.20518,0.4227 h 98.78954 l 19.87695,92.03647 -98.63071,0 z m 22.72726,104.40011 98.60938,0 19.80457,91.70135 -98.45112,0 z m 113.17166,0.37975 h 98.60872 l 19.62321,91.70193 h -98.45047 z"
+         inkscape:original-d="M 131.63113,115.41024 V 362.3868 H 380.36941 V 115.41024 Z m 131.5957,16.67187 h 98.42383 v 99.67578 h -98.42383 z m -112.87695,0.45703 h 98.42383 v 99.67383 h -98.42383 z m 0,113.08789 h 98.42383 v 99.67383 h -98.42383 z m 112.87695,0.41211 h 98.42383 v 99.67578 h -98.42383 z" />
+      <path
+         id="path7"
+         style="font-variation-settings:'wght' 500;fill:#ffffff;fill-opacity:0.608429;stroke:#000000;stroke-width:7.55906;stroke-linecap:round;stroke-linejoin:round"
+         d="m 217.44832,150.17358 98.79027,0 19.69547,92.03963 h -98.63143 z m -113.20518,0.4227 h 98.78954 l 19.87695,92.03647 -98.63071,0 z m 22.72726,104.40011 98.60938,0 19.80457,91.70135 -98.45112,0 z m 113.17166,0.37975 h 98.60872 l 19.62321,91.70193 h -98.45047 z"
+         inkscape:original-d="m 263.22683,132.08211 h 98.42383 v 99.67578 h -98.42383 z m -112.87695,0.45703 h 98.42383 v 99.67383 h -98.42383 z m 0,113.08789 h 98.42383 v 99.67383 h -98.42383 z m 112.87695,0.41211 h 98.42383 v 99.67578 h -98.42383 z"
+         sodipodi:nodetypes="cccccccccccccccccccc" />
+      <path
+         id="rect12"
+         style="font-variation-settings:'wght' 500;stroke:#000000;stroke-width:7.55906;stroke-linecap:round;stroke-linejoin:round"
+         d="M 347.27361,262.59768 334.54617,203.0867 h -28.23769 l 12.75681,59.51098 z"
+         inkscape:original-d="m 368.61595,253.87701 v -64.531 h -28.15898 v 64.531 z" />
+    </g>
+  </g>
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+        <dc:title>window-tilted</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>@pspsalex</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

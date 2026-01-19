@@ -1,5 +1,8 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO: rename to sdl-m5paper.yaml or m5paper-sdl.yaml
+# TODO: see m5paper.yaml
 
 substitutions:
   device_name: "sdl"

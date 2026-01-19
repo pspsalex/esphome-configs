@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 SPDX-License-Identifier: MIT
-Copyright (c) 2025 Alex Popescu (@pspsalex)
+Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 Modern Material Symbols image generator for ESPHome LVGL configurations.
 
@@ -13,7 +13,7 @@ Dependencies:
     pip install pillow cairosvg pyyaml
 
 Usage:
-    python3 scripts/pargenv3.py
+    python3 scripts/imagen.py
 """
 
 import argparse

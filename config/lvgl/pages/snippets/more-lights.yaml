@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO:
+# Styles
+
+id: control_${type}_${name}
+width: 105
+height: 120
+bg_color: ${lvgl_color_bg_accent}
+bg_opa: COVER
+radius: 5
+styles:
+  - clean_obj
+checked:
+  styles:
+    - nav_controls_checked
+  text_color: white
+pressed:
+  styles:
+    - nav_controls_checked
+  text_color: white
+checkable: true
+click_focusable: false
+text_color: ${lvgl_color_fg_secondary}
+
+on_click:
+  then:
+    - homeassistant.action:
+        action: ${type}.toggle
+        data:
+          entity_id: ${type}.${ha_entity}
+
+widgets:
+  - label:
+      x: 0
+      y: 0
+      align: TOP_MID
+      text: "${label}"
+      text_font: roboto_14_bold
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+      pad_top: 5
+      pad_bottom: 5
+
+  - image:
+      x: 0
+      y: 10
+      id: control_${type}_${name}_image
+      src: "image_lightbulb_off_large"
+      align: CENTER

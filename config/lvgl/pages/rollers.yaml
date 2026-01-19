@@ -1,0 +1,151 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+packages:
+  sensor_kitchen: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: eg_kitchen
+      ha_entity: kitchen_roller_cover_1
+
+  sensor_living_rol: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: eg_living_rol
+      ha_entity: living_large_rollers_cover_1
+
+  sensor_living_ros: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: eg_living_ros
+      ha_entity: living_small_roller_cover_1
+
+  sensor_dani: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: og_dani
+      ha_entity: dani_rollers_cover_1
+
+  sensor_oli: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: og_oli
+      ha_entity: oli_roller_cover_1
+
+  sensor_eltern: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: og_eltern
+      ha_entity: eltern_rollers_cover_1
+
+  sensor_studio_rol: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: dg_studio_rol
+      ha_entity: living_large_rollers_cover_1
+
+  sensor_studio_ros: !include
+    file: "../../snippets/sensors_rollers.yaml"
+    vars:
+      name: dg_studio_ros
+      ha_entity: living_small_roller_cover_1
+
+
+lvgl:
+  pages:
+    - id: rollers_page
+      styles:
+        - page
+
+      widgets:
+        - obj:
+            width: 760
+            height: 440
+            x: 20
+            y: 20
+            pad_all: 20
+            styles:
+              - clean_obj
+              - main_container_style
+            layout:
+              type: FLEX
+              flex_flow: COLUMN
+              flex_align_main: START
+              flex_align_cross: START
+            widgets:
+              - label:
+                  # Rollers
+                  text: "ROLLERS"
+                  text_font: roboto_18_bold
+                  text_color: 0xffffff
+                  pad_bottom: 15
+
+              - obj:
+                  width: 100%
+                  height: SIZE_CONTENT
+                  styles:
+                    - clean_obj
+                  layout:
+                    type: FLEX
+                    flex_flow: ROW_WRAP
+                    flex_align_main: START
+                    flex_align_cross: START
+                    pad_column: 20
+                    pad_row: 20
+
+                  widgets:
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "eg_kitchen"
+                          label: "KITCHEN"
+                          ha_entity: "kitchen_roller_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "eg_living_rol"
+                          label: "LIVING (L)"
+                          ha_entity: "living_large_rollers_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "eg_living_ros"
+                          label: "LIVING (S)"
+                          ha_entity: "living_small_roller_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "og_dani"
+                          label: "DANI"
+                          ha_entity: "dani_rollers_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "og_oli"
+                          label: "OLI"
+                          ha_entity: "oli_roller_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "og_eltern"
+                          label: "ELTERN"
+                          ha_entity: "eltern_rollers_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "dg_studio_rol"
+                          label: "STUDIO (L)"
+                          ha_entity: "living_large_rollers_cover_1"
+
+                    - obj: !include
+                        file: "snippets/more-rollers.yaml"
+                        vars:
+                          name: "dg_studio_ros"
+                          label: "STUDIO (S)"
+                          ha_entity: "living_small_roller_cover_1"

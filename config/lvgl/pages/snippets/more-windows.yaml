@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO:
+# Styles
+
+# Window status
+id: status_${name}_opening
+width: 105
+height: 120
+radius: 5
+styles:
+  - clean_obj
+main:
+  styles:
+    - clean_obj
+  text_color: ${lvgl_color_fg_secondary}
+  bg_color: ${lvgl_color_bg_accent}
+  bg_opa: COVER
+  user_1:
+    bg_color: ${lvgl_color_warn_dk}
+    text_color: white
+  user_2:
+    bg_color: ${lvgl_color_warn_lt}
+    text_color: white
+widgets:
+  - label:
+      x: 0
+      y: 0
+      align: TOP_MID
+      text: "${label}"
+      text_font: roboto_14_bold
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+      pad_top: 5
+      pad_bottom: 5
+  - image:
+      x: 0
+      y: 10
+      id: status_${name}_opening_image
+      src: "image_window_closed_large"
+      align: CENTER

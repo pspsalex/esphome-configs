@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
-#
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
 http_request:
 
 online_image:
-  - url: "http://10.0.40.33:8123/api/camera_proxy/camera.doorbell_reolink_sub?token=d0f04d05c1f6262ba5b4bf1a6294f663c7642c4c4cd0e9623e4444eab326f9ea"
+  - url: "http://ha:8123/api/camera_proxy/camera.doorbell_reolink_sub?token=xxxx"
     format: jpg
     id: my_online_image
     type: RGB565
@@ -24,7 +24,7 @@ esphome:
             level: WARN
         - online_image.set_url:
             id: my_online_image
-            url: "http://10.0.40.33:8123/api/camera_proxy/camera.doorbell_reolink_sub?token=d0f04d05c1f6262ba5b4bf1a6294f663c7642c4c4cd0e9623e4444eab326f9ea"
+            url: "http://ha:8123/api/camera_proxy/camera.doorbell_reolink_sub?token=xxxx"
 
 lvgl:
   pages:
@@ -52,7 +52,7 @@ text_sensor:
       - online_image.set_url:
           id: my_online_image
           url: !lambda |-
-            return ("http://10.0.40.33:8123" + x).c_str();
+            return ("http://ha:8123" + x).c_str();
 
 # text_sensor:
 #   - platform: homeassistant

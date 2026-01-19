@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 substitutions:
   theme_status_net: image_lan_small
@@ -49,37 +49,62 @@ substitutions:
   theme_status_wifi_5: image_wifi_5_small
   theme_status_wifi_unknown: image_wifi_unknown_small
 
+  climate_heating_small: image_fire_small
+  climate_heating_off_small: image_fire_off_small
+  climate_plus_small: image_plus_thick_small
+  climate_minus_small: image_minus_thick_small
+
+  climate_heating_auto_small: image_refresh_auto_small
+  climate_heating_unknown_small: image_weather_unknown_xsmall
+
+  theme_rollers_as_image: "true"
+
   shadow_active: 1
+
+  lvgl_color_page_bg: "0x1a202c"
+  lvgl_color_bg: "0x2c3646"
+  lvgl_color_bg_statusbar: "0x2c3646"
+  lvgl_color_fg: "0xe2e8f0"
+  lvgl_color_fg_secondary: "0xa0aec0"
+  lvgl_color_accent: "0x93c5fd"
+  lvgl_color_bg_accent: "0x4A5568"
+  lvgl_color_shadow: "0x000000"
+  statusbar_font: "icons_large"
+
+  # bg lt green: 0x48bb78
+  # bg lt blue:  0x63b3ed
+  # lvgl_color_bg_accent_inactive: "0x63b3ed"
+  # lvgl_color_bg_accent_active: "0x48bb78"
+  lvgl_color_bg_accent_inactive: "0x4A5568"
+  lvgl_color_bg_accent_active: "0x48bb78"
+
+  lvgl_color_bg_widget: 0x63b3ed
+  lvgl_color_fg_accent: 0x4ade80
+  lvgl_color_bg_unchecked: 0x5e6e86
+
+  lvgl_color_warn_dk: red
+  lvgl_color_warn_lt: 0xfc8181
+
+
+  lvgl_color_bg_checked: 0x48bb78
+  lvgl_color_bg_disabled: 0x666666
+
+  lvgl_color_splitter: "0xd9d9d9"
+  lvgl_border_w_normal: "1"
+  lvgl_border_w_pressed: "3"
+  lvgl_border_w_disabled: "0"
+  lvgl_border_w_focused: "1"
+  lvgl_border_w_edit: "2"
+  lvgl_padding_default: "4"
+
+  default_font: "roboto_18"
+  lvgl_font_small: "roboto_16"
 
 packages:
   images: !include images.yaml
 
   base: !include
     file: ../_base.yaml
-    vars:
-      lvgl_color_page_bg: "0x1a202c"
-      lvgl_color_bg: "0x2c3646"
-      lvgl_color_bg_statusbar: "0x2c3646"
-      lvgl_color_fg: "0xe2e8f0"
-      lvgl_color_fg_secondary: "0xa0aec0"
-      lvgl_color_accent: "0x93c5fd"
-      lvgl_color_bg_accent: "0x4A5568"
-      lvgl_color_shadow: "0x000000"
-      statusbar_font: "icons_large"
-
-      lvgl_color_bg_checked: 0x4A5568
-      lvgl_color_bg_disabled: 0x666666
-
-      lvgl_color_splitter: "0xd9d9d9"
-      lvgl_border_w_normal: "1"
-      lvgl_border_w_pressed: "3"
-      lvgl_border_w_disabled: "0"
-      lvgl_border_w_focused: "1"
-      lvgl_border_w_edit: "2"
-      lvgl_padding_default: "4"
-
-      default_font: "roboto_18"
-      lvgl_font_small: "roboto_16"
 
 lvgl:
   style_definitions:

@@ -1,0 +1,104 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+lvgl:
+  top_layer:
+    widgets:
+      - buttonmatrix:
+          id: nav_bar
+          width: 420
+          height: 32
+          hidden: true
+          align: TOP_MID
+          x: 0
+          y: 4
+          styles:
+            - clean_obj
+            - style_nav_bar
+          pad_row: 0
+          pad_column: 1
+          one_checked: true
+          items:
+            text_font: roboto_14_bold
+            text_color: 0xFFFFFF
+            styles:
+              - clean_obj
+              - nav_controls
+            pressed:
+              styles:
+                - nav_controls_checked
+            focused:
+              styles:
+                - nav_controls_checked
+            checked:
+              styles:
+                - nav_controls_checked
+
+
+          bg_color: 0x000000
+          bg_opa: COVER
+          radius: 10
+          clip_corner: true
+          rows:
+            - buttons:
+              - id: nav_controls_home
+                control:
+                  checkable: true
+                text: "HOME"
+                on_click:
+                  then:
+                    - lvgl.widget.hide: nav_bar
+                    - lvgl.page.show: main_page
+                    - lvgl.matrix.button.update:
+                        id: nav_controls_home
+                        selected: true
+                        control:
+                          checked: true
+              - id: nav_controls_rollers
+                control:
+                  checkable: true
+                text: "ROLLERS"
+                on_click:
+                  then:
+                    - lvgl.page.show: rollers_page
+                    - lvgl.matrix.button.update:
+                        id: nav_controls_rollers
+                        selected: true
+                        control:
+                          checked: true
+              - id: nav_controls_climate
+                control:
+                  checkable: true
+                text: "CLIMATE"
+                on_click:
+                  then:
+                    - lvgl.page.show: climate_page
+                    - lvgl.matrix.button.update:
+                        id: nav_controls_climate
+                        selected: true
+                        control:
+                          checked: true
+              - id: nav_controls_windows
+                control:
+                  checkable: true
+                text: "WINDOWS"
+                on_click:
+                  then:
+                    - lvgl.page.show: windows_page
+                    - lvgl.matrix.button.update:
+                        id: nav_controls_windows
+                        selected: true
+                        control:
+                          checked: true
+              - id: nav_controls_lights
+                control:
+                  checkable: true
+                text: "LIGHTS"
+                on_click:
+                  then:
+                    - lvgl.page.show: lights_page
+                    - lvgl.matrix.button.update:
+                        id: nav_controls_lights
+                        selected: true
+                        control:
+                          checked: true

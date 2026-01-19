@@ -1,0 +1,342 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+packages:
+  light_office: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: kg_office
+      type: light
+      ha_entity: kg_office_light
+
+  switch_desk: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: kg_desk
+      type: switch
+      ha_entity: kg_office_desk_light
+
+  light_shelves: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: kg_shelves
+      type: light
+      ha_entity: kg_office_shelf_light
+
+  light_keller: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: kg_keller
+      type: light
+      ha_entity: kg_keller_lights
+
+  light_front_door: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: eg_front_door
+      type: switch
+      ha_entity: eg_door_light
+
+  light_kitchen: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: eg_kitchen
+      type: switch
+      ha_entity: eg_kitchen_light
+
+  light_living: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: eg_living
+      type: switch
+      ha_entity: eg_living_light
+
+  light_dani: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: og_dani
+      type: switch
+      ha_entity: og_dani_light
+
+  light_oli: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: og_oli
+      type: switch
+      ha_entity: og_oli_light
+
+  light_oli_bed: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: og_oli_bed
+      type: light
+      ha_entity: og_oli_bed_light
+
+  light_studio: !include
+    file: "../../snippets/sensors_lights.yaml"
+    vars:
+      name: dg_studio
+      type: switch
+      ha_entity: dg_studio_light_wall_switch
+
+
+
+
+  socket_alex: !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: kg_alex
+      ha_entity: tasmota
+      ha_power: tasmota_energy_power
+
+  socket_geo: !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: kg_geo
+      ha_entity: tasmota_2
+      ha_power: tasmota_energy_power_2
+
+  socket_washer: !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: kg_washer
+      ha_entity: washing_machine
+      ha_power: washing_machine_energy_power
+
+  socket_dryer:  !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: kg_dryer
+      ha_entity: dryer
+      ha_power: dryer_energy_power
+
+  socket_freezer: !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: kg_freezer
+      ha_entity: keller_socket
+      ha_power: keller_socket_energy_power
+
+  socket_server: !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: kg_server
+      ha_entity: server_plug_power
+      ha_power: server_plug_energy_power
+
+  socket_dishwasher: !include
+    file: "../../snippets/sensors_socket.yaml"
+    vars:
+      name: eg_dishwasher
+      ha_entity: kitchen_dishwasher_dishwasher
+      ha_power: kitchen_dishwasher_energy_power
+
+lvgl:
+  pages:
+    - id: lights_page
+      styles:
+        - page
+
+      widgets:
+        - obj:
+            width: 760
+            height: 440
+            x: 20
+            y: 20
+            pad_all: 20
+            styles:
+              - clean_obj
+              - main_container_style
+            layout:
+              type: FLEX
+              flex_flow: ROW
+              flex_align_main: SPACE_BETWEEN
+              flex_align_cross: START
+            widgets:
+              - obj:
+                  width: 480
+                  height: SIZE_CONTENT
+                  styles:
+                    - clean_obj
+
+                  layout:
+                    type: FLEX
+                    flex_flow: COLUMN
+                    flex_align_main: START
+                    flex_align_cross: START
+
+                  widgets:
+                    - label:
+                        # Lights
+                        text: "LIGHTS"
+                        text_font: roboto_18_bold
+                        text_color: 0xffffff
+                        pad_bottom: 15
+                    - obj:
+                        styles:
+                          - clean_obj
+                        width: 100%
+                        height: SIZE_CONTENT
+                        layout:
+                          type: FLEX
+                          flex_flow: ROW_WRAP
+                          flex_align_main: START
+                          flex_align_cross: START
+                          pad_row: 15
+                          pad_column: 15
+                        widgets:
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "kg_office"
+                                type: light
+                                label: "OFFICE"
+                                ha_entity: "kg_office_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "kg_desk"
+                                type: switch
+                                label: "DESK LIGHT"
+                                ha_entity: "kg_office_desk_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "kg_shelves"
+                                type: light
+                                label: "SHELVES"
+                                ha_entity: "kg_office_shelf_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "kg_keller"
+                                type: light
+                                label: "KELLER"
+                                ha_entity: "kg_keller_lights"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "eg_front_door"
+                                type: switch
+                                label: "FRONT DOOR"
+                                ha_entity: "eg_door_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "eg_kitchen"
+                                type: switch
+                                label: "KITCHEN"
+                                ha_entity: "eg_kitchen_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "eg_living"
+                                type: switch
+                                label: "LIVING ROOM"
+                                ha_entity: "eg_living_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "og_dani"
+                                type: switch
+                                label: "DANI"
+                                ha_entity: "og_dani_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "og_oli"
+                                type: switch
+                                label: "OLI"
+                                ha_entity: "og_oli_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "og_oli_bed"
+                                type: light
+                                label: "OLI BED"
+                                ha_entity: "og_oli_bed_light"
+
+                          - button: !include
+                              file: "snippets/more-lights.yaml"
+                              vars:
+                                name: "dg_studio"
+                                type: switch
+                                label: "STUDIO"
+                                ha_entity: "dg_studio_light_wall_switch"
+              - obj:
+                  width: 220
+                  height: SIZE_CONTENT
+                  styles:
+                    - clean_obj
+
+                  layout:
+                    type: FLEX
+                    flex_flow: COLUMN
+                    flex_align_main: START
+                    flex_align_cross: START
+
+                  widgets:
+                    - label:
+                        # Lights
+                        text: "SOCKETS"
+                        text_font: roboto_18_bold
+                        text_color: 0xffffff
+                        pad_bottom: 15
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "kg_washer"
+                          label: "Washer"
+                          ha_entity: "washing_machine"
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "kg_dryer"
+                          label: "Dryer"
+                          ha_entity: "dryer"
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "kg_freezer"
+                          label: "Freezer"
+                          ha_entity: "keller_socket"
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "kg_server"
+                          label: "Server"
+                          ha_entity: "server_plug_power"
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "kg_alex"
+                          label: "Alex"
+                          ha_entity: "tasmota"
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "kg_geo"
+                          label: "Geo"
+                          ha_entity: "tasmota_2"
+
+                    - obj: !include
+                        file: "snippets/more-sockets.yaml"
+                        vars:
+                          name: "eg_dishwasher"
+                          label: "Dishwasher"
+                          ha_entity: "kitchen_dishwasher_dishwasher"

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 # Generic config for M5Paper devices
 
@@ -147,18 +147,18 @@ sensor:
             - lvgl.image.update:
                 id: img_status_battery
                 src: !lambda |-
-                  auto x = id(battery_voltage_sensor).state;
+                  auto y = id(battery_voltage_sensor).state;
                   id(data_updated) = true;
-                  ESP_LOGD("battery", "Battery voltage: %.2fV", x);
+                  ESP_LOGD("battery", "Battery voltage: %.2fV", y);
 
-                  if (x >= 4.2)      { return id(${theme_status_battery_full});   }
-                  else if (x > 4.1)  { return id(${theme_status_battery_6_bar});   }
-                  else if (x > 4.0)  { return id(${theme_status_battery_5_bar});   }
-                  else if (x > 3.95) { return id(${theme_status_battery_4_bar});   }
-                  else if (x > 3.9)  { return id(${theme_status_battery_3_bar});   }
-                  else if (x > 3.85) { return id(${theme_status_battery_2_bar});   }
-                  else if (x > 3.8)  { return id(${theme_status_battery_1_bar});   }
-                  else if (x > 3.75) { return id(${theme_status_battery_0_bar});   }
+                  if (y >= 4.2)      { return id(${theme_status_battery_full});   }
+                  else if (y > 4.1)  { return id(${theme_status_battery_6_bar});   }
+                  else if (y > 4.0)  { return id(${theme_status_battery_5_bar});   }
+                  else if (y > 3.95) { return id(${theme_status_battery_4_bar});   }
+                  else if (y > 3.9)  { return id(${theme_status_battery_3_bar});   }
+                  else if (y > 3.85) { return id(${theme_status_battery_2_bar});   }
+                  else if (y > 3.8)  { return id(${theme_status_battery_1_bar});   }
+                  else if (y > 3.75) { return id(${theme_status_battery_0_bar});   }
                   else               { return id(${theme_status_battery_unknown}); }
 
   - platform: sht3xd

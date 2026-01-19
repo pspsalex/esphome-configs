@@ -1,0 +1,220 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+packages:
+
+  window_office: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: kg_office
+      ha_lower: kg_office_window_lower_contact
+      ha_upper: kg_office_window_upper_contact
+
+  window_keller: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: kg_keller
+      ha_lower: kg_keller_window_lower_contact
+      ha_upper: kg_keller_window_upper_contact
+
+  window_freezer: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: kg_freezer
+      ha_lower: kg_keller_freezer_contact
+      ha_upper: kg_keller_freezer_contact
+
+  window_front: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: eg_front_door
+      ha_lower: eg_front_door_lower_contact
+      ha_upper: eg_front_door_upper_contact
+
+  window_kitchen: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: eg_kitchen
+      ha_lower: eg_kitchen_window_lower_contact
+      ha_upper: eg_kitchen_window_upper_contact
+
+  window_living: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: eg_living
+      ha_lower: eg_living_window_lower_contact
+      ha_upper: eg_living_window_upper_contact
+
+  window_dani: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: og_dani
+      ha_lower: og_dani_window_lower_contact
+      ha_upper: og_dani_window_upper_contact
+
+  window_oli: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: og_oli
+      ha_lower: og_oli_window_lower_contact
+      ha_upper: og_oli_window_upper_contact
+
+  window_eltern: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: og_eltern
+      ha_lower: og_eltern_window_lower_contact
+      ha_upper: og_eltern_window_upper_contact
+
+  window_og_bad: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: og_bad
+      ha_lower: og_bad_window_lower_contact
+      ha_upper: og_bad_window_upper_contact
+
+  window_studio: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: dg_studio
+      ha_lower: dg_studio_window_lower_contact
+      ha_upper: dg_studio_window_upper_contact
+
+  window_dg_bad: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: dg_bad
+      ha_lower: dg_bad_window_lower_contact
+      ha_upper: dg_bad_window_upper_contact
+
+  window_tech: !include
+    file: "../../snippets/sensors_window.yaml"
+    vars:
+      name: dg_tech
+      ha_lower: dg_tech_window_lower_contact
+      ha_upper: dg_tech_window_upper_contact
+
+
+
+
+
+
+lvgl:
+  pages:
+    - id: windows_page
+      styles:
+        - page
+
+      widgets:
+        - obj:
+            width: 760
+            height: 440
+            x: 20
+            y: 20
+            pad_all: 20
+            styles:
+              - clean_obj
+              - main_container_style
+            layout:
+              type: FLEX
+              flex_flow: COLUMN
+              flex_align_main: START
+              flex_align_cross: START
+            widgets:
+              - label:
+                  # Lights
+                  text: "DOORS & WINDOWS"
+                  text_font: roboto_18_bold
+                  text_color: 0xffffff
+                  pad_bottom: 15
+                  pad_top: 0
+              - obj:
+                  styles:
+                    - clean_obj
+                  width: 100%
+                  height: SIZE_CONTENT
+                  layout:
+                    type: FLEX
+                    flex_flow: ROW_WRAP
+                    flex_align_main: START
+                    flex_align_cross: START
+                    pad_column: 15
+                    pad_row: 15
+                  widgets:
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "kg_office"
+                          label: "OFFICE"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "kg_keller"
+                          label: "KELLER"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "kg_freezer"
+                          label: "FREEZER"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "eg_front_door"
+                          label: "FRONT DOOR"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "eg_kitchen"
+                          label: "KITCHEN"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "eg_living"
+                          label: "LIVING ROOM"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "og_dani"
+                          label: "DANI"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "og_oli"
+                          label: "OLI"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "og_eltern"
+                          label: "ELTERN"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "og_bad"
+                          label: "OG BAD"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "dg_studio"
+                          label: "STUDIO"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "dg_bad"
+                          label: "DG BAD"
+
+                    - obj: !include
+                        file: "snippets/more-windows.yaml"
+                        vars:
+                          name: "dg_tech"
+                          label: "TECH ROOM"

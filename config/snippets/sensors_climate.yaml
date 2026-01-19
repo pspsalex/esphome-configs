@@ -1,0 +1,60 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+text_sensor:
+  # State
+  - platform: homeassistant
+    id: climate_${name}_state
+    entity_id: climate.${thermostat}
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("climate_${name}_state", "Got state: [%s]", x.c_str());
+            if (x.compare("off") == 0) {
+                lv_img_set_src(id(control_${name}_climate_mode_image), id(${climate_heating_off_small}));
+            } else if (x.compare("auto") == 0) {
+                lv_img_set_src(id(control_${name}_climate_mode_image), id(${climate_heating_auto_small}));
+            } else if (x.compare("heat") == 0) {
+                lv_img_set_src(id(control_${name}_climate_mode_image), id(${climate_heating_small}));
+            } else {
+                lv_img_set_src(id(control_${name}_climate_mode_image), id(${climate_heating_unknown_small}));
+            }
+
+sensor:
+  # Current temperature
+  - platform: homeassistant
+    id: climate_${name}_temp_act
+    entity_id: climate.${thermostat}
+    attribute: current_temperature
+    on_value:
+      then:
+        - lambda: |-
+            char buf[11];
+            snprintf(buf, 10, "%.1f\u00b0C", x);
+            ESP_LOGI("climate_${name}_temp_act", "Got state: [%f][%s]", x, buf);
+            lv_label_set_text(id(control_${name}_climate_act_temp), buf);
+
+  # Set temperature
+  - platform: homeassistant
+    id: climate_${name}_temp_set
+    entity_id: climate.${thermostat}
+    attribute: temperature
+    on_value:
+      then:
+        - lambda: |-
+            char buf[32];
+            snprintf(buf, 31, "Set: %.1f\n%.0f%% RH", x, id(climate_${name}_humidity).state);
+            ESP_LOGI("climate_${name}_temp_set", "Got state: [%f][%s]", x, buf);
+            lv_label_set_text(id(control_${name}_climate_set_temp_hum), buf);
+
+  # Humidity
+  - platform: homeassistant
+    id: climate_${name}_humidity
+    entity_id: sensor.${humidity}
+    on_value:
+      then:
+        - lambda: |-
+            char buf[32];
+            snprintf(buf, 31, "Set: %.1f\n%.0f%% RH", id(climate_${name}_temp_set).state, x);
+            ESP_LOGI("climate_${name}_temp_set", "Got state: [%f][%s]", x, buf);
+            lv_label_set_text(id(control_${name}_climate_set_temp_hum), buf);

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="window-closed.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">window-closed</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.0567165"
+     inkscape:cx="81.857341"
+     inkscape:cy="405.50139"
+     inkscape:window-width="2256"
+     inkscape:window-height="1432"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showgrid="true" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="133.75517,86.823525"
+       up_right_point="382.49285,86.823525"
+       down_left_point="133.75517,333.80128"
+       down_right_point="382.49285,333.80128"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="114.39587,68.63752"
+       up_right_point="401.85217,68.63752"
+       down_left_point="114.39587,351.98728"
+       down_right_point="401.85217,351.98728"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+    <inkscape:path-effect
+       effect="perspective-envelope"
+       up_left_point="131.04,85.662926"
+       up_right_point="379.77383,85.662926"
+       down_left_point="131.03615,332.64068"
+       down_right_point="379.77383,332.64068"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       deform_type="perspective"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       overflow_perspective="false" />
+  </defs>
+  <g
+     inkscape:label="Strat 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g14"
+       transform="translate(0,-17.101364)"
+       style="stroke-width:6;stroke-dasharray:none">
+      <rect
+         style="font-variation-settings:'wght' 500;fill:#ffffff;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         id="rect11"
+         width="431.18442"
+         height="34.025436"
+         x="40.407791"
+         y="397.85217" />
+      <g
+         id="g13"
+         transform="translate(-2.1240158,45.687599)"
+         inkscape:path-effect="#path-effect2"
+         style="stroke-width:6;stroke-dasharray:none">
+        <path
+           id="rect9"
+           style="font-variation-settings:'wght' 500;display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           d="M 133.7552,86.823077 V 333.79977 H 382.49285 V 86.823077 Z m 18.7187,16.671883 h 98.42357 V 203.1708 H 152.4739 Z m 112.87667,0.45704 h 98.42358 v 99.67388 h -98.42358 z m 0,113.08795 h 98.42358 v 99.67388 h -98.42358 z m -112.87667,0.41211 h 98.42357 v 99.67583 H 152.4739 Z"
+           inkscape:original-d="M 133.75488,86.823921 V 333.80048 H 382.49316 V 86.823921 Z m 18.71875,16.671879 h 98.42382 v 99.67578 h -98.42382 z m 112.87695,0.45703 h 98.42383 v 99.67383 h -98.42383 z m 0,113.08789 h 98.42383 v 99.67383 h -98.42383 z m -112.87695,0.41211 h 98.42382 v 99.67578 h -98.42382 z" />
+        <path
+           id="path6"
+           style="font-variation-settings:'wght' 500;display:inline;fill:#ffffff;fill-opacity:0.46364725;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           d="m 152.4739,103.49496 h 98.42357 V 203.1708 H 152.4739 Z m 112.87667,0.45704 h 98.42358 v 99.67388 h -98.42358 z m 0,113.08795 h 98.42358 v 99.67388 h -98.42358 z m -112.87667,0.41211 h 98.42357 v 99.67583 H 152.4739 Z"
+           inkscape:original-d="m 152.47363,103.4958 h 98.42382 v 99.67578 h -98.42382 z m 112.87695,0.45703 h 98.42383 v 99.67383 h -98.42383 z m 0,113.08789 h 98.42383 v 99.67383 h -98.42383 z m -112.87695,0.41211 h 98.42382 v 99.67578 h -98.42382 z"
+           sodipodi:nodetypes="cccccccccccccccccccc" />
+        <path
+           id="rect12"
+           style="font-variation-settings:'wght' 500;display:inline;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+           d="m 144.90172,195.35216 h 64.53084 v 28.159 h -64.53084 z"
+           inkscape:original-d="m 144.90143,195.35295 h 64.531 v 28.15898 h -64.531 z" />
+        <path
+           id="rect10"
+           style="font-variation-settings:'wght' 500;display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-dasharray:none"
+           d="m 114.39587,68.63752 v 283.34976 h 287.4563 V 68.63752 Z M 133.7552,86.823077 H 382.49285 V 333.79977 H 133.7552 Z"
+           inkscape:original-d="M 114.3955,68.638374 V 351.98798 H 401.85253 V 68.638374 Z m 19.35938,18.185547 H 382.49316 V 333.80048 H 133.75488 Z" />
+      </g>
+    </g>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+        <dc:title>window-closed</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>@pspsalex</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

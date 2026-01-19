@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 text_sensor:
   - platform: homeassistant
@@ -8,7 +8,6 @@ text_sensor:
     on_value:
       then:
         - lambda: |-
-            ESP_LOGI("cover_${name}_state", "State changed to: %s", x.c_str());
             if (x == "opening") {
               lv_img_set_src(id(main_controls_${name}_up_label), id(image_stop_medium));
             } else if ((x == "open") or (x == "closed")) {
@@ -25,8 +24,11 @@ sensor:
     attribute: current_position
     on_value:
       - lambda: |-
-          ESP_LOGI("cover_${name}_position", "Position changed to: %d", int(x));
-          lv_slider_set_value(id(main_controls_${name}_slider), max(min(int(x), 100), 0), LV_ANIM_OFF);
+          #if ( ${theme_rollers_as_image} )
+            lv_obj_set_y(main_controls_${name}_slider_image, -max(min(int(x), 100), 0));
+          #else
+            lv_slider_set_value(main_controls_${name}_slider, max(min(int(x), 100), 0), LV_ANIM_OFF);
+          #endif
       - if:
           condition:
             lambda: |-

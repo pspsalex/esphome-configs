@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+binary_sensor:
+  - platform: homeassistant
+    id: switch_${name}_state
+    entity_id: switch.${ha_entity}
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        - lvgl.label.update:
+            id: control_switch_${name}_label
+            text: !lambda |-
+              return x ? std::string("ON") : std::string("OFF");
+        - lvgl.widget.update:
+            id: control_switch_${name}
+            state:
+              checked: !lambda |-
+                return x;
+
+sensor:
+  - platform: homeassistant
+    id: switch_${name}_power
+    entity_id: sensor.${ha_power}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: control_switch_${name}_power
+            text:
+              format: "%.0fW"
+              args: [ 'x' ]

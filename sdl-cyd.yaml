@@ -1,5 +1,8 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# TODO: Finish thermostat controls
+# TODO: Replace colors with substitutions in page configs
 
 substitutions:
   device_name: "sdlcyd"
@@ -19,9 +22,16 @@ packages:
     vars:
       lvgl_status_bar_x: -25
       lvgl_status_bar_y: 20
+  nav_bar: !include config/lvgl/pages/nav_bar.yaml
+
 
   # main_page: !include config/lvgl/pages/doorbell.yaml
+
   main_page: !include
     file: config/lvgl/pages/main_page_cyd.yaml
     vars:
       solar_generation_offset: 545
+  rollers_page: !include config/lvgl/pages/rollers.yaml
+  climate_page: !include config/lvgl/pages/climate.yaml
+  lights_page: !include config/lvgl/pages/lights.yaml
+  windows_page: !include config/lvgl/pages/windows.yaml
