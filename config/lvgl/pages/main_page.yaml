@@ -601,11 +601,10 @@ lvgl:
                               data:
                                 entity_id: scene.dg_studio_night
                         widgets:
-                          - label:
+                          - image:
                               id: main_controls_dach_rollers_label
-                              text: "${msr_scene}"
+                              src: "image_scene_medium"
                               align: center
-                              text_font: icons_xlarge
                     - label:
                         text: "Dach Rollers"
                         styles: main_controls_label

@@ -99,7 +99,12 @@ lvgl:
   style_definitions:
     - id: !extend main_controls_button_pressed
       radius: 0
+      bg_color: ${lvgl_color_bg}
+      bg_opa: COVER
+      color_filter_opa: TRANSP
     - id: !extend main_controls_button_focused
+      bg_color: ${lvgl_color_bg}
+      bg_opa: COVER
       radius: 0
     - id: !extend main_controls
       border_width: 2

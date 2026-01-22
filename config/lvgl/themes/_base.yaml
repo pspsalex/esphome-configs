@@ -215,6 +215,7 @@ lvgl:
       radius: 0
       outline_width: 0
       shadow_width: 0
+      bg_color: ${lvgl_color_bg}
       # bg_opa: TRANSP
 
     - id: main_controls_button_pressed
