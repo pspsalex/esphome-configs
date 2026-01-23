@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Alex Popescu (@pspsalex)
 
-# TODO: remove color for lower / raise blinds
-# TODO: Fix Dach image
 # TODO: check driver - too many artifacts with current update strategy
 # TODO: check refresh strategy in driver as when only the clock updates it flickers every 20s - skip refresh if only clock updates? Requires inhibit calls for refresh from yaml to driver
 # TODO: Hidden pages cause flickering / screen refresh. Check if this can be prevented somehow?

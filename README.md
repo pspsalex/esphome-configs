@@ -4,23 +4,23 @@ This repository contains ESPHome configurations for various devices:
 - M5Paper
 - CYD (Cheap Yellow Display)
 - ~~M5Dial (Knob)~~ (TODO)
-- SDL (simulates M5Paper display / layout)
-- SDL-CYD (simulates CYD display / layout)
-- ~~SDL-Dial (simulates M5Dial / layout)~~ (TODO)
+- M5Paper SDL (simulates M5Paper display / layout)
+- CYD SDL (simulates CYD display / layout)
+- ~~M5Dial SDL (simulates M5Dial / layout)~~ (TODO)
 
 # Screenshots
 
 Helper sensors are required on Home Assistant side. See [home-assistant-templates/.yaml] for examples.
 
-## M5Paper / SDL
+## M5Paper / M5Paper SDL
 ![Screenshot of M5Paper and SDL layout splash-screen](doc/m5paper-splash.png)
 
 ![Screenshot of M5Paper and SDL layout](doc/m5paper.png)
 
-## CYD / SDL-CYD
-![Screenshot of CYD and SDL-CYD layout splash-screen](doc/cyd-splash.png)
+## CYD / CYD SDL
+![Screenshot of CYD and SDL layout splash-screen](doc/cyd-splash.png)
 
-![Screenshot of CYD and SDL-CYD layout](doc/cyd.png)
+![Screenshot of CYD and SDL layout](doc/cyd.png)
 
 
 # License
