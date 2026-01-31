@@ -178,7 +178,7 @@ binary_sensor:
       inverted: true
 
   - platform: gpio
-    name: "BTN/PWR"
+    name: "BTN_PWR"
     id: button_power
     pin:
       number: GPIO38

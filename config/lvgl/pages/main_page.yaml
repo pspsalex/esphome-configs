@@ -199,9 +199,9 @@ text_sensor:
             ESP_LOGI("cover_dach_rol_state", "State changed to: %s", x.c_str());
             auto y = id(cover_dach_ros_state).state;
             if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_hourglass}");
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(image_scene_medium));
             } else {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_scene}");
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(image_scene_medium));
             }
   - platform: homeassistant
     id: cover_dach_ros_state
@@ -212,9 +212,9 @@ text_sensor:
             ESP_LOGI("cover_dach_ros_state", "State changed to: %s", x.c_str());
             auto y = id(cover_dach_rol_state).state;
             if ((x == "opening") || (x=="closing") || (y == "opening") || (y=="closing")) {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_hourglass}");
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(image_scene_medium));
             } else {
-              lv_label_set_text(id(main_controls_dach_rollers_label), "${msr_scene}");
+              lv_img_set_src(id(main_controls_dach_rollers_label), id(image_scene_medium));
             }
 
 packages:

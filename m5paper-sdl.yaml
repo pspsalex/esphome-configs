@@ -2,7 +2,7 @@
 # Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 substitutions:
-  device_name: "sdl"
+  device_name: "m5paper-sdl"
   friendly_name: "SDL"
   display_width: "960"
   display_height: "540"

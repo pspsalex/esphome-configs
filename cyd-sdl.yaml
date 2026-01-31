@@ -4,8 +4,8 @@
 # TODO: Finish thermostat controls
 
 substitutions:
-  device_name: "sdlcyd"
-  friendly_name: "SDLCYD"
+  device_name: "cyd-sdl"
+  friendly_name: "CYD SDL"
   display_width: "800"
   display_height: "480"
 
