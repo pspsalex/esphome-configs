@@ -10,18 +10,18 @@ packages:
 
 # Define any theme-specific images here:
 image:
-  - file: "assets/images/esphome_logo_dark.svg"
-    id: boot_logo
-    resize: 597x117
-    type: RGB565
+  defaults:
+    type: ${display_image_type}
+    byte_order: ${display_byte_order}
     transparency: alpha_channel
 
-  - file: "assets/3rdparty/sc/sc_shutter_open_135.png"
-    id: shutter_open
-    type: RGB565
-    transparency: alpha_channel
+  images:
+    - file: "assets/images/esphome_logo_dark.svg"
+      id: boot_logo
+      resize: 597x117
 
-  - file: "assets/3rdparty/sc/sc_shutter_slide_135.png"
-    id: shutter_slide
-    type: RGB565
-    transparency: alpha_channel
+    - file: "assets/3rdparty/sc/sc_shutter_open_135.png"
+      id: shutter_open
+
+    - file: "assets/3rdparty/sc/sc_shutter_slide_135.png"
+      id: shutter_slide

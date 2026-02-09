@@ -1,0 +1,190 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+# Config for CrowPanel Advanced 7inch ESP32-P4 1024x600 IPS Touch Screen SKU: DHE04107D
+# https://github.com/Elecrow-RD/CrowPanel-Advanced-7inch-ESP32-P4-HMI-AI-Display-1024x600-IPS-Touch-Screen/
+
+external_components:
+  - source:
+      type: local
+      path: components
+    components: [esp_ldo, esp32_hosted]
+
+substitutions:
+  display_image_type: RGB565
+  display_byte_order: little_endian
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+  platformio_options:
+    board_build.esp-idf.memory_type: qio_opi
+    board_build.flash_mode: qio
+
+  on_boot:
+    - priority: -100
+      then:
+        - lvgl.image.update:
+            id: img_status_battery
+            src: ${theme_status_battery_plugged}
+        # - lambda: id(esp32_hosted_update).perform(true);
+
+      # then:
+      #   - bm8563.read_time:
+
+esp32:
+  board: esp32-p4-evboard
+  cpu_frequency: 360Mhz
+  #variant: esp32s3
+  flash_size: 16MB
+  framework:
+    components:
+      - espressif/esp_hosted==2.11.3
+    type: esp-idf
+    sdkconfig_options:
+      CONFIG_SPIRAM_XIP_FROM_PSRAM: y
+      CONFIG_CACHE_L2_CACHE_256KB: y
+      CONFIG_CACHE_L2_CACHE_LINE_128B: y
+      CONFIG_COMPILER_OPTIMIZATION_PERF: y
+      CONFIG_IDF_EXPERIMENTAL_FEATURES: y
+      CONFIG_SPIRAM_FLASH_LOAD_TO_PSRAM: y
+      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
+      CONFIG_SPIRAM_RODATA: y
+      CONFIG_ESPTOOLPY_FLASHSIZE_16MB: y # fix warning about 2mb found
+
+esp32_hosted:
+  active_high: true
+  variant: ESP32C6
+  reset_pin: GPIO32
+  cmd_pin: GPIO19
+  clk_pin: GPIO18
+  d0_pin: GPIO14
+  d1_pin: GPIO15
+  # d2_pin: GPIO16
+  # d3_pin: GPIO17
+
+logger:
+  hardware_uart: UART0
+  baud_rate: 115200
+
+psram:
+  mode: hex
+  speed: 200MHz
+
+i2c:
+  - sda: 45
+    scl: 46
+    scan: true
+
+sun:
+  on_sunrise:
+    then:
+      - light.turn_on:
+          id: backlight
+          brightness: 1
+  on_sunset:
+    then:
+      - light.turn_on:
+          id: backlight
+          brightness: 1
+
+# Setup a pin to control the backlight
+output:
+  - platform: ledc
+    pin: GPIO31
+    id: backlight_pwm
+    frequency: 1220
+
+light:
+  # Set up display backlight
+  - platform: monochromatic
+    output: backlight_pwm
+    name: Display Backlight
+    id: backlight
+    restore_mode: ALWAYS_ON
+
+display:
+  - id: cpa_display
+    platform: mipi_dsi
+    model: CUSTOM
+    reset_pin: GPIO41
+    #enable_pin: NONE
+    color_order: bgr
+    dimensions:
+      width: 1024
+      height: 600
+      # offset_width: 0
+      # offset_height: 0
+    #invert_colors: false
+    #rotation: 0
+    #transform:
+    #  swap_xy: false
+    #  mirror_x: false
+    #  mirror_y: false
+    hsync_pulse_width: 70
+    hsync_front_porch: 160
+    hsync_back_porch: 160
+    vsync_pulse_width: 10
+    vsync_front_porch: 12
+    vsync_back_porch: 23
+    pclk_frequency: 51000000
+    #pclk_inverted: false
+    lanes: 2
+    lane_bit_rate: 1000000000
+    pixel_mode: 16bit
+    color_depth: 16
+    draw_rounding: 2
+    byte_order: ${display_byte_order}
+    use_axis_flips: false
+    # show_test_card: true
+    init_sequence:
+      - [0xB2, 0x70] # NBW, normally black + En_2lane, 2 MIPI Lanes
+      - [0x80, 0x8B] # Gamma
+      - [0x81, 0x78] # Gamma
+      - [0x82, 0x84] # Gamma
+      - [0x83, 0x88] # Gamma
+      - [0x84, 0xA8] # Gamma
+      - [0x85, 0xE3] # Gamma
+      - [0x86, 0x88] # Gamma
+      - [0x11]       # Exit Stand-by
+      - delay 120ms
+
+
+esp_ldo:
+  - channel: 3
+    voltage: 2.5V
+  - channel: 4
+    voltage: 3.3V
+
+touchscreen:
+  - id: touchscreen_main
+    platform: gt911
+    address: 0x5D
+    update_interval: 16ms
+  # reset: GPIO_40
+  # int: GPIO_42
+    transform:
+      swap_xy: false
+      mirror_x: false
+    on_touch:
+      - logger.log:
+          format: Touch at (%d, %d)
+          args: [touch.x, touch.y]
+      - lambda: |-
+          ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
+              touch.x,
+              touch.y,
+              touch.x_raw,
+              touch.y_raw
+              );
+
+lvgl:
+  displays:
+    - cpa_display
+  touchscreens:
+    - touchscreen_main
+  byte_order: ${display_byte_order}
+
+time:
+  - id: !extend local_time
+    platform: homeassistant

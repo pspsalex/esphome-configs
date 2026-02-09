@@ -1,0 +1,65 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+
+# TODO: See cpa-sdl.yaml
+
+substitutions:
+  device_name: "cpa"
+  friendly_name: "CPA"
+
+# http_request:
+
+# update:
+#   - platform: esp32_hosted
+#     id: esp32_hosted_update
+#     type: embedded
+#     name: "C6 Coprocessor Update"
+#     #source: https://esphome.github.io/esp-hosted-firmware/manifest/esp32c6.json
+#     path: network_adapter_esp32c6.bin.1
+#     sha256: 0e88ea694790febf58d1c514623b1514fa1b0f5154966cdbb95574377f224855
+
+packages:
+  base: !include config/base.yaml
+  device: !include config/device/cpa.yaml
+  theme: !include config/lvgl/themes/dark/theme.yaml
+  weather: !include config/weather.yaml
+  wifi: !include config/wifi.yaml
+  antiburn: !include config/lvgl/antiburn.yaml
+
+  boot_screen: !include config/lvgl/pages/boot_screen.yaml
+  status_bar: !include
+    file: config/lvgl/pages/status_bar.yaml
+    vars:
+      lvgl_status_bar_x: -25
+      lvgl_status_bar_y: 20
+  nav_bar: !include config/lvgl/pages/nav_bar.yaml
+
+  # main_page: !include config/lvgl/pages/doorbell.yaml
+  main_page: !include
+    file: config/lvgl/pages/main_page_cyd.yaml
+    vars:
+      solar_generation_offset: 545
+  rollers_page: !include config/lvgl/pages/rollers.yaml
+  climate_page: !include config/lvgl/pages/climate.yaml
+  lights_page: !include config/lvgl/pages/lights.yaml
+  windows_page: !include config/lvgl/pages/windows.yaml
+
+# Ideas:
+# Try to show "live" picture from doorbell camera
+# Add icon when someone rang the door but door wasnt opened
+# Add list of events to review who rang the camera
+
+# lvgl:
+#   pages:
+#     - id: doorbell_page
+#       widgets:
+#         - button:
+#             width: 300
+#             height: 100
+#             on_click:
+#               - lambda: id(esp32_hosted_update).perform(true);
+#             widgets:
+#               - label:
+#                   align: center
+#                   text: "Update C6"
