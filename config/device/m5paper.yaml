@@ -3,6 +3,10 @@
 
 # Generic config for M5Paper devices
 
+substitutions:
+  display_image_type: GRAYSCALE
+  display_byte_order: big_endian
+
 esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"

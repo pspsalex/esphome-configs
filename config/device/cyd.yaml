@@ -8,6 +8,10 @@
 #   - https://github.com/RyanEwen/esphome-lvgl.git
 #   - https://github.com/clowrey/esphome-sunton-esp32-8048s070c/blob/main/sunton-esp32-8048s070.yaml
 
+substitutions:
+  display_image_type: RGB565
+  display_byte_order: big_endian
+
 esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
