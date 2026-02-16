@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 substitutions:
   device_name: "m5dial"
@@ -7,3 +7,12 @@ substitutions:
 
 packages:
   base: !include config/base.yaml
+  device: !include config/device/m5dial.yaml
+  theme: !include config/lvgl/themes/dial/theme.yaml
+  wifi: !include config/wifi.yaml
+  antiburn: !include config/lvgl/antiburn.yaml
+
+  boot_screen: !include config/lvgl/pages/boot_screen.yaml
+
+  main: !include
+    file: config/lvgl/pages/main_page_dial.yaml

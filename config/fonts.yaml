@@ -146,7 +146,7 @@ font:
     id: roboto_48_num_bold
     size: 48
     bpp: 4
-    glyphs: ["0123456789:,.-?!Wna"]
+    glyphs: ["0123456789:,.-?!Wna°C"]
   - file: "${text_font}"
     id: roboto_96_num
     size: 96
@@ -159,7 +159,7 @@ font:
     glyphs: ["0123456789:,.-?!Wna"]
   - file: "${text_font}@600"
     id: roboto_80_num_bold
-    size: 80
+    size: ${font_size_clock}
     bpp: 4
     glyphs: ["0123456789:,.-?!Wna"]
   - file: "${text_font}@600"

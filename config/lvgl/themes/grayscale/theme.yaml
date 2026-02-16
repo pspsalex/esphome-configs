@@ -88,6 +88,24 @@ substitutions:
   lvgl_color_bg_accent_inactive: "0xD9D9D9"
   lvgl_color_bg_accent_active: "0xFFFFFF"
 
+  boot_clock_align: TOP_LEFT
+  boot_clock_x: 15
+  boot_clock_y: 15
+
+  boot_logo_align: CENTER
+  boot_logo_x: 0
+  boot_logo_y: -40
+
+  boot_spinner_align: CENTER
+  boot_spinner_x: 0
+  boot_spinner_y: 95
+  boot_spinner_w: 50
+  boot_spinner_h: 50
+
+  boot_ip_x: 15
+  boot_ip_y: -15
+  boot_ip_align: BOTTOM_LEFT
+  boot_ip_font: roboto_18
 
 packages:
   icons: !include images.yaml

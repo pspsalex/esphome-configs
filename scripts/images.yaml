@@ -266,6 +266,11 @@ themes:
 
     base: base
 
+  dial:
+    description: "M5 Dial Theme"
+    color: "#A0AEC0"
+    base: base
+
 
   dark:
     description: "Dark Theme"
