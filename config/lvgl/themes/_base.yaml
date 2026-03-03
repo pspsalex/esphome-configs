@@ -110,6 +110,7 @@ lvgl:
       bg_color: "${lvgl_color_page_bg}"
       text_color: "${lvgl_color_fg}"
       text_font: "${default_font}"
+      transform_zoom: ${display_screen_zoom}
 
     - id: status_bar_style
       bg_opa: COVER

@@ -8,6 +8,7 @@ substitutions:
   friendly_name: "CYD SDL"
   display_width: "800"
   display_height: "480"
+  sdl_zoom: 1
 
 packages:
   base: !include config/base.yaml
