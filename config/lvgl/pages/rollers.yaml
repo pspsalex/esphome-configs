@@ -42,13 +42,13 @@ packages:
     file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: dg_studio_rol
-      ha_entity: living_large_rollers_cover_1
+      ha_entity: dach_large_roller_cover_1
 
   sensor_studio_ros: !include
     file: "../../snippets/sensors_rollers.yaml"
     vars:
       name: dg_studio_ros
-      ha_entity: living_small_roller_cover_1
+      ha_entity: dach_small_roller_cover_1
 
 
 lvgl:
@@ -141,11 +141,11 @@ lvgl:
                         vars:
                           name: "dg_studio_rol"
                           label: "STUDIO (L)"
-                          ha_entity: "living_large_rollers_cover_1"
+                          ha_entity: "dach_large_roller_cover_1"
 
                     - obj: !include
                         file: "snippets/more-rollers.yaml"
                         vars:
                           name: "dg_studio_ros"
                           label: "STUDIO (S)"
-                          ha_entity: "living_small_roller_cover_1"
+                          ha_entity: "dach_small_roller_cover_1"

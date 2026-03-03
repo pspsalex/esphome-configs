@@ -29,7 +29,7 @@ binary_sensor:
                   // Upper sensor reports closed, so the window is closed
                   lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_1);
                   lv_obj_clear_state(id(status_${name}_opening), LV_STATE_USER_2);
-                  return id(image_window_open_large);
+                  return id(image_window_closed_large);
                 }
               }
 

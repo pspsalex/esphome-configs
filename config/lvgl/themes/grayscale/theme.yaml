@@ -107,6 +107,8 @@ substitutions:
   boot_ip_align: BOTTOM_LEFT
   boot_ip_font: roboto_18
 
+  font_size_clock: 80
+
 packages:
   icons: !include images.yaml
 
