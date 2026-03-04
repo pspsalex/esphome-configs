@@ -498,6 +498,12 @@ themes:
           - small:
               color: white
 
+  dark_cpa:
+    description: "Dark theme scaled for CPA 1024×600 (1.265× CYD 800×480)"
+    base: dark
+    scale: 1.265
+    generate: true
+
   grayscale:
     description: "Grayscale Theme, for e-ink devices"
     color: "BLACK"

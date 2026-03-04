@@ -117,6 +117,7 @@ class Theme:
     description: str = ""
     color: str = ""
     generate: bool = True
+    scale: float = 1.0
     fonts: dict[str, Font] = field(default_factory=dict)
     sizes: dict[str, Size] = field(default_factory=dict)
     images: dict[str, ImageConfig] = field(default_factory=dict)
@@ -201,6 +202,7 @@ class Config:
         theme.description = data.get("description", theme.description)
         theme.color = data.get("color", theme.color)
         theme.generate = data.get("generate", theme.generate)
+        theme.scale = data.get("scale", theme.scale)
 
         if "fonts" in data:
             for font_name, font_data in data["fonts"].items():
@@ -553,6 +555,7 @@ class TaskBuilder:
 
     def build_tasks(self) -> list[GenerationTask]:
         """Build all image generation tasks from the configuration."""
+        from copy import copy
         tasks = []
         task_id = 0
 
@@ -565,12 +568,20 @@ class TaskBuilder:
                     if size.skip:
                         continue
 
+                    # Apply theme scale to pixel dimensions (rounded to nearest int)
+                    if theme.scale != 1.0:
+                        scaled_size = copy(size)
+                        scaled_size.width = round(size.width * theme.scale)
+                        scaled_size.height = round(size.height * theme.scale)
+                    else:
+                        scaled_size = size
+
                     tasks.append(GenerationTask(
                         task_id=task_id,
                         theme_name=theme_name,
                         image_name=image_name,
                         size_name=size_name,
-                        size=size
+                        size=scaled_size
                     ))
                     task_id += 1
 
