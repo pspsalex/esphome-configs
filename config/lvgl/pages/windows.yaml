@@ -124,7 +124,7 @@ lvgl:
               - label:
                   # Lights
                   text: "DOORS & WINDOWS"
-                  text_font: roboto_18_bold
+                  text_font: font_l_bold
                   text_color: 0xffffff
                   pad_bottom: 15
                   pad_top: 0

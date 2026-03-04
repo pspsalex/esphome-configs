@@ -29,7 +29,7 @@ widgets:
       y: 0
       align: TOP_MID
       text: "${label}"
-      text_font: roboto_14_bold
+      text_font: font_s_bold
       text_align: CENTER
       width: 100%
       height: SIZE_CONTENT

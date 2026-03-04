@@ -32,7 +32,7 @@ lvgl:
             - label:
                 id: boot_clock
                 text: "00:00"
-                text_font: roboto_80_num_bold
+                text_font: font_time_l
                 # text_color: 0x000000
                 align: ${boot_clock_align}
                 x: ${boot_clock_x}

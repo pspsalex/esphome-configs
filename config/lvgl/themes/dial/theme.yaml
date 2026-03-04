@@ -57,7 +57,17 @@ substitutions:
   climate_heating_auto_small: image_refresh_auto_small
   climate_heating_unknown_small: image_weather_unknown_xsmall
 
-  font_size_clock: 24
+  font_size_xs: "12"
+  font_size_s: "14"
+  font_size_m: "16"
+  font_size_l: "18"
+  font_size_xl: "24"
+  font_size_2xl: "32"
+  font_size_num_l: "48"
+  font_size_num_xl: "64"
+  font_size_clock: "24"
+  font_size_num_2xl: "96"
+  font_size_icon: "32"
 
   theme_rollers_as_image: "true"
 
@@ -71,7 +81,7 @@ substitutions:
   lvgl_color_accent: "0x93c5fd"
   lvgl_color_bg_accent: "0x4A5568"
   lvgl_color_shadow: "0x000000"
-  statusbar_font: "icons_large"
+  statusbar_font: "font_icon"
 
   # bg lt green: 0x48bb78
   # bg lt blue:  0x63b3ed
@@ -99,8 +109,8 @@ substitutions:
   lvgl_border_w_edit: "2"
   lvgl_padding_default: "4"
 
-  default_font: "roboto_18"
-  lvgl_font_small: "roboto_16"
+  default_font: "font_l"
+  lvgl_font_small: "font_m"
 
   boot_clock_align: TOP_MID
   boot_clock_x: 0
@@ -119,7 +129,7 @@ substitutions:
   boot_ip_x: 0
   boot_ip_y: 40
   boot_ip_align: CENTER
-  boot_ip_font: roboto_14
+  boot_ip_font: font_s
 
 packages:
   images: !include images.yaml
@@ -130,6 +140,6 @@ packages:
 lvgl:
   style_definitions:
     - id: !extend main_time
-      text_font: "roboto_96_num"
+      text_font: "font_time_xl"
     - id: !extend main_container_style
       radius: 10

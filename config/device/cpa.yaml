@@ -13,7 +13,7 @@ external_components:
 substitutions:
   display_image_type: RGB565
   display_byte_order: little_endian
-  display_screen_zoom: 1.265
+  ui_scale: 1.265
 
 esphome:
   name: "${device_name}"

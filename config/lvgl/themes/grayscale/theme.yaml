@@ -76,12 +76,12 @@ substitutions:
   lvgl_border_w_focused: "1"
   lvgl_border_w_edit: "2"
   lvgl_padding_default: "4"
-  default_font: "roboto_18"
-  lvgl_font_small: "roboto_16"
+  default_font: "font_l"
+  lvgl_font_small: "font_m"
 
   lvgl_color_bg_statusbar: "0xffffff"
   lvgl_color_shadow: "0x000000"
-  statusbar_font: "icons_large"
+  statusbar_font: "font_icon"
   lvgl_color_bg_checked: 0xffffff
   lvgl_color_bg_disabled: 0x666666
 
@@ -105,9 +105,19 @@ substitutions:
   boot_ip_x: 15
   boot_ip_y: -15
   boot_ip_align: BOTTOM_LEFT
-  boot_ip_font: roboto_18
+  boot_ip_font: font_l
 
-  font_size_clock: 80
+  font_size_xs: "12"
+  font_size_s: "14"
+  font_size_m: "16"
+  font_size_l: "18"
+  font_size_xl: "24"
+  font_size_2xl: "32"
+  font_size_num_l: "48"
+  font_size_num_xl: "64"
+  font_size_clock: "80"
+  font_size_num_2xl: "96"
+  font_size_icon: "32"
 
 packages:
   icons: !include images.yaml
@@ -141,5 +151,5 @@ lvgl:
       border_color: 0xcccccc
       border_opa: COVER
       border_side: TOP
-      text_font: "roboto_24"
+      text_font: "font_xl"
       text_align: center

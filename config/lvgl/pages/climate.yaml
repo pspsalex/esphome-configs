@@ -95,7 +95,7 @@ lvgl:
               - label:
                   # Climate Control
                   text: "CLIMATE CONTROL"
-                  text_font: roboto_18_bold
+                  text_font: font_l_bold
                   text_color: 0xffffff
                   pad_bottom: 15
 

@@ -24,7 +24,7 @@ layout:
 widgets:
   - label:
       text: "${label}"
-      text_font: roboto_14_bold
+      text_font: font_s_bold
       text_color: ${lvgl_color_fg_secondary}
       text_align: CENTER
       width: 100%
@@ -34,7 +34,7 @@ widgets:
   - label:
       id: control_${name}_climate_act_temp
       text: "--.-"
-      text_font: roboto_32_bold
+      text_font: font_2xl_bold
       text_color: 0xffffff
       text_align: CENTER
       width: 100%
@@ -42,7 +42,7 @@ widgets:
   - label:
       id: control_${name}_climate_set_temp_hum
       text: "Set: --.-°C\n--% RH"
-      text_font: roboto_12
+      text_font: font_xs
       text_color: ${lvgl_color_fg_accent}
       text_align: CENTER
       width: 100%

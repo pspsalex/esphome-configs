@@ -20,7 +20,7 @@ widgets:
       y: 0
       align: TOP_MID
       text: "${label}"
-      text_font: roboto_18_bold
+      text_font: font_l_bold
       text_color: ${lvgl_color_fg_secondary}
       text_align: CENTER
       width: 100%

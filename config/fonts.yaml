@@ -46,7 +46,6 @@ substitutions:
   msr_stop: "\U0000e047"
   msr_hourglass: "\U0000ef64"
 
-
   # text_font: "gfonts://Roboto"
   text_font: "gfonts://Inter"
 
@@ -54,10 +53,6 @@ substitutions:
 font:
   - file: "gfonts://Material+Symbols+Rounded"
     glyphs: [
-        # "\U0000e5e1", # Forward
-        # "\U0000e2ea", # Backward
-        # "\U0000e88a", # Home
-
         "${msr_unknown}", # Wi-Fi unknown
         "${msr_wifi_0}", # Wi-Fi 0
         "${msr_wifi_1}", # Wi-Fi 1
@@ -85,93 +80,69 @@ font:
         "${msr_stop}", # Stop
         "${msr_vert_align_top}", # Vert Align Top
         "${msr_vert_align_bottom}", # Vert Align Bottom
-
-        # "\U0000e81a", # Sunny
-        # "\U0000f172", # Partly Cloudy Day
-        # "\U0000e2bd", # Cloud
-        # "\U0000ebdb", # Thunderstorm
-        # "\U0000ef44", # Night
-        # "\U0000e1c6", # Twilight
-        # "\U0000efd8", # Wind
-        # "\U0000e2a7", # Scene
       ]
-    id: icons_large
-    size: 32
+    id: font_icon
+    size: ${font_size_icon}
     bpp: 4
 
-  - file: "gfonts://Material+Symbols+Rounded"
-    id: icons_xlarge
-    size: 48
-    bpp: 4
-    glyphs: [
-        "${msr_scene}", # Scene
-        "${msr_stop}", # Stop
-        "${msr_vert_align_top}", # Vert Align Top
-        "${msr_vert_align_bottom}", # Vert Align Bottom
-      ]
-
   - file: "${text_font}"
-    id: roboto_48
-    size: 48
+    id: font_xs
+    size: ${font_size_xs}
     bpp: 4
   - file: "${text_font}"
-    id: roboto_12
-    size: 12
-    bpp: 4
-  - file: "${text_font}"
-    id: roboto_14
-    size: 14
+    id: font_s
+    size: ${font_size_s}
     bpp: 4
   - file: "${text_font}@700"
-    id: roboto_14_bold
-    size: 14
+    id: font_s_bold
+    size: ${font_size_s}
     bpp: 4
   - file: "${text_font}"
-    id: roboto_16
-    size: 16
+    id: font_m
+    size: ${font_size_m}
+    bpp: 4
+  - file: "${text_font}"
+    id: font_l
+    size: ${font_size_l}
     bpp: 4
   - file: "${text_font}@700"
-    id: roboto_18_bold
-    size: 18
+    id: font_l_bold
+    size: ${font_size_l}
     bpp: 4
   - file: "${text_font}"
-    id: roboto_32
-    size: 32
+    id: font_xl
+    size: ${font_size_xl}
+    bpp: 4
+  - file: "${text_font}"
+    id: font_2xl
+    size: ${font_size_2xl}
     bpp: 4
   - file: "${text_font}@600"
-    id: roboto_32_bold
-    size: 32
+    id: font_2xl_bold
+    size: ${font_size_2xl}
     bpp: 4
   - file: "${text_font}@600"
-    id: roboto_48_num_bold
-    size: 48
+    id: font_num_l_bold
+    size: ${font_size_num_l}
     bpp: 4
     glyphs: ["0123456789:,.-?!Wna°C"]
-  - file: "${text_font}"
-    id: roboto_96_num
-    size: 96
+  - file: "${text_font}@600"
+    id: font_num_xl_bold
+    size: ${font_size_num_xl}
     bpp: 4
     glyphs: ["0123456789:,.-?!Wna"]
   - file: "${text_font}@600"
-    id: roboto_96_num_bold
-    size: 96
-    bpp: 4
-    glyphs: ["0123456789:,.-?!Wna"]
-  - file: "${text_font}@600"
-    id: roboto_80_num_bold
+    id: font_time_l
     size: ${font_size_clock}
     bpp: 4
     glyphs: ["0123456789:,.-?!Wna"]
-  - file: "${text_font}@600"
-    id: roboto_64_num_bold
-    size: 64
+  - file: "${text_font}"
+    id: font_time_xl
+    size: ${font_size_num_2xl}
     bpp: 4
     glyphs: ["0123456789:,.-?!Wna"]
-  - file: "${text_font}"
-    id: roboto_24
-    size: 24
+  - file: "${text_font}@600"
+    id: font_time_xl_bold
+    size: ${font_size_num_2xl}
     bpp: 4
-  - file: "${text_font}"
-    id: roboto_18
-    size: 18
-    bpp: 4
+    glyphs: ["0123456789:,.-?!Wna"]

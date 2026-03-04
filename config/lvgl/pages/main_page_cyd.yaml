@@ -269,11 +269,11 @@ lvgl:
                           - label:
                               id: main_left_date_weekday
                               text: "Aaaaaaa"
-                              text_font: "roboto_32"
+                              text_font: "font_2xl"
                           - label:
                               id: main_left_date_day
                               text: "xx Xxxxxxx"
-                              text_font: "roboto_32"
+                              text_font: "font_2xl"
               - obj:
                   id: main_left_pane
                   width: 450
@@ -335,7 +335,7 @@ lvgl:
                                     id: main_left_weather_temp_now_shadow
                                     text: "??"
                                     height: 75
-                                    text_font: "roboto_64_num_bold"
+                                    text_font: "font_num_xl_bold"
                                     styles:
                                       - main_weather_temp_style
                                       - main_weather_shadow
@@ -343,7 +343,7 @@ lvgl:
                                 - label:
                                     id: main_left_weather_temp_txt_shadow
                                     text: "\u00b0C"
-                                    text_font: "roboto_32"
+                                    text_font: "font_2xl"
                                     styles:
                                       - main_weather_temp_label_style
                                       - main_weather_shadow
@@ -351,7 +351,7 @@ lvgl:
                           - label:
                               id: main_left_weather_temp_feels_shadow
                               text: "Feels like: ??\u00b0C"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
                               styles:
                                 - main_weather_feels_style
                                 - main_weather_shadow
@@ -359,7 +359,7 @@ lvgl:
                           - label:
                               id: main_left_weather_temp_rain_shadow
                               text: "Rain: ??%"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
                               styles:
                                 - main_weather_rain_style
                                 - main_weather_shadow
@@ -396,28 +396,28 @@ lvgl:
                                     id: main_left_weather_temp_now
                                     text: "??"
                                     height: 75
-                                    text_font: "roboto_64_num_bold"
+                                    text_font: "font_num_xl_bold"
                                     styles:
                                       - main_weather_temp_style
                                     pad_top: 10
                                 - label:
                                     id: main_left_weather_temp_txt
                                     text: "\u00b0C"
-                                    text_font: "roboto_32"
+                                    text_font: "font_2xl"
                                     styles:
                                       - main_weather_temp_label_style
                                     pad_top: 15
                           - label:
                               id: main_left_weather_temp_feels
                               text: "Feels like: ??\u00b0C"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
                               styles:
                                 - main_weather_feels_style
                               pad_top: 10
                           - label:
                               id: main_left_weather_temp_rain
                               text: "Rain: ??%"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
                               styles:
                                 - main_weather_rain_style
 
@@ -454,7 +454,7 @@ lvgl:
                                     styles:
                                       - main_weather_details
                                     text: "hh:mm"
-                                    text_font: "roboto_16"
+                                    text_font: "font_m"
                           - obj:
                               id: main_left_weather_details_sunset_cont
                               styles: clean_obj
@@ -474,7 +474,7 @@ lvgl:
                                     styles:
                                       - main_weather_details
                                     text: "HH:MM"
-                                    text_font: "roboto_16"
+                                    text_font: "font_m"
                           - obj:
                               id: main_left_weather_details_wind_cont
                               styles: clean_obj
@@ -496,7 +496,7 @@ lvgl:
                                     styles:
                                       - main_weather_details
                                     text: "??km/h"
-                                    text_font: "roboto_16"
+                                    text_font: "font_m"
 
                     - obj:
                         id: main_left_forecast
@@ -531,7 +531,7 @@ lvgl:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
                                     text: "hh:mm"
-                                    text_font: "roboto_24"
+                                    text_font: "font_xl"
                                     x: 0
                                     y: 0
                                     align: TOP_MID
@@ -547,7 +547,7 @@ lvgl:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
                                     text: "??\u00b0C / ??%"
-                                    text_font: "roboto_18"
+                                    text_font: "font_l"
                                     x: 0
                                     y: 0
                                     align: BOTTOM_MID
@@ -569,7 +569,7 @@ lvgl:
                                     height: 32
                                     width: 130
                                     text: "hh:mm"
-                                    text_font: "roboto_24"
+                                    text_font: "font_xl"
                                     x: 0
                                     y: 0
                                     align: TOP_MID
@@ -584,7 +584,7 @@ lvgl:
                                     styles:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
-                                    text_font: "roboto_18"
+                                    text_font: "font_l"
                                     text: "??\u00b0C / ??%"
                                     x: 0
                                     y: 0
@@ -607,7 +607,7 @@ lvgl:
                                     height: 32
                                     width: 130
                                     text: "hh:mm"
-                                    text_font: "roboto_24"
+                                    text_font: "font_xl"
                                     x: 0
                                     y: 0
                                     align: TOP_MID
@@ -623,7 +623,7 @@ lvgl:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
                                     text: "??\u00b0C / ??%"
-                                    text_font: "roboto_18"
+                                    text_font: "font_l"
                                     x: 0
                                     y: 0
                                     align: BOTTOM_MID
@@ -648,7 +648,7 @@ lvgl:
                         text: 0W
                         styles:
                           - main_solar_gen_style
-                        text_font: roboto_48_num_bold
+                        text_font: font_num_l_bold
                         x: 75
                         y: -5
                         align: TOP_LEFT
@@ -676,7 +676,7 @@ lvgl:
                               text: "0W"
                               styles:
                                 - main_power_usage_style
-                              text_font: roboto_24
+                              text_font: font_xl
                               align: TOP_LEFT
                               height: 32
                           - image:
@@ -791,7 +791,7 @@ lvgl:
                                     width: 75
                                     height: 20
                                     align: BOTTOM_MID
-                                    text_font: roboto_12
+                                    text_font: font_xs
                                     text_align: CENTER
                               on_click:
                                 - homeassistant.action:
@@ -856,7 +856,7 @@ lvgl:
                                     width: 75
                                     height: 20
                                     align: BOTTOM_MID
-                                    text_font: roboto_12
+                                    text_font: font_xs
                                     text_align: CENTER
                               on_click:
                                 - homeassistant.action:
@@ -910,5 +910,5 @@ lvgl:
                                     width: 75
                                     height: 20
                                     align: BOTTOM_MID
-                                    text_font: roboto_12
+                                    text_font: font_xs
                                     text_align: CENTER

@@ -33,16 +33,16 @@ widgets:
         - label:
             text: "${label}"
             text_color: 0xFFFFFF
-            text_font: roboto_16
+            text_font: font_m
             width: 145
         - label:
             text: "Draw: "
             text_color: ${lvgl_color_fg_secondary}
-            text_font: roboto_14
+            text_font: font_s
         - label:
             text: "--W"
             text_color: ${lvgl_color_bg_checked}
-            text_font: roboto_14
+            text_font: font_s
             id: control_switch_${name}_power
 
   - button:
@@ -73,6 +73,6 @@ widgets:
         - label:
             id: control_switch_${name}_label
             align: CENTER
-            text_font: roboto_14
+            text_font: font_s
             text: "OFF"
             text_color: 0xffffff

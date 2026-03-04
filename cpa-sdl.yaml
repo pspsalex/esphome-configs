@@ -8,7 +8,7 @@ substitutions:
   friendly_name: "CPA SDL"
   display_width: "1024"
   display_height: "600"
-  sdl_zoom: 1.265
+  sdl_zoom: 1
 
 packages:
   base: !include config/base.yaml

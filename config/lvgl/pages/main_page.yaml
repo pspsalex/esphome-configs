@@ -282,11 +282,11 @@ lvgl:
                     - label:
                         id: main_left_date_weekday
                         text: "Aaaaaaa"
-                        text_font: "roboto_32_bold"
+                        text_font: "font_2xl_bold"
                     - label:
                         id: main_left_date_day
                         text: "xx Xxxxxxx"
-                        text_font: "roboto_32"
+                        text_font: "font_2xl"
               - obj:
                   width: 460
                   height: 120
@@ -303,11 +303,11 @@ lvgl:
                     - label:
                         id: main_left_date_hour
                         text: "--"
-                        text_font: "roboto_96_num_bold"
+                        text_font: "font_time_xl_bold"
                     - label:
                         id: main_left_date_minute
                         text: ":--"
-                        text_font: "roboto_96_num"
+                        text_font: "font_time_xl"
 
               - obj:
                   id: main_left_splitter1
@@ -351,19 +351,19 @@ lvgl:
                               id: main_left_weather_temp_now
                               text: "??"
                               height: 90
-                              text_font: "roboto_80_num_bold"
+                              text_font: "font_time_l"
                           - label:
                               id: main_left_weather_temp_txt
                               text: "\u00b0C"
-                              text_font: "roboto_32"
+                              text_font: "font_2xl"
                     - label:
                         id: main_left_weather_temp_feels
                         text: "Feels like: ??\u00b0C"
-                        text_font: "roboto_16"
+                        text_font: "font_m"
                     - label:
                         id: main_left_weather_temp_rain
                         text: "Rain: ??%"
-                        text_font: "roboto_16"
+                        text_font: "font_m"
 
               - obj:
                   id: main_left_weather_details
@@ -392,7 +392,7 @@ lvgl:
                           - label:
                               id: main_left_weather_details_sunrise
                               text: "hh:mm"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
                     - obj:
                         id: main_left_weather_details_sunset_cont
                         styles: clean_obj
@@ -410,7 +410,7 @@ lvgl:
                           - label:
                               id: main_left_weather_details_sunset
                               text: "HH:MM"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
                     - obj:
                         id: main_left_weather_details_wind_cont
                         styles: clean_obj
@@ -430,7 +430,7 @@ lvgl:
                           - label:
                               id: main_left_weather_details_wind
                               text: "??km/h"
-                              text_font: "roboto_16"
+                              text_font: "font_m"
 
               - obj:
                   id: main_left_splitter_1
@@ -463,14 +463,14 @@ lvgl:
                           - label:
                               id: main_left_forecast_4h_time
                               text: "hh:mm"
-                              text_font: "roboto_24"
+                              text_font: "font_xl"
                           - image:
                               id: main_left_forecast_4h_icon
                               src: image_weather_sunny_small
                           - label:
                               id: main_left_forecast_4h_temp
                               text: "??\u00b0C / ??%"
-                              text_font: "roboto_24"
+                              text_font: "font_xl"
                     - obj:
                         id: main_left_forecast_8h
                         styles: clean_obj
@@ -483,13 +483,13 @@ lvgl:
                           - label:
                               id: main_left_forecast_8h_time
                               text: "hh:mm"
-                              text_font: "roboto_24"
+                              text_font: "font_xl"
                           - image:
                               id: main_left_forecast_8h_icon
                               src: image_weather_sunny_small
                           - label:
                               id: main_left_forecast_8h_temp
-                              text_font: "roboto_24"
+                              text_font: "font_xl"
                               text: "??\u00b0C / ??%"
                     - obj:
                         id: main_left_forecast_12h
@@ -503,14 +503,14 @@ lvgl:
                           - label:
                               id: main_left_forecast_12h_time
                               text: "hh:mm"
-                              text_font: "roboto_24"
+                              text_font: "font_xl"
                           - image:
                               id: main_left_forecast_12h_icon
                               src: image_weather_sunny_small
                           - label:
                               id: main_left_forecast_12h_temp
                               text: "??\u00b0C / ??%"
-                              text_font: "roboto_24"
+                              text_font: "font_xl"
 
         - obj:
             id: main_pane_splitter

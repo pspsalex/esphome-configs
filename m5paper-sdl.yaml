@@ -6,6 +6,7 @@ substitutions:
   friendly_name: "SDL"
   display_width: "960"
   display_height: "540"
+  sdl_zoom: 1
 
 packages:
   base: !include config/base.yaml
