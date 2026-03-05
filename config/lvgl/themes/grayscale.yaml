@@ -120,10 +120,8 @@ substitutions:
   font_size_icon: "32"
 
 packages:
-  icons: !include images.yaml
-
   base: !include
-    file: ../_base.yaml
+    file: _base.yaml
 
 lvgl:
   style_definitions:

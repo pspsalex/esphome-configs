@@ -52,7 +52,7 @@ class PathConfig:
         self.assets_base = self.project_dir / "assets" / "gen"
         self.config_base = self.project_dir / "config"
         self.yaml_base = Path("assets") / "gen"
-        self.yaml_theme_base = self.config_base / "lvgl" / "themes"
+        self.yaml_theme_base = self.config_base / "lvgl" / "images"
         self.image_config_path = self.script_dir / "images.yaml"
 
     def resolve_project_path(self, path: str | Path) -> Path:

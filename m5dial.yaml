@@ -8,7 +8,8 @@ substitutions:
 packages:
   base: !include config/base.yaml
   device: !include config/device/m5dial.yaml
-  theme: !include config/lvgl/themes/dial/theme.yaml
+  theme: !include config/lvgl/themes/dial.yaml
+  images: !include config/lvgl/images/dial/images.yaml
   wifi: !include config/wifi.yaml
   antiburn: !include config/lvgl/antiburn.yaml
 

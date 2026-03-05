@@ -3,10 +3,10 @@
 
 packages:
   # Include the common images for all themes
-  common_images: !include ../../images.yaml
+  common_images: !include ../images.yaml
 
   # Include the generated images for this theme
-  generated_images: !include ../dark/images.gen.yaml ### TODO: CYD DARK
+  generated_images: !include images.gen.yaml
 
 # Define any theme-specific images here:
 image:
@@ -18,10 +18,4 @@ image:
   images:
     - file: "assets/images/esphome_logo_dark.svg"
       id: boot_logo
-      resize: 597x117
-
-    - file: "assets/3rdparty/sc/sc_shutter_open_135.png"
-      id: shutter_open
-
-    - file: "assets/3rdparty/sc/sc_shutter_slide_135.png"
-      id: shutter_slide
+      resize: 220x44

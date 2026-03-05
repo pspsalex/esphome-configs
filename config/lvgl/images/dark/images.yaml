@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 packages:
   # Include the common images for all themes
-  common_images: !include ../../images.yaml
+  common_images: !include ../images.yaml
 
   # Include the generated images for this theme
   generated_images: !include images.gen.yaml
@@ -16,6 +16,12 @@ image:
     transparency: alpha_channel
 
   images:
-    - file: "assets/images/esphome_logo.svg"
+    - file: "assets/images/esphome_logo_dark.svg"
       id: boot_logo
       resize: 597x117
+
+    - file: "assets/3rdparty/sc/sc_shutter_open_135.png"
+      id: shutter_open
+
+    - file: "assets/3rdparty/sc/sc_shutter_slide_135.png"
+      id: shutter_slide

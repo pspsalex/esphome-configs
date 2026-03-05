@@ -12,7 +12,8 @@ substitutions:
 packages:
   base: !include config/base.yaml
   device: !include config/device/m5paper.yaml
-  theme: !include config/lvgl/themes/grayscale/theme.yaml
+  theme: !include config/lvgl/themes/grayscale.yaml
+  images: !include config/lvgl/images/grayscale/images.yaml
   weather: !include config/weather.yaml
   wifi: !include config/wifi.yaml
 

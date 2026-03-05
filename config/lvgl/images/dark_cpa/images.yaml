@@ -3,7 +3,7 @@
 
 packages:
   # Include the common images for all themes
-  common_images: !include ../../images.yaml
+  common_images: !include ../images.yaml
 
   # Include the generated images for this theme
   generated_images: !include images.gen.yaml
@@ -16,6 +16,15 @@ image:
     transparency: alpha_channel
 
   images:
+    # Logo scaled to CPA resolution (597x117 * 1.265 ≈ 755x148)
     - file: "assets/images/esphome_logo_dark.svg"
       id: boot_logo
-      resize: 220x44
+      resize: 755x148
+
+    # TODO: Create CPA-scaled shutter icons (135px * 1.265 ≈ 171px)
+    #       Expected files: sc_shutter_open_171.png, sc_shutter_slide_171.png
+    - file: "assets/3rdparty/sc/sc_shutter_open_171.png"
+      id: shutter_open
+
+    - file: "assets/3rdparty/sc/sc_shutter_slide_171.png"
+      id: shutter_slide

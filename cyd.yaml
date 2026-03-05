@@ -11,7 +11,8 @@ substitutions:
 packages:
   base: !include config/base.yaml
   device: !include config/device/cyd.yaml
-  theme: !include config/lvgl/themes/dark/theme.yaml
+  theme: !include config/lvgl/themes/dark.yaml
+  images: !include config/lvgl/images/dark/images.yaml
   weather: !include config/weather.yaml
   wifi: !include config/wifi.yaml
   antiburn: !include config/lvgl/antiburn.yaml
