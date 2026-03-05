@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 Alex Popescu (@pspsalex)
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 packages:
   # Include the common images for all themes
@@ -10,11 +10,6 @@ packages:
 
 # Define any theme-specific images here:
 image:
-  defaults:
-    type: ${display_image_type}
-    byte_order: ${display_byte_order}
-    transparency: alpha_channel
-
   images:
     - file: "assets/images/esphome_logo.svg"
       id: boot_logo
