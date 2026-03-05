@@ -6,8 +6,8 @@
 
 # Window status
 id: status_${name}_opening
-width: 105
-height: 120
+width: ${(105 * ui_scale) | round | int}
+height: ${(120 * ui_scale) | round | int}
 radius: 5
 styles:
   - clean_obj
@@ -33,11 +33,11 @@ widgets:
       text_align: CENTER
       width: 100%
       height: SIZE_CONTENT
-      pad_top: 5
-      pad_bottom: 5
+      pad_top: ${(5 * ui_scale) | round | int}
+      pad_bottom: ${(5 * ui_scale) | round | int}
   - image:
       x: 0
-      y: 10
+      y: ${(10 * ui_scale) | round | int}
       id: status_${name}_opening_image
       src: "image_window_closed_large"
       align: CENTER

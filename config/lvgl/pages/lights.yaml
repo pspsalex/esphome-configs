@@ -139,11 +139,11 @@ lvgl:
 
       widgets:
         - obj:
-            width: 760
-            height: 440
-            x: 20
-            y: 20
-            pad_all: 20
+            width: ${(760 * ui_scale) | round | int}
+            height: ${(440 * ui_scale) | round | int}
+            x: ${(20 * ui_scale) | round | int}
+            y: ${(20 * ui_scale) | round | int}
+            pad_all: ${(20 * ui_scale) | round | int}
             styles:
               - clean_obj
               - main_container_style
@@ -154,7 +154,7 @@ lvgl:
               flex_align_cross: START
             widgets:
               - obj:
-                  width: 480
+                  width: ${(480 * ui_scale) | round | int}
                   height: SIZE_CONTENT
                   styles:
                     - clean_obj
@@ -182,8 +182,8 @@ lvgl:
                           flex_flow: ROW_WRAP
                           flex_align_main: START
                           flex_align_cross: START
-                          pad_row: 15
-                          pad_column: 15
+                          pad_row: ${(15 * ui_scale) | round | int}
+                          pad_column: ${(15 * ui_scale) | round | int}
                         widgets:
                           - button: !include
                               file: "snippets/more-lights.yaml"
@@ -273,7 +273,7 @@ lvgl:
                                 label: "STUDIO"
                                 ha_entity: "dg_studio_light_wall_switch"
               - obj:
-                  width: 220
+                  width: ${(220 * ui_scale) | round | int}
                   height: SIZE_CONTENT
                   styles:
                     - clean_obj

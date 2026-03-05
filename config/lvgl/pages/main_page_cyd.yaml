@@ -222,19 +222,19 @@ lvgl:
       widgets:
         - obj:
             id: main_container
-            width: 760
-            height: 440
-            x: 20
-            y: 20
+            width: ${(760 * ui_scale) | round | int}
+            height: ${(440 * ui_scale) | round | int}
+            x: ${(20 * ui_scale) | round | int}
+            y: ${(20 * ui_scale) | round | int}
             styles:
               - clean_obj
               - main_container_style
             widgets:
               - obj:
                   id: main_top
-                  width: 720
-                  height: 105
-                  x: 20
+                  width: ${(720 * ui_scale) | round | int}
+                  height: ${(105 * ui_scale) | round | int}
+                  x: ${(20 * ui_scale) | round | int}
                   y: 0
                   styles:
                     - clean_obj
@@ -244,8 +244,8 @@ lvgl:
                         id: main_left_date_time
                         x: 0
                         y: 0
-                        width: 340
-                        height: 100
+                        width: ${(340 * ui_scale) | round | int}
+                        height: ${(100 * ui_scale) | round | int}
                         styles:
                           - clean_obj
                           - main_time
@@ -256,8 +256,8 @@ lvgl:
                         x: 0
                         y: 0
                         align: BOTTOM_RIGHT
-                        width: 400
-                        height: 48
+                        width: ${(400 * ui_scale) | round | int}
+                        height: ${(48 * ui_scale) | round | int}
                         styles:
                           - clean_obj
                           - main_date
@@ -276,13 +276,13 @@ lvgl:
                               text_font: "font_2xl"
               - obj:
                   id: main_left_pane
-                  width: 450
-                  height: 295
+                  width: ${(450 * ui_scale) | round | int}
+                  height: ${(295 * ui_scale) | round | int}
                   border_side: RIGHT
                   border_width: 1
                   border_color: 0xd9d9d9
-                  x: 20
-                  y: 125
+                  x: ${(20 * ui_scale) | round | int}
+                  y: ${(125 * ui_scale) | round | int}
                   styles:
                     - clean_obj
                     - main_pane
@@ -298,16 +298,16 @@ lvgl:
                         x: 0
                         y: 0
                         id: main_left_weather_logo_now
-                        width: 210
-                        height: 210
+                        width: ${(210 * ui_scale) | round | int}
+                        height: ${(210 * ui_scale) | round | int}
                         src: image_weather_night_large
 
                     - obj:
                         id: main_left_weather_data_shadow
-                        height: 170
-                        width: 160
-                        x: 152
-                        y: 2
+                        height: ${(170 * ui_scale) | round | int}
+                        width: ${(160 * ui_scale) | round | int}
+                        x: ${(152 * ui_scale) | round | int}
+                        y: ${(2 * ui_scale) | round | int}
                         styles: clean_obj
                         layout:
                           type: FLEX
@@ -320,8 +320,8 @@ lvgl:
                         widgets:
                           - obj:
                               id: main_left_weather_temp_shadow
-                              width: 150
-                              height: 75
+                              width: ${(150 * ui_scale) | round | int}
+                              height: ${(75 * ui_scale) | round | int}
                               radius: 0
                               styles: clean_obj
                               layout:
@@ -334,12 +334,12 @@ lvgl:
                                 - label:
                                     id: main_left_weather_temp_now_shadow
                                     text: "??"
-                                    height: 75
+                                    height: ${(75 * ui_scale) | round | int}
                                     text_font: "font_num_xl_bold"
                                     styles:
                                       - main_weather_temp_style
                                       - main_weather_shadow
-                                    pad_top: 10
+                                    pad_top: ${(10 * ui_scale) | round | int}
                                 - label:
                                     id: main_left_weather_temp_txt_shadow
                                     text: "\u00b0C"
@@ -347,7 +347,7 @@ lvgl:
                                     styles:
                                       - main_weather_temp_label_style
                                       - main_weather_shadow
-                                    pad_top: 15
+                                    pad_top: ${(15 * ui_scale) | round | int}
                           - label:
                               id: main_left_weather_temp_feels_shadow
                               text: "Feels like: ??\u00b0C"
@@ -355,7 +355,7 @@ lvgl:
                               styles:
                                 - main_weather_feels_style
                                 - main_weather_shadow
-                              pad_top: 10
+                              pad_top: ${(10 * ui_scale) | round | int}
                           - label:
                               id: main_left_weather_temp_rain_shadow
                               text: "Rain: ??%"
@@ -365,9 +365,9 @@ lvgl:
                                 - main_weather_shadow
                     - obj:
                         id: main_left_weather_data
-                        height: 170
-                        width: 160
-                        x: 150
+                        height: ${(170 * ui_scale) | round | int}
+                        width: ${(160 * ui_scale) | round | int}
+                        x: ${(150 * ui_scale) | round | int}
                         y: 0
                         styles: clean_obj
                         layout:
@@ -381,8 +381,8 @@ lvgl:
                         widgets:
                           - obj:
                               id: main_left_weather_temp
-                              width: 150
-                              height: 75
+                              width: ${(150 * ui_scale) | round | int}
+                              height: ${(75 * ui_scale) | round | int}
                               radius: 0
                               styles: clean_obj
                               layout:
@@ -395,25 +395,25 @@ lvgl:
                                 - label:
                                     id: main_left_weather_temp_now
                                     text: "??"
-                                    height: 75
+                                    height: ${(75 * ui_scale) | round | int}
                                     text_font: "font_num_xl_bold"
                                     styles:
                                       - main_weather_temp_style
-                                    pad_top: 10
+                                    pad_top: ${(10 * ui_scale) | round | int}
                                 - label:
                                     id: main_left_weather_temp_txt
                                     text: "\u00b0C"
                                     text_font: "font_2xl"
                                     styles:
                                       - main_weather_temp_label_style
-                                    pad_top: 15
+                                    pad_top: ${(15 * ui_scale) | round | int}
                           - label:
                               id: main_left_weather_temp_feels
                               text: "Feels like: ??\u00b0C"
                               text_font: "font_m"
                               styles:
                                 - main_weather_feels_style
-                              pad_top: 10
+                              pad_top: ${(10 * ui_scale) | round | int}
                           - label:
                               id: main_left_weather_temp_rain
                               text: "Rain: ??%"
@@ -423,23 +423,23 @@ lvgl:
 
                     - obj:
                         id: main_left_weather_details
-                        width: 110
-                        height: 140
+                        width: ${(110 * ui_scale) | round | int}
+                        height: ${(140 * ui_scale) | round | int}
                         y: 0
-                        x: 320
+                        x: ${(320 * ui_scale) | round | int}
                         styles: clean_obj
                         layout:
                           type: FLEX
                           flex_flow: COLUMN
                           flex_align_main: CENTER
                           flex_align_track: CENTER
-                          pad_row: 20
+                          pad_row: ${(20 * ui_scale) | round | int}
                         widgets:
                           - obj:
                               id: main_left_weather_details_sunrise_cont
                               styles: clean_obj
                               width: SIZE_CONTENT
-                              height: 24
+                              height: ${(24 * ui_scale) | round | int}
                               layout:
                                 type: FLEX
                                 flex_flow: ROW
@@ -459,7 +459,7 @@ lvgl:
                               id: main_left_weather_details_sunset_cont
                               styles: clean_obj
                               width: SIZE_CONTENT
-                              height: 24
+                              height: ${(24 * ui_scale) | round | int}
                               layout:
                                 type: FLEX
                                 flex_flow: ROW
@@ -481,7 +481,7 @@ lvgl:
                               # bg_color: 0xffffff
                               # bg_opa: COVER
                               width: SIZE_CONTENT
-                              height: 24
+                              height: ${(24 * ui_scale) | round | int}
                               layout:
                                 type: FLEX
                                 flex_flow: ROW
@@ -501,12 +501,12 @@ lvgl:
                     - obj:
                         id: main_left_forecast
                         styles: clean_obj
-                        width: 430
-                        height: 150
+                        width: ${(430 * ui_scale) | round | int}
+                        height: ${(150 * ui_scale) | round | int}
                         border_width: 0
                         pad_all: 0
                         x: 0
-                        y: 143
+                        y: ${(143 * ui_scale) | round | int}
                         layout:
                           type: FLEX
                           flex_flow: ROW
@@ -517,10 +517,10 @@ lvgl:
                         widgets:
                           - obj:
                               id: main_left_forecast_4h
-                              width: 130
-                              height: 150
-                              pad_top: 5
-                              pad_bottom: 5
+                              width: ${(130 * ui_scale) | round | int}
+                              height: ${(150 * ui_scale) | round | int}
+                              pad_top: ${(5 * ui_scale) | round | int}
+                              pad_bottom: ${(5 * ui_scale) | round | int}
                               styles:
                                 - clean_obj
                                 - main_weather_forecast_style
@@ -553,10 +553,10 @@ lvgl:
                                     align: BOTTOM_MID
                           - obj:
                               id: main_left_forecast_8h
-                              width: 130
-                              height: 150
-                              pad_top: 5
-                              pad_bottom: 5
+                              width: ${(130 * ui_scale) | round | int}
+                              height: ${(150 * ui_scale) | round | int}
+                              pad_top: ${(5 * ui_scale) | round | int}
+                              pad_bottom: ${(5 * ui_scale) | round | int}
                               styles:
                                 - clean_obj
                                 - main_weather_forecast_style
@@ -566,8 +566,8 @@ lvgl:
                                     styles:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
-                                    height: 32
-                                    width: 130
+                                    height: ${(32 * ui_scale) | round | int}
+                                    width: ${(130 * ui_scale) | round | int}
                                     text: "hh:mm"
                                     text_font: "font_xl"
                                     x: 0
@@ -591,10 +591,10 @@ lvgl:
                                     align: BOTTOM_MID
                           - obj:
                               id: main_left_forecast_12h
-                              width: 130
-                              height: 150
-                              pad_top: 5
-                              pad_bottom: 5
+                              width: ${(130 * ui_scale) | round | int}
+                              height: ${(150 * ui_scale) | round | int}
+                              pad_top: ${(5 * ui_scale) | round | int}
+                              pad_bottom: ${(5 * ui_scale) | round | int}
                               styles:
                                 - clean_obj
                                 - main_weather_forecast_style
@@ -604,8 +604,8 @@ lvgl:
                                     styles:
                                       - clean_obj
                                       - main_weather_forecast_detail_style
-                                    height: 32
-                                    width: 130
+                                    height: ${(32 * ui_scale) | round | int}
+                                    width: ${(130 * ui_scale) | round | int}
                                     text: "hh:mm"
                                     text_font: "font_xl"
                                     x: 0
@@ -631,10 +631,10 @@ lvgl:
               - obj:
                   id: main_right_pane
                   styles: clean_obj
-                  x: 485
-                  y: 125
-                  width: 250
-                  height: 300
+                  x: ${(485 * ui_scale) | round | int}
+                  y: ${(125 * ui_scale) | round | int}
+                  width: ${(250 * ui_scale) | round | int}
+                  height: ${(300 * ui_scale) | round | int}
                   widgets:
                     - image:
                         id: main_right_solar
@@ -649,18 +649,18 @@ lvgl:
                         styles:
                           - main_solar_gen_style
                         text_font: font_num_l_bold
-                        x: 75
-                        y: -5
+                        x: ${(75 * ui_scale) | round | int}
+                        y: ${(-5 * ui_scale) | round | int}
                         align: TOP_LEFT
-                        height: 45
-                        width: 175
+                        height: ${(45 * ui_scale) | round | int}
+                        width: ${(175 * ui_scale) | round | int}
 
                     - obj:
                         id: main_right_power_usage_container
-                        x: 75
-                        y: 45
-                        width: 175
-                        height: 32
+                        x: ${(75 * ui_scale) | round | int}
+                        y: ${(45 * ui_scale) | round | int}
+                        width: ${(175 * ui_scale) | round | int}
+                        height: ${(32 * ui_scale) | round | int}
                         styles:
                           - clean_obj
                         layout:
@@ -668,8 +668,8 @@ lvgl:
                           flex_flow: ROW_WRAP
                           flex_align_main: START
                           flex_align_cross: CENTER
-                          pad_column: 5
-                          pad_row: 20
+                          pad_column: ${(5 * ui_scale) | round | int}
+                          pad_row: ${(20 * ui_scale) | round | int}
                         widgets:
                           - label:
                               id: main_right_power_usage
@@ -678,7 +678,7 @@ lvgl:
                                 - main_power_usage_style
                               text_font: font_xl
                               align: TOP_LEFT
-                              height: 32
+                              height: ${(32 * ui_scale) | round | int}
                           - image:
                               id: main_right_power_usage_icon
                               src: image_power_usage_xsmall
@@ -686,9 +686,9 @@ lvgl:
                     - obj:
                         id: main_power_stats_details
                         x: 0
-                        y: 90
-                        width: 250
-                        height: 205
+                        y: ${(90 * ui_scale) | round | int}
+                        width: ${(250 * ui_scale) | round | int}
+                        height: ${(205 * ui_scale) | round | int}
                         styles:
                           - clean_obj
                           # - main_power_stats_details_style
@@ -709,8 +709,8 @@ lvgl:
                               styles:
                                 - main_power_stats_details_label_style
                               text: "0%"
-                              width: 80
-                              pad_left: 5
+                              width: ${(80 * ui_scale) | round | int}
+                              pad_left: ${(5 * ui_scale) | round | int}
 
                           - image:
                               src: image_sun_small
@@ -719,8 +719,8 @@ lvgl:
                               styles:
                                 - main_power_stats_details_label_style
                               text: "0 kWh"
-                              width: 80
-                              pad_left: 5
+                              width: ${(80 * ui_scale) | round | int}
+                              pad_left: ${(5 * ui_scale) | round | int}
 
                           - image:
                               src: image_battery_share_small
@@ -729,8 +729,8 @@ lvgl:
                               styles:
                                 - main_power_stats_details_label_style
                               text: "0 kWh"
-                              width: 80
-                              pad_left: 5
+                              width: ${(80 * ui_scale) | round | int}
+                              pad_left: ${(5 * ui_scale) | round | int}
 
                           - image:
                               src: image_money_small
@@ -739,8 +739,8 @@ lvgl:
                               styles:
                                 - main_power_stats_details_label_style
                               text: "0 €"
-                              width: 80
-                              pad_left: 5
+                              width: ${(80 * ui_scale) | round | int}
+                              pad_left: ${(5 * ui_scale) | round | int}
 
                           - line:
                               points:
@@ -768,8 +768,8 @@ lvgl:
                               # pressed:
                               #   bg_color: 0x000088
 
-                              width: 75
-                              height: 75
+                              width: ${(75 * ui_scale) | round | int}
+                              height: ${(75 * ui_scale) | round | int}
                               radius: 5
                               state:
                                 disabled: true
@@ -781,15 +781,15 @@ lvgl:
                                     src: image_lightbulb_off_medium
                                     align: center
                                     x: 0
-                                    y: -10
+                                    y: ${(-10 * ui_scale) | round | int}
                                 - label:
                                     text: "Keller Lights"
                                     styles: main_controls_label
                                     long_mode: DOT
                                     x: 0
                                     y: 0
-                                    width: 75
-                                    height: 20
+                                    width: ${(75 * ui_scale) | round | int}
+                                    height: ${(20 * ui_scale) | round | int}
                                     align: BOTTOM_MID
                                     text_font: font_xs
                                     text_align: CENTER
@@ -833,8 +833,8 @@ lvgl:
                               # pressed:
                               #   bg_color: 0x000088
 
-                              width: 75
-                              height: 75
+                              width: ${(75 * ui_scale) | round | int}
+                              height: ${(75 * ui_scale) | round | int}
                               radius: 5
                               state:
                                 disabled: true
@@ -846,15 +846,15 @@ lvgl:
                                     src: image_lightbulb_off_medium
                                     align: center
                                     x: 0
-                                    y: -10
+                                    y: ${(-10 * ui_scale) | round | int}
                                 - label:
                                     text: "Office Lights"
                                     styles: main_controls_label
                                     long_mode: DOT
                                     x: 0
                                     y: 0
-                                    width: 75
-                                    height: 20
+                                    width: ${(75 * ui_scale) | round | int}
+                                    height: ${(20 * ui_scale) | round | int}
                                     align: BOTTOM_MID
                                     text_font: font_xs
                                     text_align: CENTER
@@ -882,8 +882,8 @@ lvgl:
                               disabled:
                                 styles:
                                   - main_controls_button_checked
-                              width: 75
-                              height: 75
+                              width: ${(75 * ui_scale) | round | int}
+                              height: ${(75 * ui_scale) | round | int}
                               radius: 5
                               on_click:
                                 then:
@@ -900,15 +900,15 @@ lvgl:
                                     src: image_controls_medium
                                     align: center
                                     x: 0
-                                    y: -10
+                                    y: ${(-10 * ui_scale) | round | int}
                                 - label:
                                     text: "More..."
                                     styles: main_controls_label
                                     long_mode: DOT
                                     x: 0
                                     y: 0
-                                    width: 75
-                                    height: 20
+                                    width: ${(75 * ui_scale) | round | int}
+                                    height: ${(20 * ui_scale) | round | int}
                                     align: BOTTOM_MID
                                     text_font: font_xs
                                     text_align: CENTER

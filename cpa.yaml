@@ -8,6 +8,18 @@ substitutions:
   device_name: "cpa"
   friendly_name: "CPA"
 
+  font_size_xs: "15"
+  font_size_s: "18"
+  font_size_m: "20"
+  font_size_l: "23"
+  font_size_xl: "30"
+  font_size_2xl: "40"
+  font_size_num_l: "61"
+  font_size_num_xl: "81"
+  font_size_clock: "101"
+  font_size_num_2xl: "121"
+  font_size_icon: "40"
+
 # http_request:
 
 # update:
@@ -31,8 +43,8 @@ packages:
   status_bar: !include
     file: config/lvgl/pages/status_bar.yaml
     vars:
-      lvgl_status_bar_x: -25
-      lvgl_status_bar_y: 20
+      lvgl_status_bar_x: -32
+      lvgl_status_bar_y: 25
   nav_bar: !include config/lvgl/pages/nav_bar.yaml
 
   # main_page: !include config/lvgl/pages/doorbell.yaml

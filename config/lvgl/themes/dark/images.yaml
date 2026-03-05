@@ -6,7 +6,7 @@ packages:
   common_images: !include ../../images.yaml
 
   # Include the generated images for this theme
-  generated_images: !include images.gen.yaml
+  generated_images: !include ../dark/images.gen.yaml ### TODO: CYD DARK
 
 # Define any theme-specific images here:
 image:

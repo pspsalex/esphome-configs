@@ -6,12 +6,12 @@ lvgl:
     widgets:
       - buttonmatrix:
           id: nav_bar
-          width: 420
-          height: 32
+          width: ${(420 * ui_scale) | round | int}
+          height: ${(32 * ui_scale) | round | int}
           hidden: true
           align: TOP_MID
           x: 0
-          y: 4
+          y: ${(4 * ui_scale) | round | int}
           styles:
             - clean_obj
             - style_nav_bar
