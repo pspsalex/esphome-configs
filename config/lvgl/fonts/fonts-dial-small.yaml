@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+#
+# Font sizes and UI layout defaults for M5Dial (240x240 round display).
+# Smaller clock font; boot screen centered for round display.
+
+packages:
+  base: !include fonts-base.yaml
+
+substitutions:
+  boot_clock_align: TOP_MID
+  boot_clock_x: "0"
+  boot_clock_y: "0"
+
+  boot_logo_align: CENTER
+  boot_logo_x: "0"
+  boot_logo_y: "-10"
+
+  boot_spinner_align: CENTER
+  boot_spinner_x: "0"
+  boot_spinner_y: "0"
+  boot_spinner_w: "242"
+  boot_spinner_h: "242"
+
+  boot_ip_x: "0"
+  boot_ip_y: "40"
+  boot_ip_align: CENTER
+  boot_ip_font: "${lvgl_font_small}"
+
+  font_size_xs: "12"
+  font_size_s: "14"
+  font_size_m: "16"
+  font_size_l: "18"
+  font_size_xl: "24"
+  font_size_2xl: "32"
+  font_size_num_l: "48"
+  font_size_num_xl: "64"
+  font_size_clock: "24"
+  font_size_num_2xl: "96"
+  font_size_icon: "32"

@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+#
+# Color palette for the grayscale theme (M5Paper e-ink).
+
+substitutions:
+  lvgl_color_page_bg: "0xFFFFFF"
+  lvgl_color_fg: "0x000000"
+  lvgl_color_bg: "0xFFFFFF"
+  lvgl_color_bg_accent: "0xFFFFFF"
+  lvgl_color_splitter: "0xd9d9d9"
+  lvgl_color_fg_secondary: "0x000000"
+  lvgl_color_accent: "0x000000"
+  lvgl_color_bg_statusbar: "0xffffff"
+  lvgl_color_shadow: "0x000000"
+  lvgl_color_bg_checked: "0xffffff"
+  lvgl_color_bg_disabled: "0x666666"
+  lvgl_color_bg_accent_inactive: "0xD9D9D9"
+  lvgl_color_bg_accent_active: "0xFFFFFF"
+
+  lvgl_color_bg_widget: "0xCCCCCC"
+  lvgl_color_fg_accent: "0x000000"
+  lvgl_color_bg_unchecked: "0xCCCCCC"
+  lvgl_color_warn_dk: "0x000000"
+  lvgl_color_warn_lt: "0x666666"

@@ -11,15 +11,14 @@ packages:
 # Define any theme-specific images here:
 image:
   images:
-    # Logo scaled to CPA resolution (597x117 * 1.265 ≈ 755x148)
     - file: "assets/images/esphome_logo_dark.svg"
       id: boot_logo
       resize: 755x148
 
-    # TODO: Create CPA-scaled shutter icons (135px * 1.265 ≈ 171px)
-    #       Expected files: sc_shutter_open_171.png, sc_shutter_slide_171.png
-    - file: "assets/3rdparty/sc/sc_shutter_open_171.png"
+    - file: "assets/3rdparty/sc/sc_shutter_open_135.png"
       id: shutter_open
+      resize: 171x171
 
-    - file: "assets/3rdparty/sc/sc_shutter_slide_171.png"
+    - file: "assets/3rdparty/sc/sc_shutter_slide_135.png"
       id: shutter_slide
+      resize: 171x171

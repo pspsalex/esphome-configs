@@ -608,6 +608,8 @@ lvgl:
                     - label:
                         text: "Dach Rollers"
                         styles: main_controls_label
+                        width: 130
+                        height: 40
                         long_mode: DOT
 
               - obj:
@@ -666,6 +668,8 @@ lvgl:
                     - label:
                         text: "Keller Lights"
                         styles: main_controls_label
+                        width: 130
+                        height: 40
                         long_mode: DOT
 
               - obj: !include

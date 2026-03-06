@@ -8,18 +8,6 @@ substitutions:
   device_name: "cpa"
   friendly_name: "CPA"
 
-  font_size_xs: "15"
-  font_size_s: "18"
-  font_size_m: "20"
-  font_size_l: "23"
-  font_size_xl: "30"
-  font_size_2xl: "40"
-  font_size_num_l: "61"
-  font_size_num_xl: "81"
-  font_size_clock: "101"
-  font_size_num_2xl: "121"
-  font_size_icon: "40"
-
 # http_request:
 
 # update:
@@ -34,7 +22,8 @@ substitutions:
 packages:
   base: !include config/base.yaml
   device: !include config/device/cpa.yaml
-  theme: !include config/lvgl/themes/dark.yaml
+  theme: !include config/lvgl/themes/dark/theme.yaml
+  fonts: !include config/lvgl/fonts/fonts-generic-large.yaml
   images: !include config/lvgl/images/dark_cpa/images.yaml
   weather: !include config/weather.yaml
   wifi: !include config/wifi.yaml

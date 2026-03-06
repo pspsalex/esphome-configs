@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+substitutions:
+  climate_heating_small: image_fire_small
+  climate_heating_off_small: image_fire_off_small
+  climate_plus_small: image_plus_thick_small
+  climate_minus_small: image_minus_thick_small
+  climate_heating_auto_small: image_refresh_auto_small
+  climate_heating_unknown_small: image_weather_unknown_xsmall
+
+  theme_rollers_as_image: "true"
+  shadow_active: "1"
+
+packages:
+  colors: !include colors.yaml
+  base: !include ../_base.yaml
+
+lvgl:
+  style_definitions:
+    - id: !extend main_time
+      text_font: "${lvgl_font_time}"
+    - id: !extend main_container_style
+      radius: 10

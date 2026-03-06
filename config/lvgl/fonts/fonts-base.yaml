@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+#
+# Shared font alias substitutions — included by all device font files.
+# These map logical role names to font IDs; actual sizes are set per device font file.
+
+substitutions:
+  statusbar_font: "font_icon"
+  default_font: "font_l"
+  lvgl_font_small: "font_m"
+  lvgl_font_time: "font_time_xl"
+  lvgl_font_controls_label: "font_xl"

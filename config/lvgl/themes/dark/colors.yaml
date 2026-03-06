@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+#
+# Shared color palette for dark-family themes (dark, dial).
+# Include this as a package in any theme that uses the dark color scheme.
+# Individual themes may override any color by redefining the substitution.
+
+substitutions:
+  lvgl_color_page_bg: "0x1a202c"
+  lvgl_color_bg: "0x2c3646"
+  lvgl_color_bg_statusbar: "0x2c3646"
+  lvgl_color_fg: "0xe2e8f0"
+  lvgl_color_fg_secondary: "0xa0aec0"
+  lvgl_color_accent: "0x93c5fd"
+  lvgl_color_bg_accent: "0x4A5568"
+  lvgl_color_shadow: "0x000000"
+
+  lvgl_color_bg_accent_inactive: "0x4A5568"
+  lvgl_color_bg_accent_active: "0x48bb78"
+
+  lvgl_color_bg_widget: "0x63b3ed"
+  lvgl_color_fg_accent: "0x4ade80"
+  lvgl_color_bg_unchecked: "0x5e6e86"
+
+  lvgl_color_warn_dk: red
+  lvgl_color_warn_lt: "0xfc8181"
+
+  lvgl_color_bg_checked: "0x48bb78"
+  lvgl_color_bg_disabled: "0x666666"
+
+  lvgl_color_splitter: "0xd9d9d9"
