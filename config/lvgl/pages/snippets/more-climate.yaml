@@ -1,11 +1,6 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Alex Popescu (@pspsalex)
 
-# TODO:
-# Change temperature color when room is heating
-# Styles
-# Add warning if there is an open window and actively heating?
-
 # Climate control
 id: control_${name}_climate
 width: ${(124 * ui_scale) | round | int}
@@ -35,7 +30,7 @@ widgets:
       id: control_${name}_climate_act_temp
       text: "--.-"
       text_font: font_2xl_bold
-      text_color: 0xffffff
+      text_color: ${lvgl_color_fg}
       text_align: CENTER
       width: 100%
       height: SIZE_CONTENT
@@ -47,6 +42,15 @@ widgets:
       text_align: CENTER
       width: 100%
       height: SIZE_CONTENT
+  - label:
+      id: control_${name}_climate_window_warning
+      text: "WIN OPEN"
+      text_font: font_xs
+      text_color: ${lvgl_color_warn_lt}
+      text_align: CENTER
+      width: 100%
+      height: SIZE_CONTENT
+      hidden: true
   - obj:
       width: 100%
       height: ${(40 * ui_scale) | round | int}

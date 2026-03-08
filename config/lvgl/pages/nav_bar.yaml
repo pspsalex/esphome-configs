@@ -4,6 +4,32 @@
 lvgl:
   top_layer:
     widgets:
+      - button:
+          id: main_heating_window_warning
+          hidden: true
+          align: TOP_LEFT
+          x: ${(10 * ui_scale) | round | int}
+          y: ${(4 * ui_scale) | round | int}
+          height: ${(32 * ui_scale) | round | int}
+          width: SIZE_CONTENT
+          radius: 10
+          clip_corner: true
+          bg_color: ${lvgl_color_warn_dk}
+          bg_opa: COVER
+          pad_left: ${(10 * ui_scale) | round | int}
+          pad_right: ${(10 * ui_scale) | round | int}
+          styles:
+            - clean_obj
+          on_click:
+            then:
+              - lvgl.page.show: windows_page
+          widgets:
+            - label:
+                text: "WINDOW OPEN"
+                text_font: font_s_bold
+                text_color: ${lvgl_color_fg}
+                align: CENTER
+
       - buttonmatrix:
           id: nav_bar
           width: ${(420 * ui_scale) | round | int}

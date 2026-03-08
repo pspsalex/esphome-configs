@@ -67,6 +67,26 @@ packages:
       thermostat: dg_bad_th_dg_bad_th
       humidity: dg_bad_th_sensor_humidity
 
+script:
+  # Checks all climate zones and shows/hides the global main-screen pill warning.
+  - id: check_global_heating_warning
+    then:
+      - lambda: |-
+          bool any =
+            (id(climate_eg_kitchen_action).state == "heating" && (id(climate_eg_kitchen_win_lower).state || id(climate_eg_kitchen_win_upper).state)) ||
+            (id(climate_eg_living_action).state  == "heating" && (id(climate_eg_living_win_lower).state  || id(climate_eg_living_win_upper).state))  ||
+            (id(climate_og_dani_action).state    == "heating" && (id(climate_og_dani_win_lower).state    || id(climate_og_dani_win_upper).state))    ||
+            (id(climate_og_oli_action).state     == "heating" && (id(climate_og_oli_win_lower).state     || id(climate_og_oli_win_upper).state))     ||
+            (id(climate_og_eltern_action).state  == "heating" && (id(climate_og_eltern_win_lower).state  || id(climate_og_eltern_win_upper).state))  ||
+            (id(climate_og_bad_action).state     == "heating" && (id(climate_og_bad_win_lower).state     || id(climate_og_bad_win_upper).state))     ||
+            (id(climate_dg_studio_action).state  == "heating" && (id(climate_dg_studio_win_lower).state  || id(climate_dg_studio_win_upper).state))  ||
+            (id(climate_dg_bad_action).state     == "heating" && (id(climate_dg_bad_win_lower).state     || id(climate_dg_bad_win_upper).state));
+          if (any) {
+              lv_obj_clear_flag(id(main_heating_window_warning), LV_OBJ_FLAG_HIDDEN);
+          } else {
+              lv_obj_add_flag(id(main_heating_window_warning), LV_OBJ_FLAG_HIDDEN);
+          }
+
 lvgl:
   pages:
     - id: climate_page

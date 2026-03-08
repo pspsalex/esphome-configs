@@ -2,7 +2,7 @@
 # Copyright (c) 2026 Alex Popescu (@pspsalex)
 
 text_sensor:
-  # State
+  # State (hvac_mode: off / heat / auto)
   - platform: homeassistant
     id: climate_${name}_state
     entity_id: climate.${thermostat}
@@ -19,6 +19,22 @@ text_sensor:
             } else {
                 lv_img_set_src(id(control_${name}_climate_mode_image), id(${climate_heating_unknown_small}));
             }
+
+  # Action (hvac_action: heating / idle / off)
+  - platform: homeassistant
+    id: climate_${name}_action
+    entity_id: climate.${thermostat}
+    attribute: hvac_action
+    on_value:
+      then:
+        - lambda: |-
+            ESP_LOGI("climate_${name}_action", "Got action: [%s]", x.c_str());
+            if (x.compare("heating") == 0) {
+                lv_obj_set_style_text_color(id(control_${name}_climate_act_temp), lv_color_hex(${lvgl_color_warn_lt}), 0);
+            } else {
+                lv_obj_set_style_text_color(id(control_${name}_climate_act_temp), lv_color_hex(${lvgl_color_fg}), 0);
+            }
+        - script.execute: ${name}_check_climate_warning
 
 sensor:
   # Current temperature
@@ -43,7 +59,12 @@ sensor:
       then:
         - lambda: |-
             char buf[32];
-            snprintf(buf, 31, "Set: %.1f\n%.0f%% RH", x, id(climate_${name}_humidity).state);
+            float hum = id(climate_${name}_humidity).state;
+            if (isnan(hum)) {
+                snprintf(buf, 31, "Set: %.1f\n-- RH", x);
+            } else {
+                snprintf(buf, 31, "Set: %.1f\n%.0f%% RH", x, hum);
+            }
             ESP_LOGI("climate_${name}_temp_set", "Got state: [%f][%s]", x, buf);
             lv_label_set_text(id(control_${name}_climate_set_temp_hum), buf);
 
@@ -55,6 +76,41 @@ sensor:
       then:
         - lambda: |-
             char buf[32];
-            snprintf(buf, 31, "Set: %.1f\n%.0f%% RH", id(climate_${name}_temp_set).state, x);
+            float ts = id(climate_${name}_temp_set).state;
+            if (isnan(ts)) {
+                snprintf(buf, 31, "Set: --\n%.0f%% RH", x);
+            } else {
+                snprintf(buf, 31, "Set: %.1f\n%.0f%% RH", ts, x);
+            }
             ESP_LOGI("climate_${name}_temp_set", "Got state: [%f][%s]", x, buf);
             lv_label_set_text(id(control_${name}_climate_set_temp_hum), buf);
+
+binary_sensor:
+  # Window sensors — re-subscribed here to trigger the open-window-while-heating warning.
+  # Entity naming follows the project convention: binary_sensor.${name}_window_*_contact
+  - platform: homeassistant
+    id: climate_${name}_win_lower
+    entity_id: binary_sensor.${name}_window_lower_contact
+    on_state:
+      then:
+        - script.execute: ${name}_check_climate_warning
+
+  - platform: homeassistant
+    id: climate_${name}_win_upper
+    entity_id: binary_sensor.${name}_window_upper_contact
+    on_state:
+      then:
+        - script.execute: ${name}_check_climate_warning
+
+script:
+  - id: ${name}_check_climate_warning
+    then:
+      - lambda: |-
+          bool heating = id(climate_${name}_action).state == "heating";
+          bool win_open = id(climate_${name}_win_lower).state || id(climate_${name}_win_upper).state;
+          if (heating && win_open) {
+              lv_obj_clear_flag(id(control_${name}_climate_window_warning), LV_OBJ_FLAG_HIDDEN);
+          } else {
+              lv_obj_add_flag(id(control_${name}_climate_window_warning), LV_OBJ_FLAG_HIDDEN);
+          }
+      - script.execute: check_global_heating_warning

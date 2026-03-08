@@ -216,6 +216,12 @@ binary_sensor:
 lvgl:
   pages:
     - id: main_page
+      on_load:
+        then:
+          - script.execute: check_global_heating_warning
+      on_unload:
+        then:
+          - lvgl.widget.hide: main_heating_window_warning
       styles:
         - page
 
