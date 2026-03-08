@@ -4,7 +4,7 @@
 # Generic config for M5Paper devices
 
 substitutions:
-  display_image_type: GRAYSCALE
+  display_image_type: RGB565
   display_byte_order: big_endian
   ui_scale: 1
 
