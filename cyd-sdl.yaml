@@ -34,3 +34,4 @@ packages:
   climate_page: !include config/lvgl/pages/climate.yaml
   lights_page: !include config/lvgl/pages/lights.yaml
   windows_page: !include config/lvgl/pages/windows.yaml
+  doorbell: !include config/lvgl/pages/doorbell_popup.yaml

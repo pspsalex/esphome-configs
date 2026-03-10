@@ -1,0 +1,146 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+#
+# Doorbell camera popup overlay
+#
+
+substitutions:
+  domain: !secret wifi_domain
+
+http_request:
+
+online_image:
+  - id: doorbell_snapshot
+    url: "https://ha${domain}/api/camera_proxy/camera.doorbell_reolink_sub"
+    format: jpg
+    type: RGB565
+    update_interval: never
+    on_download_finished:
+      - lvgl.image.update:
+          id: doorbell_popup_img
+          src: doorbell_snapshot
+      - lvgl.widget.hide: doorbell_popup_status
+
+
+script:
+  - id: doorbell_dismiss
+    mode: single
+    then:
+      - script.stop: doorbell_refresh
+      - lvgl.widget.hide: doorbell_popup_overlay
+
+  - id: doorbell_refresh
+    mode: restart
+    then:
+      - repeat:
+          count: 60
+          then:
+            - component.update: doorbell_snapshot
+            - delay: 1s
+      - script.execute: doorbell_dismiss
+
+  - id: doorbell_ring_popup
+    mode: restart
+    then:
+      - lvgl.label.update:
+          id: doorbell_popup_status
+          text: "Connecting..."
+      - lvgl.widget.show: doorbell_popup_status
+      - lvgl.widget.show: doorbell_popup_overlay
+      - script.execute: doorbell_refresh
+
+
+binary_sensor:
+  - platform: homeassistant
+    id: doorbell_ring
+    entity_id: binary_sensor.doorbell_reolink_visitor
+    on_press:
+      - script.execute: doorbell_ring_popup
+
+text_sensor:
+  - platform: homeassistant
+    id: doorbell_entity_picture
+    entity_id: camera.doorbell_reolink_sub
+    attribute: entity_picture
+    on_value:
+      - online_image.set_url:
+          id: doorbell_snapshot
+          url: !lambda |-
+            return ("https://ha${domain}" + x).c_str();
+
+lvgl:
+  top_layer:
+    widgets:
+      - obj:
+          id: doorbell_popup_overlay
+          hidden: true
+          x: 0
+          y: 0
+          align: CENTER
+          width: 800
+          height: 550
+          bg_color: 0x000000
+          bg_opa: COVER
+          radius: 20
+          border_width: 0
+          pad_all: 0
+          clickable: true
+          on_click:
+            - script.execute: doorbell_dismiss
+
+          widgets:
+            - image:
+                id: doorbell_popup_img
+                src: doorbell_snapshot
+                align: CENTER
+                x: 0
+                y: 25
+                width: 640
+                height: 480
+
+            - label:
+                id: doorbell_popup_status
+                align: CENTER
+                x: 0
+                y: 25
+                text: "Connecting..."
+                text_font: font_xl
+                text_color: 0xFFFFFF
+
+            - obj:
+                align: TOP_LEFT
+                x: 0
+                y: 0
+                width: 800
+                height: 50
+                bg_color: 0x000000
+                bg_opa: 80%
+                radius: 20
+                border_width: 0
+                pad_top: 0
+                pad_bottom: 0
+                pad_left: 16
+                pad_right: 0
+                layout:
+                  type: FLEX
+                  flex_flow: ROW
+                  flex_align_main: SPACE_BETWEEN
+                  flex_align_cross: CENTER
+                widgets:
+                  - label:
+                      text: "DOORBELL"
+                      text_font: font_xl
+                      text_color: 0xFFFFFF
+
+                  - button:
+                      id: doorbell_popup_dismiss_btn
+                      styles:
+                        - clean_obj
+                      width: SIZE_CONTENT
+                      height: SIZE_CONTENT
+                      on_click:
+                        - script.execute: doorbell_dismiss
+                      widgets:
+                        - image:
+                            src: image_close_small
+                            align: CENTER

@@ -498,6 +498,13 @@ themes:
           - small:
               color: white
 
+      - name: "close"
+        description: "Close / dismiss"
+        text: "msr:\ue5cd"
+        sizes:
+          - small:
+              color: white
+
   dark_cpa:
     description: "Dark theme scaled for CPA 1024×600 (1.265× CYD 800×480)"
     base: dark

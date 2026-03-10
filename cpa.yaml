@@ -8,8 +8,6 @@ substitutions:
   device_name: "cpa"
   friendly_name: "CPA"
 
-# http_request:
-
 # update:
 #   - platform: esp32_hosted
 #     id: esp32_hosted_update
@@ -46,6 +44,7 @@ packages:
   climate_page: !include config/lvgl/pages/climate.yaml
   lights_page: !include config/lvgl/pages/lights.yaml
   windows_page: !include config/lvgl/pages/windows.yaml
+  doorbell: !include config/lvgl/pages/doorbell_popup.yaml
 
 # Ideas:
 # Try to show "live" picture from doorbell camera
