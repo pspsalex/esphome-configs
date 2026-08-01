@@ -510,8 +510,12 @@ def process_generation_task(task: GenerationTask) -> GenerationResult:
         if image_data:
             logger.debug(f"[{task.task_id}] Generated: {output_path}")
             yaml_entry = {
+                "platform": "file",
                 "file": str(_worker_context.path_config.yaml_base / task.theme_name / task.size.slug / f"{task.image_name}.png"),
                 "id": f"image_{task.image_name}_{task.size.slug}",
+                "type": "${display_image_type}",
+                "byte_order": "${display_byte_order}",
+                "transparency": "alpha_channel"
                 # "type": "RGB565",
                 # "transparency": "alpha_channel",
             }
@@ -614,7 +618,7 @@ class YamlConfigWriter:
 
             with open(output_path, "w") as f:
                 f.write("# Auto-generated file. Re-run image generator to regenerate.\n")
-                yaml.dump({"image": {"images": entries}}, f, default_flow_style=False)
+                yaml.dump({"image": entries}, f, default_flow_style=False)
 
 
 class GenerationOrchestrator:

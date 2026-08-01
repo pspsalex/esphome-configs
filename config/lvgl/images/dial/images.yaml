@@ -10,7 +10,10 @@ packages:
 
 # Define any theme-specific images here:
 image:
-  images:
-    - file: "assets/images/esphome_logo_dark.svg"
-      id: boot_logo
-      resize: 220x44
+  - platform: file
+    file: "assets/images/esphome_logo_dark.svg"
+    id: boot_logo
+    resize: 220x44
+    type: ${display_image_type}
+    byte_order: ${display_byte_order}
+    transparency: alpha_channel

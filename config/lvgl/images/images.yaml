@@ -3,9 +3,3 @@
 
 # Common image configuration included in all image sets.
 # Custom image entries can be added here — they will appear in every theme.
-
-image:
-  defaults:
-    type: ${display_image_type}
-    byte_order: ${display_byte_order}
-    transparency: alpha_channel

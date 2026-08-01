@@ -9,8 +9,9 @@ substitutions:
 
 http_request:
 
-online_image:
-  - id: doorbell_snapshot
+image:
+  - platform: online_image
+    id: doorbell_snapshot
     url: "https://ha${domain}/api/camera_proxy/camera.doorbell_reolink_sub"
     format: jpg
     type: RGB565
@@ -20,7 +21,6 @@ online_image:
           id: doorbell_popup_img
           src: doorbell_snapshot
       - lvgl.widget.hide: doorbell_popup_status
-
 
 script:
   - id: doorbell_dismiss

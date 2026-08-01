@@ -104,7 +104,7 @@ lvgl:
       arc_width: 2
       arc_color: "${lvgl_color_fg}"
       outline_color: "${lvgl_color_fg}"
-      anim_time: 300ms
+      anim_duration: 300ms
 
     - id: highlight
       bg_opa: COVER
@@ -159,7 +159,7 @@ lvgl:
       border_color: "${lvgl_color_fg}"
       border_width: 2
       bg_opa: TRANSP
-      anim_time: 500ms
+      anim_duration: 500ms
 
     - id: slider
       radius: 20

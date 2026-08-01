@@ -5,7 +5,7 @@
 
 substitutions:
   display_image_type: RGB565
-  display_byte_order: big_endian
+  display_byte_order: little_endian
   ui_scale: ${sdl_zoom}
 
 esphome:

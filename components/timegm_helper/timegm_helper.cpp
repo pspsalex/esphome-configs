@@ -4,6 +4,7 @@
  */
 
 #include "timegm_helper.h"
+#include "esphome/components/time/posix_tz.h"
 #include "esphome/core/log.h"
 #include <cstdio>
 
@@ -32,18 +33,16 @@ std::string parse_time(const std::string &x, const char format[], time::RealTime
 time_t my_timegm(struct tm *tm, time::RealTimeClock *rtc)
 {
     time_t ret;
-    char *tz;
+    auto tz = time::get_global_tz();
 
     // Set timezone to UTC
-    setenv("TZ", "UTC0", 1);
-    tzset();
+    rtc->set_timezone(nullptr);
 
     // Convert to time_t
     ret = mktime(tm);
 
     // Restore original timezone
-    setenv("TZ", rtc->get_timezone().c_str(), 1);
-    tzset();
+    time::set_global_tz(tz);
 
     return ret;
 }

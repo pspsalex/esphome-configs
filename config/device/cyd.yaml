@@ -10,7 +10,7 @@
 
 substitutions:
   display_image_type: RGB565
-  display_byte_order: big_endian
+  display_byte_order: little_endian
   ui_scale: 1
 
 esphome:
@@ -95,6 +95,7 @@ light:
 
 display:
   - id: cyd_display
+    # mipi_rgb?
     platform: rpi_dpi_rgb
     color_order: RGB
     invert_colors: True

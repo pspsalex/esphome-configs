@@ -213,6 +213,7 @@ binary_sensor:
             src: !lambda |-
               return x ? id(image_lightbulb_on_medium_w) : id(image_lightbulb_off_medium);
 
+
 lvgl:
   pages:
     - id: main_page
@@ -751,6 +752,7 @@ lvgl:
                           - line:
                               points:
                                 - 0, 0
+                                # TODO: UI Scaling
                                 - 248, 0
                               line_width: 1
                               line_color: 0xd9d9d9
