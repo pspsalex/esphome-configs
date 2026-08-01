@@ -8,7 +8,7 @@ external_components:
   - source:
       type: local
       path: components
-    components: [esp_ldo, esp32_hosted]
+    components: [esp_ldo, esp32_hosted, mjpeg_stream]
 
 substitutions:
   display_image_type: RGB565
@@ -19,6 +19,7 @@ esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
   platformio_options:
+    # Don't remove the following lines. No memory no fun :)
     board_build.esp-idf.memory_type: qio_opi
     board_build.flash_mode: qio
 
@@ -36,13 +37,15 @@ esphome:
 esp32:
   board: esp32-p4-evboard
   cpu_frequency: 360Mhz
+  watchdog_timeout: 45s
   #variant: esp32s3
   flash_size: 16MB
   framework:
-    components:
-      - espressif/esp_hosted==2.11.3
+#   components:
+#      - espressif/esp_hosted==2.11.3
     type: esp-idf
     sdkconfig_options:
+      CONFIG_ESP_HOSTED_MEMPOOL_PREFER_SPIRAM: y
       CONFIG_SPIRAM_XIP_FROM_PSRAM: y
       CONFIG_CACHE_L2_CACHE_256KB: y
       CONFIG_CACHE_L2_CACHE_LINE_128B: y

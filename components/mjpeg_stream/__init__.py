@@ -1,0 +1,77 @@
+import esphome.codegen as cg
+import esphome.config_validation as cv
+import esphome.automation as automation
+from esphome.components import lvgl
+from esphome.components.lvgl.widgets import get_widgets
+from esphome.components.lvgl.widgets.canvas import lv_canvas_t
+from esphome.const import CONF_ID, CONF_URL, CONF_WIDTH, CONF_HEIGHT
+
+DEPENDENCIES = ["lvgl", "network"]
+
+# Declare namespace and C++ class
+mjpeg_stream_ns = cg.esphome_ns.namespace("mjpeg_stream")
+MJPEGStreamComponent = mjpeg_stream_ns.class_(
+    "MJPEGStreamComponent", cg.Component
+)
+
+# Automation action classes (see StartAction / StopAction in the .h file)
+MJPEGStreamStartAction = mjpeg_stream_ns.class_("StartAction", automation.Action)
+MJPEGStreamStopAction = mjpeg_stream_ns.class_("StopAction", automation.Action)
+
+CONF_CANVAS_ID = "canvas_id"
+
+CONFIG_SCHEMA = cv.Schema(
+    {
+        cv.GenerateID(): cv.declare_id(MJPEGStreamComponent),
+        cv.Required(CONF_URL): cv.url,
+        cv.Required(CONF_CANVAS_ID): cv.use_id(lv_canvas_t),
+        cv.Optional(CONF_WIDTH, default=800): cv.positive_int,
+        cv.Optional(CONF_HEIGHT, default=480): cv.positive_int,
+    }
+).extend(cv.COMPONENT_SCHEMA)
+
+
+async def to_code(config):
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
+
+    # Pass configuration settings to C++ setters
+    cg.add(var.set_url(config[CONF_URL]))
+    cg.add(var.set_dimensions(config[CONF_WIDTH], config[CONF_HEIGHT]))
+
+    # LVGL widgets aren't in the normal cg ID registry — resolve via get_widgets()
+    canvas_widgets = await get_widgets(config, id=CONF_CANVAS_ID)
+    canvas_widget = canvas_widgets[0]
+
+    # canvas_widget.obj is the lv_obj_t* pointer for the canvas
+    cg.add(var.set_canvas(canvas_widget.obj))
+
+
+# Shared schema for both actions: either
+#   mjpeg_stream.start: my_stream_id
+# or
+#   mjpeg_stream.start:
+#     id: my_stream_id
+MJPEG_STREAM_ACTION_SCHEMA = automation.maybe_simple_id(
+    {
+        cv.Required(CONF_ID): cv.use_id(MJPEGStreamComponent),
+    }
+)
+
+
+@automation.register_action(
+    "mjpeg_stream.start", MJPEGStreamStartAction, MJPEG_STREAM_ACTION_SCHEMA,
+    synchronous=False
+)
+async def mjpeg_stream_start_to_code(config, action_id, template_arg, args):
+    parent = await cg.get_variable(config[CONF_ID])
+    return cg.new_Pvariable(action_id, template_arg, parent)
+
+
+@automation.register_action(
+    "mjpeg_stream.stop", MJPEGStreamStopAction, MJPEG_STREAM_ACTION_SCHEMA,
+    synchronous=False
+)
+async def mjpeg_stream_stop_to_code(config, action_id, template_arg, args):
+    parent = await cg.get_variable(config[CONF_ID])
+    return cg.new_Pvariable(action_id, template_arg, parent)

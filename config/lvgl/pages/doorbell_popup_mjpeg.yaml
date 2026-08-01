@@ -1,0 +1,122 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+#
+# Doorbell camera popup overlay
+#
+
+substitutions:
+  domain: !secret wifi_domain
+
+http_request:
+
+
+# Example frigate webrtc config:
+# go2rtc:
+#   streams:
+#     door:
+#       - rtsp://user:pass@doorbell:554/h264Preview_01_main
+#       - ffmpeg:door#audio=opus
+#
+#     door_mjpeg:
+#       - ffmpeg:door#video=mjpeg#width=800#height=480
+#
+# URL should then be http://frigate.example.com:1984/api/stream.mjpeg?src=door_mjpeg
+
+
+mjpeg_stream:
+  id: live_feed
+  url: !secret doorbell_url
+  canvas_id: video_canvas
+  width: 800
+  height: 480
+
+
+script:
+  - id: doorbell_dismiss
+    mode: single
+    then:
+      - script.stop: doorbell_ring_popup
+      - lvgl.widget.hide: doorbell_popup_overlay
+      - mjpeg_stream.stop: live_feed
+
+  - id: doorbell_ring_popup
+    mode: restart
+    then:
+      - lvgl.widget.show: doorbell_popup_overlay
+      - mjpeg_stream.start: live_feed
+      - delay: 60s
+      - script.execute: doorbell_dismiss
+
+binary_sensor:
+  - platform: homeassistant
+    id: doorbell_ring
+    entity_id: binary_sensor.doorbell_reolink_visitor
+    on_press:
+      - script.execute: doorbell_ring_popup
+
+lvgl:
+  top_layer:
+    widgets:
+      - obj:
+          id: doorbell_popup_overlay
+          hidden: true
+          x: 0
+          y: 0
+          align: CENTER
+          width: 800
+          height: 550
+          bg_color: 0x000000
+          bg_opa: COVER
+          radius: 20
+          border_width: 0
+          pad_all: 0
+          clickable: true
+          on_click:
+            - script.execute: doorbell_dismiss
+
+          widgets:
+            - canvas:
+                id: video_canvas
+                width: 800
+                height: 480
+                align: CENTER
+                x: 0
+                y: 25
+
+            - obj:
+                align: TOP_LEFT
+                x: 0
+                y: 0
+                width: 800
+                height: 50
+                bg_color: 0x000000
+                bg_opa: 80%
+                radius: 20
+                border_width: 0
+                pad_top: 0
+                pad_bottom: 0
+                pad_left: 16
+                pad_right: 0
+                layout:
+                  type: FLEX
+                  flex_flow: ROW
+                  flex_align_main: SPACE_BETWEEN
+                  flex_align_cross: CENTER
+                widgets:
+                  - label:
+                      text: "DOORBELL"
+                      text_font: font_xl
+                      text_color: 0xFFFFFF
+
+                  - button:
+                      id: doorbell_popup_dismiss_btn
+                      styles:
+                        - clean_obj
+                      width: SIZE_CONTENT
+                      height: SIZE_CONTENT
+                      on_click:
+                        - script.execute: doorbell_dismiss
+                      widgets:
+                        - image:
+                            src: image_close_small
+                            align: CENTER
