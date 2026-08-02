@@ -3,7 +3,7 @@
 This repository contains ESPHome configurations for various devices:
 - M5Paper
 - CYD (Cheap Yellow Display)
-- ~~M5Dial (Knob)~~ (TODO)
+- M5Dial (Knob) (Basic temperature/humidity display)
 - M5Paper SDL (simulates M5Paper display / layout)
 - CYD SDL (simulates CYD display / layout)
 - ~~M5Dial SDL (simulates M5Dial / layout)~~ (TODO)

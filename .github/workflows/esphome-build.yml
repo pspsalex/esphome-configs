@@ -1,0 +1,134 @@
+name: ESPHome Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  generate-images:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python dependencies (imagen.py requirements)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f scripts/requirements.txt ]; then
+            pip install -r scripts/requirements.txt
+          fi
+
+      - name: Generate images
+        run: python scripts/imagen.py
+
+      - name: Set up secrets.yaml from sample
+        run: cp secrets.sample.yaml secrets.yaml
+
+      - name: Compute cache key
+        id: cache-key
+        run: echo "key=generated-images-${{ github.run_id }}-${{ github.run_attempt }}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload generated images
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.cache-key.outputs.key }}
+          path: |
+            .
+            !.git
+          include-hidden-files: true
+          retention-days: 1
+
+  build:
+    needs: generate-images
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - cpa.yaml
+          - cyd.yaml
+          - m5dial.yaml
+          - m5paper-qemu.yaml
+          - m5paper.yaml
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download generated images
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.generate-images.outputs.cache-key }}
+          path: .
+
+      - name: Build ${{ matrix.config }}
+        uses: esphome/build-action@v8.0.0
+        id: esphome-build
+        with:
+          yaml-file: ${{ matrix.config }}
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ matrix.config }}
+          path: ${{ steps.esphome-build.outputs.name }}
+          if-no-files-found: ignore
+
+  # These targets run on host and need sdl2
+  build-sdl-host:
+    needs: generate-images
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - cpa-sdl.yaml
+          - cyd-sdl.yaml
+          - m5paper-sdl.yaml
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download generated images
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.generate-images.outputs.cache-key }}
+          path: .
+
+      - name: Install SDL2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsdl2-dev libsodium-dev build-essential git
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install ESPHome (latest)
+        run: pip install --upgrade esphome
+
+      - name: Build ${{ matrix.config }}
+        run: esphome compile ${{ matrix.config }}
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ matrix.config }}
+          path: |
+            .esphome/build/*/*.bin
+            .esphome/build/*/*.elf
+          if-no-files-found: ignore
