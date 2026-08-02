@@ -1,0 +1,58 @@
+name: ESPHome Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - cpa-sdl.yaml
+          - cpa.yaml
+          - cyd-sdl.yaml
+          - cyd.yaml
+          - m5dial.yaml
+          - m5paper-qemu.yaml
+          - m5paper-sdl.yaml
+          - m5paper.yaml
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies (imagen.py requirements)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Generate images
+        run: python scripts/imagen.py
+
+      - name: Build ${{ matrix.config }}
+        uses: esphome/build-action@v6
+        id: esphome-build
+        with:
+          yaml-file: ${{ matrix.config }}
+          version: latest
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ matrix.config }}
+          path: ${{ steps.esphome-build.outputs.name }}
+          if-no-files-found: ignore
