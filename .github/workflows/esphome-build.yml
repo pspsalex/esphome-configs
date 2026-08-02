@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
       - name: Install Python dependencies (imagen.py requirements)
         run: |
@@ -72,7 +72,7 @@ jobs:
           path: .
 
       - name: Build ${{ matrix.config }}
-        uses: esphome/build-action@v6
+        uses: esphome/build-action@v8
         id: esphome-build
         with:
           yaml-file: ${{ matrix.config }}
@@ -116,7 +116,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
       - name: Install ESPHome (latest)
         run: pip install --upgrade esphome
