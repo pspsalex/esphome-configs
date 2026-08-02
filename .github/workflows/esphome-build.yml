@@ -129,6 +129,5 @@ jobs:
         with:
           name: firmware-${{ matrix.config }}
           path: |
-            .esphome/build/*/*.bin
-            .esphome/build/*/*.elf
+            .esphome/build/*/.pioenvs/*/program
           if-no-files-found: ignore
