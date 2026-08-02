@@ -7,6 +7,7 @@
 #include "esphome/components/time/posix_tz.h"
 #include "esphome/core/log.h"
 #include <cstdio>
+#include <cinttypes>
 
 namespace esphome {
 namespace timegm_helper {
@@ -23,7 +24,7 @@ std::string parse_time(const std::string &x, const char format[], time::RealTime
     char result[64];
     size_t len = strftime(result, sizeof(result), format, cest_tm);
     if (len == 0) {
-        ESP_LOGE(TAG, "Failed to format time for %s with format %s and timestamp %ld", x.c_str(), format, utc_time);
+        ESP_LOGE(TAG, "Failed to format time for %s with format %s and timestamp %" PRIu64, x.c_str(), format, static_cast<uint64_t>(utc_time));
         return "";
     }
 
