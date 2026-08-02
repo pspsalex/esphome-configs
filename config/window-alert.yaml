@@ -1,0 +1,70 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Alex Popescu (@pspsalex)
+
+esphome:
+  on_boot:
+    - priority: -120
+      then:
+        - output.turn_on: amp_ctrl
+
+output:
+  - platform: gpio
+    pin: GPIO30
+    id: amp_ctrl
+    inverted: true
+
+i2s_audio:
+  - id: i2s_out_bus
+    i2s_lrclk_pin: GPIO21
+    i2s_bclk_pin: GPIO22
+
+speaker:
+  - platform: i2s_audio
+    id: i2s_speaker
+    i2s_audio_id: i2s_out_bus
+    i2s_dout_pin: GPIO23
+    dac_type: external
+    channel: stereo
+    sample_rate: 44100
+
+media_player:
+  - platform: speaker
+    id: my_media_player
+    announcement_pipeline:
+      speaker: i2s_speaker
+      sample_rate: 44100
+
+    files:
+      - id: click_sound
+        file: "assets/3rdparty/audio/glass.wav"
+
+
+binary_sensor:
+  - platform: homeassistant
+    id: !extend window_eg_front_door_lower_state
+    on_state:
+      then:
+        - if:
+            condition:
+              and:
+                - binary_sensor.is_on: window_eg_front_door_lower_state
+                - lambda: |-
+                    return
+                      id(window_kg_office_lower_state).state ||
+                      id(window_kg_keller_lower_state).state ||
+                      id(window_kg_freezer_upper_state).state ||
+                      id(window_eg_kitchen_lower_state).state ||
+                      id(window_eg_living_lower_state).state ||
+                      id(window_og_dani_lower_state).state ||
+                      id(window_og_oli_lower_state).state ||
+                      id(window_og_eltern_lower_state).state ||
+                      id(window_og_bad_lower_state).state ||
+                      id(window_dg_studio_lower_state).state ||
+                      id(window_dg_bad_lower_state).state ||
+                      id(window_dg_tech_lower_state).state
+                            ;
+            then:
+              - media_player.speaker.play_on_device_media_file:
+                  id: my_media_player
+                  media_file: click_sound
+                  announcement: true
