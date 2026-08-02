@@ -72,11 +72,10 @@ jobs:
           path: .
 
       - name: Build ${{ matrix.config }}
-        uses: esphome/build-action@v8
+        uses: esphome/build-action@v8.0.0
         id: esphome-build
         with:
           yaml-file: ${{ matrix.config }}
-          version: latest
 
       - name: Upload build artifacts
         if: always()
